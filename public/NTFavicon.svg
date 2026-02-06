@@ -1,0 +1,7 @@
+<svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+	<title>NTFavicon</title>
+	<style>
+		.s0 { fill: #000000;stroke: #ffffff;paint-order:stroke fill markers;stroke-linejoin: round;stroke-width: 4 } 
+	</style>
+	<path id="NT" class="s0" d="m2.7 91h13.8v-47.3h0.2l21.4 47.3h19.3v-63h-13.9v47.8h-0.1l-20.9-47.8h-19.8zm81.7 0h13.9v-50.9h20.2v-12.1h-54.3v12.1h20.2z"/>
+</svg>

@@ -1,0 +1,255 @@
+{
+  "loading": {
+    "default": "Loading...",
+    "error": "Loading error",
+    "image_error": "Image cannot be loaded"
+  },
+  "nav": {
+    "home": "Home",
+    "projects": "Projects",
+    "news": "News",
+    "help": "Help",
+    "language": "Language"
+  },
+  "page": {
+    "home": {
+      "title": "Nero Team",
+      "keywords": "Nero Team, games, Android, game restoration, projects, download"
+    },
+    "projects": {
+      "title": "Nero Team | Projects",
+      "keywords": "Nero Team, projects, games, Android, strategy, download games"
+    },
+    "project": {
+      "title": "Nero Team | {name}",
+      "keywords": "Nero Team, {name}, game, download, screenshots, description"
+    },
+    "news": {
+      "title": "Nero Team | News",
+      "keywords": "Nero Team, news, updates, Telegram, latest events"
+    },
+    "download": {
+      "title": "Nero Team | Download",
+      "keywords": "Nero Team, download, APK, installation, games"
+    },
+    "help": {
+      "title": "Nero Team | Help",
+      "keywords": "Nero Team, help, installation, guide, FAQ, support"
+    },
+    "404": {
+      "title": "Nero Team | Page not found",
+      "description": "Page not found - Nero Team",
+      "heading": "Page not found",
+      "message": "Unfortunately, the requested page does not exist. It may have been deleted or moved.",
+      "goHome": "Go to Home"
+    }
+  },
+  "home": {
+    "title": "Welcome to the official Nero Team page!",
+    "subtitle": "Here you can find all our projects and download them. Our goal is to restore old games on Android and other platforms that can be revived. We also create our own projects for you to explore.",
+    "cta": "View Projects"
+  },
+  "projects": {
+    "title": "Our Projects",
+    "subtitle": "Discover our latest projects and innovations"
+  },
+  "project": {
+    "play": "Play",
+    "download": "Download",
+    "details": "Description",
+    "comingSoon": "Coming Soon",
+    "comingSoonButton": "In Development"
+  },
+  "card": {
+    "more": "Learn More"
+  },
+  "footer": {
+    "rights": "All rights reserved."
+  },
+  "news": {
+    "title": "Latest News",
+    "subtitle": "Stay up to date with all Nero Team updates and events. Discover our latest achievements, project updates, and future plans.",
+    "featured": {
+      "title": "Featured News"
+    },
+    "telegram": {
+      "title": "Telegram Channel",
+      "subtitle": "Subscribe to our channel for the latest news",
+      "button": "Subscribe",
+      "channel": {
+        "ru": "Nero Team RU",
+        "en": "Nero Team EN"
+      }
+    },
+    "newsletter": {
+      "title": "Stay Informed",
+      "description": "Receive notifications about new projects and updates"
+    },
+    "posts": {
+      "subscribe": "Subscribe to {channel}",
+      "loading": "Loading posts...",
+      "error": "Failed to load posts",
+      "fallback": {
+        "title": "Latest News",
+        "description": "Subscribe to our Telegram channel for up-to-date news"
+      }
+    },
+    "widgets": {
+      "post": "Post #{number}",
+      "loading": "Loading post #{number}...",
+      "fallback": "If the widget did not load, follow the link below",
+      "open": "Open Post"
+    }
+  },
+  "magnate": {
+    "title": "Magnate Bot",
+    "desc": "Game bot in the\neconomic strategy genre.",
+    "details": "Welcome to Magnate Bot — the ultimate economic game bot!\n\n— Build an empire: start with a small business and turn it into a huge company, earning millions!\n\n— Play games: roulette, crash, dream, dice, and more directly in the chat!\n\n— Develop a mining farm: mine cryptocurrency and upgrade equipment for steady income.\n\n— Complete tasks: daily missions, Magnate Pass, and company contracts with generous rewards.\n\n— Interact with players: trade, compete, and form alliances in a friendly community.\n\n— Become a legend: break records, lead leaderboards, and gain recognition as the top player!\n\n— Use promo code MAGNATE for a starter bonus and start your path to success!",
+    "screenshots": [
+      { "image": "/magnate/ru/1.png" },
+      { "image": "/magnate/ru/2.png" },
+      { "image": "/magnate/ru/3.png" },
+      { "image": "/magnate/ru/4.png" },
+      { "image": "/magnate/ru/5.png" }
+    ]
+  },
+  "nr": {
+    "title": "Nero Raiders",
+    "desc": "\"Build and Battle\"\nStrategy",
+    "details": "Raiders, assemble! A collection of mysterious islands with unimaginable treasures and unique creatures awaits you! Play completely free and dive into the thrilling world of an MMO RPG that blends strategy with real-time battles.\nNero Raiders is a unique strategy game where you collect legendary heroes and fight millions of players online in various battle modes. Crush enemies with brute force, magic spells, or powerful ranged attacks — the choice is yours!\nKey features:\n• Completely free game with no in-game purchases.\n• Use smart strategies to win PvE and PvP battles\n• Explore mysterious islands and tombs to uncover vast treasures\n• Turn your island from a humble settlement into an impregnable fortress\n• Control every move of your heroes to showcase combat skills and win epic wars\n• Build a massive army to achieve victory\n• Craft and upgrade equipment to conquer the world\n• Enhance heroes with special items, gear, and attributes\n• Use each hero's unique skills to defeat enemies\n• Destroy enemy settlements using various troop compositions and tactics\n• Immerse yourself in an engaging game world with many challenging stages\n• Defeat opponents in multiplayer modes",
+    "screenshots": [
+      { "image": "/nr/en/screen1.png" },
+      { "image": "/nr/en/screen2.png" },
+      { "image": "/nr/en/screen3.png" },
+      { "image": "/nr/en/screen4.png" },
+      { "image": "/nr/en/screen5.png" }
+    ]
+  },
+  "nero_raiders": {
+    "title": "Nero Raiders",
+    "desc": "Strategy in the\n'Build and Battle' style",
+    "details": "Raiders, assemble! A collection of mysterious islands full of countless treasures and unique creatures awaits you! Play completely free and immerse yourself in the exciting world of MMO RPG with dynamic strategy and real-time battles.\nNero Raiders is a unique combat strategy game where you collect legendary heroes and compete with millions of players online in various battle modes. Crush enemies with brute force, magic, or powerful ranged attacks — the choice is yours!\nMain features:\n• Completely free game with no in-game purchases.\n• Use smart strategy to win PvE and PvP battles\n• Explore mysterious islands and tombs to discover vast treasures\n• Transform your island from a humble settlement into an impregnable fortress\n• Manage every move of heroes to demonstrate combat skills and win epic wars\n• Build a massive army to achieve victory\n• Craft and upgrade equipment to conquer the world\n• Enhance heroes with special items, equipment, and attributes\n• Use each hero's unique skills to defeat enemies\n• Destroy enemy settlements using different troop compositions and strategies\n• Immerse yourself in an engaging game world with many challenging stages\n• Defeat opponents in multiplayer modes",
+    "screenshots": [
+      { "image": "/nr/en/screen1.png" },
+      { "image": "/nr/en/screen2.png" },
+      { "image": "/nr/en/screen3.png" },
+      { "image": "/nr/en/screen4.png" },
+      { "image": "/nr/en/screen5.png" }
+    ]
+  },
+  "nero_troops": {
+    "title": "Nero Troops",
+    "desc": "Strategic military shooter.",
+    "details": "...",
+    "screenshots": []
+  },
+  "download": {
+    "title": "Download",
+    "started": "Download started",
+    "starting": "Preparing download...",
+    "autoHint": "If the download does not start within a few seconds, use the 'Retry' button",
+    "chooseFile": "Choose a file to download",
+    "availableFiles": "Available files",
+    "download": "Download",
+    "restart": "Retry",
+    "help_short": "Problems during installation?",
+    "info": "If the download did not start automatically, click the button below.",
+    "button": "Download",
+    "help": "If you encounter installation issues, go here",
+    "back": "Back to project",
+    "file": "File"
+  },
+  "help": {
+    "title": "Installation Guide",
+    "intro": "Follow the instructions below to install.",
+    "more": "If you encounter problems, please contact our support team. You can do this via Telegram or email support@neroteam.org.",
+    "cards": {
+      "1": {
+        "image": "/help/en/step1.png",
+        "alt": "Download APK",
+        "title": "Download APK",
+        "text": "Confirm the download and wait a moment."
+      },
+      "2": {
+        "image": "/help/en/step2.png",
+        "alt": "Allow unknown sources",
+        "title": "Allow unknown sources",
+        "text": "To install apps from third-party sources, complete this step. This is done once."
+      },
+      "3": {
+        "image": "/help/en/step3.png",
+        "alt": "Installation",
+        "title": "Install",
+        "text": "Click 'Install' to complete the process. Enjoy!"
+      }
+    },
+    "troubleshooting": {
+      "title": "Installation Troubleshooting",
+      "subtitle": "If you encounter installation errors as shown below, follow these steps:",
+      "video": {
+        "title": "Watch the video guide",
+        "download_hint": "If the video does not play, you can download it:",
+        "download": "Download video",
+        "download_direct": "Download video (Direct link)",
+        "download_api": "Download video (API)",
+        "error": "Failed to load video",
+        "loading": "Loading video...",
+        "retry": "Try again"
+      },
+      "tools": {
+        "title": "Required Tools",
+        "description": "You will need these apps for a successful installation:",
+        "shizuku": {
+          "title": "Shizuku",
+          "description": "Required to grant apps access to ADB"
+        },
+        "installwithoptions": {
+          "title": "Install with Options",
+          "description": "Provides additional installation settings"
+        }
+      },
+      "download": "Download"
+    }
+  },
+  "auth": {
+    "title": "Authorization",
+    "description": "Log in to your account to see your friends list and update your profile.",
+    "authButton": "Log in",
+    "emailInput": "Email",
+    "next": "Next",
+    "login": "Username",
+    "code": "Code from email",
+    "password": "Password"
+  },
+  "profile": {
+    "title": "Profile",
+    "friend": {
+      "list": "Friends list",
+      "delete": "Delete",
+      "add": "Add",
+
+      "invite_code": {
+        "title": "Add a friend",
+        "placeholder": "Friend code",
+        "description": "To add a friend, you must enter the friend code shown in their profile.",
+        "success_invite": "Invitation sent successfully!",
+        "success_apply": "Invitation successfully accepted!",
+        "success_decline": "Invitation successfully declined!"
+      },
+
+      "invitations": {
+        "title": "Invitations",
+        "buttons": {
+          "apply": "Accept",
+          "decline": "Decline"
+        }
+      },
+
+      "buttons": {
+        "delete": "Delete"
+      },
+
+      "success_delete": "Friend was successfully removed"
+    }
+  }
+}

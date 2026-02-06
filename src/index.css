@@ -1,13 +1,1924 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-primary: #ff7a00;
+  --color-primary-dark: #a64800;
+  --color-primary-muted: #bf6e30;
+  --color-primary-light: #ffb073;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+:root {
+  --bg-0: #0d0d0d;
+  --fg-0: #ffffff;
+  --header-bg: rgba(0, 0, 0, 0.6);
+  --footer-bg: rgba(0, 0, 0, 0.6);
+  --bg-gradient: radial-gradient(
+      1000px 800px at 10% 0%,
+      rgba(255, 122, 0, 0.25) 0%,
+      rgba(255, 176, 115, 0.15) 35%,
+      transparent 70%
+    ),
+    radial-gradient(
+      circle at 100% 100%,
+      rgba(191, 110, 48, 0.15) 0%,
+      transparent 60%
+    ),
+    linear-gradient(180deg, #0d0d0d, #121212);
 }
+
+html,
+body {
+  background: var(--bg-gradient);
+  background-color: var(--bg-0);
+  color: var(--fg-0);
+  min-height: 100vh;
+}
+
+.site-header,
+.site-footer {
+  color: var(--fg-0);
+}
+.site-header {
+  background-color: var(--header-bg);
+}
+.site-footer {
+  background-color: var(--footer-bg);
+}
+
+.header-light,
+.footer-light {
+  color: var(--fg-0);
+}
+
+.header-light {
+  background-color: rgba(0, 0, 0, 0.6);
+  color: #fff;
+}
+.footer-light {
+  background-color: rgba(0, 0, 0, 0.6);
+  color: #fff;
+}
+
+.neon-text {
+  color: #fff;
+  text-shadow: 0 0 10px rgba(255, 176, 115, 0.95),
+    0 0 22px rgba(255, 122, 0, 0.95), 0 0 46px rgba(166, 72, 0, 0.9),
+    0 0 72px rgba(255, 176, 115, 0.6);
+}
+
+.neon-box {
+  box-shadow: 0 0 14px var(--color-primary), 0 0 26px var(--color-primary-light),
+    0 0 40px rgba(166, 72, 0, 0.5);
+}
+
+.neon-image {
+  filter: drop-shadow(0 0 8px var(--color-primary))
+    drop-shadow(0 0 16px var(--color-primary-light))
+    drop-shadow(0 0 28px var(--color-primary-dark));
+}
+
+.bg-neroOrange {
+  background-color: var(--color-primary);
+  color: #fff;
+}
+.bg-neroOrange:hover {
+  background-color: var(--color-primary-dark);
+}
+
+.bg-neroDark\/80 {
+  background-color: rgba(26, 26, 26, 0.8);
+}
+
+.card {
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 122, 0, 0.18);
+  border-radius: 14px;
+  transition: transform 220ms ease, box-shadow 220ms ease,
+    border-color 220ms ease, background-color 220ms ease;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.card:hover {
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: 0 20px 40px rgba(255, 122, 0, 0.1),
+    0 0 14px var(--color-primary-light);
+  border-color: rgba(255, 176, 115, 0.35);
+}
+
+.text-gray-200 {
+  color: #e5e7eb !important;
+}
+.text-gray-300 {
+  color: #d1d5db !important;
+}
+
+.btn-primary {
+  background: linear-gradient(
+    135deg,
+    var(--color-primary) 0%,
+    #ff8c42 50%,
+    var(--color-primary) 100%
+  );
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  line-height: 1;
+  transform-origin: center;
+  cursor: pointer;
+  transition: all 180ms ease;
+  transform: translateZ(0);
+  will-change: transform;
+  border: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transition: left 0.5s;
+}
+
+.btn-primary:hover::before {
+  left: 100%;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(
+    135deg,
+    var(--color-primary-dark) 0%,
+    #e65a00 50%,
+    var(--color-primary-dark) 100%
+  );
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 12px 32px rgba(255, 122, 0, 0.4),
+    0 6px 16px rgba(255, 176, 115, 0.3), 0 0 0 0 rgba(255, 122, 0, 0.7);
+  filter: saturate(1.1);
+}
+
+.btn-primary:active {
+  transform: translateY(0) scale(0.98);
+  box-shadow: 0 4px 14px rgba(255, 122, 0, 0.25);
+}
+
+.btn-primary:focus {
+  outline: 2px solid var(--color-primary-light);
+  outline-offset: 2px;
+}
+
+/* Дополнительные стили для центрирования текста во всех кнопках */
+.btn-primary {
+  text-align: center !important;
+  justify-content: center !important;
+}
+
+/* Специальные стили для растянутых кнопок в карточках проектов */
+.btn-primary.w-full {
+  width: 100%;
+  min-height: 48px;
+  font-size: 0.95rem;
+  letter-spacing: 0.025em;
+  padding: 0.75rem 1rem;
+  text-align: center;
+  justify-content: center;
+}
+
+.btn-primary.w-full:hover {
+  transform: translateY(-1px) scale(1.02);
+}
+
+.hover-text-accent:hover {
+  color: var(--color-primary-light);
+}
+
+.glass {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 122, 0, 0.18);
+  backdrop-filter: blur(10px);
+}
+
+/* Reduce heavy backdrop filters on mobile to avoid rendering artifacts */
+@media (max-width: 768px) {
+  .glass {
+    backdrop-filter: none;
+    background: rgba(255, 255, 255, 0.05);
+  }
+  .backdrop-blur-md {
+    backdrop-filter: none !important;
+  }
+  .telegram-post-card .post-header,
+  .telegram-post-card .post-actions {
+    backdrop-filter: none;
+  }
+}
+
+/* Mobile-safe rendering for project cards to avoid black squares */
+@media (max-width: 768px) {
+  .neon-box {
+    /* allow neon shadows on mobile */
+    box-shadow: 0 0 14px var(--color-primary),
+      0 0 26px var(--color-primary-light), 0 0 40px rgba(166, 72, 0, 0.5) !important;
+  }
+  .card {
+    box-shadow: 0 0 14px var(--color-primary),
+      0 0 26px var(--color-primary-light), 0 0 40px rgba(166, 72, 0, 0.5) !important;
+    border-color: rgba(255, 176, 115, 0.35) !important;
+    transition: transform 220ms ease, box-shadow 220ms ease,
+      border-color 220ms ease, background-color 220ms ease !important;
+  }
+  .card:hover {
+    /* Disable hover movement on touch to avoid artifacts and sticky :hover */
+    transform: none !important;
+    box-shadow: 0 0 14px var(--color-primary-light) !important;
+  }
+  .neon-text {
+    text-shadow: 0 0 10px rgba(255, 176, 115, 0.95),
+      0 0 22px rgba(255, 122, 0, 0.95), 0 0 46px rgba(166, 72, 0, 0.9),
+      0 0 72px rgba(255, 176, 115, 0.6) !important;
+  }
+  /* Ensure images in cards don't trigger GPU layers */
+  .card img {
+    transform: none !important;
+    -webkit-transform: none !important;
+    will-change: auto !important;
+    backface-visibility: visible !important;
+    -webkit-backface-visibility: visible !important;
+  }
+  /* Soften overlay transitions */
+  .card .transition-opacity,
+  .card .transition-transform {
+    transition-duration: 120ms !important;
+  }
+  /* Disable hover overlay and transforms specifically for project cards */
+  .project-card .hover-overlay {
+    opacity: 1 !important;
+    transition: none !important;
+    background: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.12),
+      rgba(0, 0, 0, 0)
+    ) !important;
+  }
+  .project-card .project-image {
+    transform: none !important;
+  }
+  .project-card {
+    transform: none !important;
+  }
+
+  /* Reintroduce subtle, mobile-safe glow for project cards */
+  .project-card {
+    box-shadow: 0 0 14px var(--color-primary),
+      0 0 26px var(--color-primary-light), 0 0 40px rgba(166, 72, 0, 0.5) !important;
+    border-color: rgba(255, 176, 115, 0.45) !important;
+    isolation: isolate;
+    contain: layout paint;
+    -webkit-transform-style: flat;
+    transform-style: flat;
+  }
+  /* Restore desktop neon text for project cards on mobile */
+  .project-card .neon-text {
+    text-shadow: 0 0 10px rgba(255, 176, 115, 0.95),
+      0 0 22px rgba(255, 122, 0, 0.95), 0 0 46px rgba(166, 72, 0, 0.9),
+      0 0 72px rgba(255, 176, 115, 0.6) !important;
+  }
+  /* Stronger specificity to override `.neon-box` mobile reset */
+  .project-card.neon-box {
+    box-shadow: 0 0 12px rgba(255, 122, 0, 0.26),
+      0 0 30px rgba(255, 176, 115, 0.2) !important;
+  }
+  /* Overlay off on touch to avoid dark flash on tap */
+  .project-card .hover-overlay {
+    opacity: 0 !important;
+    transition: none !important;
+  }
+  .project-card:active .hover-overlay {
+    opacity: 0 !important;
+  }
+  /* Remove default tap highlight */
+  .project-card,
+  .project-card * {
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+/* Disable hover effects on devices without hover capability */
+@media (hover: none) {
+  .card:hover {
+    transform: none !important;
+  }
+}
+
+/* Compositing hints to avoid artifacts on mid-range Android GPUs */
+.project-card,
+.project-card * {
+  -webkit-transform-style: flat;
+  transform-style: flat;
+}
+
+/* Fix title shifting in project cards */
+.project-card h2 {
+  transform: none !important;
+  will-change: auto !important;
+  backface-visibility: hidden !important;
+  -webkit-backface-visibility: hidden !important;
+}
+
+/* Disable all hover effects for project cards to prevent title shifting */
+.project-card:hover {
+  transform: none !important;
+}
+
+.project-card:hover * {
+  transform: none !important;
+}
+
+.link-underline {
+  position: relative;
+}
+.link-underline::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 0%;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    var(--color-primary),
+    var(--color-primary-light)
+  );
+  transition: width 200ms ease;
+}
+.link-underline:hover::after {
+  width: 100%;
+}
+
+.section {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+.section-title {
+  letter-spacing: 0.02em;
+}
+.divider {
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--color-primary),
+    transparent
+  );
+  opacity: 0.6;
+}
+
+@media (min-width: 768px) {
+  .nav-toggle {
+    display: none !important;
+  }
+}
+
+/* Cross-browser normalized select (for language switcher) */
+.select-wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+.select {
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  background: transparent;
+  color: var(--fg-0);
+  border: 1px solid var(--color-primary);
+  border-radius: 8px;
+  padding: 0.5rem 2.2rem 0.5rem 0.75rem;
+  font: inherit;
+  line-height: 1.2;
+  height: 2.25rem;
+  transition: all 200ms ease;
+}
+.select:focus {
+  outline: 2px solid var(--color-primary-light);
+  outline-offset: 2px;
+}
+
+/* Custom chevron */
+.select-wrapper::after {
+  content: "";
+  position: absolute;
+  right: 0.6rem;
+  top: 50%;
+  transform: translateY(-50%) rotate(45deg);
+  width: 8px;
+  height: 8px;
+  border-right: 2px solid var(--color-primary);
+  border-bottom: 2px solid var(--color-primary);
+  pointer-events: none;
+  transition: all 200ms ease;
+}
+
+/* Options colors */
+.select option {
+  color: #fff;
+  background: #121212;
+}
+
+/* Smooth scrolling for better UX */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Remove default focus outlines project-wide (custom design choice) */
+*:focus,
+*:focus-visible {
+  outline: none !important;
+  outline-offset: 0 !important;
+  box-shadow: none !important;
+}
+
+/* Hide scrollbar for screenshot gallery */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Enhanced animations for gallery */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeInUp {
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+
+/* Soft lift-in animation for hero content */
+@keyframes fadeUpSoft {
+  from {
+    opacity: 0;
+    transform: translateY(24px) scale(0.98);
+    filter: blur(4px);
+  }
+  60% {
+    opacity: 1;
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+.animate-fadeUpSoft {
+  animation: fadeUpSoft 700ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  will-change: transform, opacity, filter;
+}
+
+/* Fullscreen modal animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.fullscreen-modal {
+  animation: fadeIn 0.3s ease-out forwards;
+}
+
+.fullscreen-modal img {
+  animation: scaleIn 0.3s ease-out forwards;
+}
+
+/* Enhanced mobile responsiveness */
+@media (max-width: 768px) {
+  .fullscreen-modal {
+    padding: 0;
+  }
+
+  .fullscreen-modal .absolute {
+    position: absolute;
+  }
+
+  .fullscreen-modal button {
+    min-width: 44px;
+    min-height: 44px;
+  }
+}
+
+/* Improved touch targets for mobile */
+@media (max-width: 768px) {
+  .gallery-button {
+    min-width: 32px;
+    min-height: 32px;
+  }
+
+  /* Smaller touch targets for mobile gallery */
+  .gallery-button.w-8 {
+    min-width: 32px;
+    min-height: 32px;
+  }
+
+  .gallery-button.w-7 {
+    min-width: 28px;
+    min-height: 28px;
+  }
+}
+
+/* Mobile-specific optimizations */
+@media (max-width: 640px) {
+  .gallery-button {
+    min-width: 28px;
+    min-height: 28px;
+  }
+
+  /* Ensure buttons are still touchable */
+  .gallery-button.w-8 {
+    min-width: 32px;
+    min-height: 32px;
+  }
+}
+
+/* Line clamp for mobile descriptions */
+
+/* Improved mobile touch targets */
+@media (max-width: 768px) {
+  /* Enhanced spacing for mobile thumbnails */
+  .mobile-thumbnails {
+    margin-top: 1.5rem;
+  }
+
+  /* Full-width mobile thumbnails */
+  .mobile-thumbnails button {
+    min-width: 100%;
+  }
+
+  /* Responsive thumbnail sizing */
+  .mobile-thumbnails {
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+    width: 100%;
+  }
+
+  .mobile-thumbnails button {
+    flex: 1 !important;
+    min-width: 0 !important;
+    height: 4rem !important; /* 64px - компактная высота для мобильных */
+    flex-shrink: 0;
+    position: relative;
+  }
+
+  .mobile-thumbnails button > div {
+    border-radius: 0.5rem;
+    position: relative;
+  }
+
+  /* Desktop adjustments */
+  @media (min-width: 769px) {
+    .mobile-thumbnails button {
+      height: 5rem !important; /* 80px - высота для десктопа */
+    }
+  }
+
+  /* Enhanced button styles */
+  .btn-primary {
+    min-height: 3rem;
+  }
+
+  @media (min-width: 768px) {
+    .btn-primary {
+      min-height: 3.5rem;
+    }
+  }
+}
+
+/* Loading spinner animation */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+/* Smooth image loading transitions */
+.image-loading {
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.image-loaded {
+  opacity: 1;
+}
+
+/* Thumbnail navigation fixes */
+.mobile-thumbnails {
+  scroll-padding-left: 0.5rem;
+  scroll-padding-right: 0.5rem;
+}
+
+.mobile-thumbnails::-webkit-scrollbar {
+  display: none;
+}
+
+/* Ensure thumbnails are not cropped */
+.mobile-thumbnails button:first-child {
+  margin-left: 0;
+}
+
+.mobile-thumbnails button:last-child {
+  margin-right: 0;
+}
+
+/* Telegram iframe styles */
+.telegram-iframe-container {
+  position: relative;
+  width: 100%;
+  background: rgba(31, 41, 55, 0.8);
+  border-radius: 0.75rem;
+  overflow: hidden;
+  border: 1px solid rgba(255, 122, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+.telegram-iframe-container:hover {
+  border-color: rgba(255, 122, 0, 0.4);
+  box-shadow: 0 0 20px rgba(255, 122, 0, 0.1);
+}
+
+.telegram-iframe-container iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 0.75rem;
+}
+
+/* Responsive iframe aspect ratio */
+.iframe-aspect-container {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-bottom: 75%; /* 4:3 aspect ratio */
+}
+
+.iframe-aspect-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  min-height: 400px;
+}
+
+/* Mobile optimizations for iframe */
+@media (max-width: 768px) {
+  .iframe-aspect-container {
+    padding-bottom: 100%; /* 1:1 aspect ratio for mobile */
+  }
+
+  .telegram-iframe-container {
+    margin: 0 -0.5rem;
+    border-radius: 0.5rem;
+  }
+}
+
+/* Official Telegram Widget Styles */
+.telegram-widget-container {
+  position: relative;
+  width: 100%;
+  background: rgba(31, 41, 55, 0.8);
+  border-radius: 0.75rem;
+  overflow: hidden;
+  border: 1px solid rgba(255, 122, 0, 0.2);
+  transition: all 0.3s ease;
+  min-height: 400px;
+}
+
+.telegram-widget-container:hover {
+  border-color: rgba(255, 122, 0, 0.4);
+  box-shadow: 0 0 20px rgba(255, 122, 0, 0.1);
+}
+
+/* Telegram widget loading state */
+.telegram-widget-container .animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+/* Ensure Telegram widgets are responsive */
+.telegram-widget-container > div {
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 300px !important;
+}
+
+/* Telegram widget dark theme compatibility */
+.telegram-widget-container [data-telegram-post] {
+  background: transparent !important;
+}
+
+/* Mobile optimizations for Telegram widgets */
+@media (max-width: 768px) {
+  .telegram-widget-container {
+    margin: 0 -0.5rem;
+    border-radius: 0.5rem;
+    min-height: 250px;
+  }
+}
+
+/* Enhanced news page layout */
+.news-page-container {
+  max-width: 100%;
+  padding: 0 0.5rem;
+  width: 100%;
+}
+
+@media (min-width: 640px) {
+  .news-page-container {
+    padding: 0 1rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .news-page-container {
+    padding: 0 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .news-page-container {
+    padding: 0 2rem;
+  }
+}
+
+/* Better widget distribution */
+.telegram-widgets-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  max-width: 100%;
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .telegram-widgets-grid {
+    gap: 1.5rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .telegram-widgets-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    max-width: 80rem;
+    margin: 0 auto;
+    width: 100%;
+  }
+}
+
+/* Widget card improvements */
+.telegram-widget-card {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.telegram-widget-card .card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.telegram-widget-card .telegram-widget-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+/* Full width container for news page */
+.news-page-container .max-w-7xl {
+  max-width: 100%;
+  width: 100%;
+}
+
+/* Ensure widgets take full available width */
+.telegram-widget-container,
+.telegram-widget-container > div,
+.telegram-widget-container iframe {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+/* Enhanced news page responsive design */
+@media (max-width: 640px) {
+  .news-page-container {
+    padding: 0 0.5rem;
+  }
+
+  .news-page-container h1 {
+    font-size: 1.75rem;
+    line-height: 2rem;
+  }
+
+  .telegram-widget-container > div {
+    min-height: 200px !important;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+  .news-page-container {
+    padding: 0 1rem;
+  }
+
+  .telegram-widget-container > div {
+    min-height: 280px !important;
+  }
+}
+
+@media (min-width: 1025px) {
+  .news-page-container {
+    padding: 0 2rem;
+  }
+
+  .telegram-widget-container > div {
+    min-height: 300px !important;
+  }
+}
+
+/* Compact card design for news */
+.card.compact {
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.card.compact .telegram-widget-container {
+  margin-bottom: 0.75rem;
+}
+
+/* Better spacing for news grid */
+.news-grid {
+  gap: 1rem;
+}
+
+@media (min-width: 768px) {
+  .news-grid {
+    gap: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .news-grid {
+    gap: 2rem;
+  }
+}
+
+/* Responsive text sizes for news */
+.news-title {
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  line-height: 1.2;
+}
+
+.news-subtitle {
+  font-size: clamp(0.875rem, 2vw, 1rem);
+  line-height: 1.5;
+}
+
+/* Enhanced Telegram Post Cards */
+.telegram-post-card {
+  @apply flex flex-col h-full rounded-2xl border border-orange-500/20 bg-[#0f1115] shadow-lg overflow-hidden;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  background: linear-gradient(
+    135deg,
+    rgba(15, 17, 21, 0.95) 0%,
+    rgba(20, 22, 26, 0.95) 100%
+  );
+  backdrop-filter: blur(10px);
+}
+
+.telegram-post-card:hover {
+  @apply border-orange-500/40 shadow-2xl shadow-orange-500/30;
+  transform: translateY(-8px);
+  background: linear-gradient(
+    135deg,
+    rgba(15, 17, 21, 1) 0%,
+    rgba(25, 27, 31, 1) 100%
+  );
+}
+
+.telegram-post-card .post-header {
+  @apply bg-gradient-to-r from-gray-800/60 to-gray-700/60;
+  backdrop-filter: blur(15px);
+  border-bottom: 1px solid rgba(255, 122, 0, 0.2);
+}
+
+.telegram-post-card .post-content {
+  @apply bg-gray-900/30;
+  background: linear-gradient(
+    135deg,
+    rgba(17, 24, 39, 0.3) 0%,
+    rgba(31, 41, 55, 0.2) 100%
+  );
+  position: relative;
+  overflow: hidden;
+}
+
+.telegram-post-card .post-content::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    45deg,
+    transparent 30%,
+    rgba(255, 122, 0, 0.03) 50%,
+    transparent 70%
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+.telegram-post-card .post-actions {
+  @apply bg-gradient-to-r from-gray-800/40 to-gray-700/40;
+  backdrop-filter: blur(15px);
+  border-top: 1px solid rgba(255, 122, 0, 0.1);
+}
+
+/* Enhanced Loading States */
+.telegram-post-card .animate-spin {
+  animation: spin 1.5s linear infinite;
+}
+
+.telegram-post-card .animate-ping {
+  animation: ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+@keyframes ping {
+  75%,
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+/* Enhanced Button Hover Effects */
+.telegram-post-card button:hover,
+.telegram-post-card a:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+}
+
+/* Enhanced Focus States for Accessibility */
+.telegram-post-card button:focus,
+.telegram-post-card a:focus {
+  outline: 2px solid rgba(255, 122, 0, 0.8);
+  outline-offset: 3px;
+}
+
+/* Smooth Transitions for All Interactive Elements */
+.telegram-post-card *,
+.stat-card *,
+.featured-news-card *,
+.newsletter-container * {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Enhanced Shadow Effects */
+.telegram-post-card:hover {
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4), 0 0 30px rgba(255, 122, 0, 0.2),
+    0 0 60px rgba(255, 122, 0, 0.1);
+}
+
+/* Responsive adjustments for telegram cards */
+@media (max-width: 640px) {
+  .telegram-post-card {
+    @apply rounded-lg;
+    margin: 0 0.25rem 1rem 0.25rem;
+  }
+
+  .telegram-post-card .post-header {
+    @apply p-3;
+  }
+
+  .telegram-post-card .post-actions {
+    @apply p-3;
+  }
+
+  .telegram-post-card .post-content {
+    min-height: 300px !important;
+  }
+
+  .telegram-post-card:hover {
+    transform: translateY(-2px);
+  }
+}
+
+@media (max-width: 768px) {
+  .telegram-post-card {
+    @apply rounded-xl;
+    margin: 0 0.5rem 1rem 0.5rem;
+  }
+
+  .telegram-post-card .post-header {
+    @apply p-4;
+  }
+
+  .telegram-post-card .post-actions {
+    @apply p-4;
+  }
+
+  .telegram-post-card .post-content {
+    min-height: 350px !important;
+  }
+
+  .telegram-post-card:hover {
+    transform: translateY(-4px);
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .telegram-post-card .post-content {
+    min-height: 400px !important;
+  }
+
+  .telegram-post-card:hover {
+    transform: translateY(-6px);
+  }
+}
+
+@media (min-width: 1025px) {
+  .telegram-post-card .post-content {
+    min-height: 450px !important;
+  }
+
+  .telegram-post-card:hover {
+    transform: translateY(-8px);
+  }
+}
+
+/* Enhanced grid layout for telegram posts */
+@media (min-width: 1024px) {
+  .telegram-post-card {
+    margin-bottom: 1rem;
+  }
+}
+
+/* Smooth entrance animations for cards */
+.telegram-post-card {
+  animation: slideInUp 0.8s ease-out forwards;
+  animation-delay: calc(var(--index, 0) * 0.2s);
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Enhanced iframe styling */
+.telegram-post-card iframe {
+  border-radius: 0.5rem;
+  transition: all 0.3s ease;
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 100% !important;
+  max-height: 100% !important;
+  object-fit: cover;
+}
+
+.telegram-post-card:hover iframe {
+  /* zoom removed */
+}
+
+/* Fix for mobile iframe issues */
+@media (max-width: 768px) {
+  .telegram-post-card iframe {
+    border-radius: 0.375rem;
+    transform: none !important;
+    -webkit-transform: none !important;
+    -moz-transform: none !important;
+    -ms-transform: none !important;
+    backface-visibility: visible !important;
+    -webkit-backface-visibility: visible !important;
+  }
+
+  .telegram-post-card .post-content {
+    overflow: visible !important;
+    min-height: 350px !important;
+    max-height: 400px !important;
+  }
+
+  /* Ensure iframe is fully visible on mobile */
+  .telegram-post-card .post-content iframe {
+    position: relative !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    min-width: 100% !important;
+    min-height: 100% !important;
+    max-width: 100% !important;
+    max-height: 100% !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .telegram-post-card .post-content {
+    min-height: 320px !important;
+    max-height: 380px !important;
+  }
+
+  .telegram-post-card iframe {
+    border-radius: 0.25rem;
+  }
+}
+
+/* Fix for iOS Safari iframe issues */
+@supports (-webkit-touch-callout: none) {
+  .telegram-post-card iframe {
+    -webkit-overflow-scrolling: touch;
+    -webkit-transform: none;
+    transform: none;
+  }
+
+  .telegram-post-card .post-content {
+    -webkit-overflow-scrolling: touch;
+    overflow: auto;
+  }
+}
+
+/* Fix for Android Chrome iframe issues */
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+  .telegram-post-card iframe {
+    transform: none;
+    backface-visibility: visible;
+    -webkit-backface-visibility: visible;
+  }
+}
+
+/* Enhanced iframe container */
+.telegram-post-card .post-content {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.telegram-post-card .post-content iframe {
+  flex: 1;
+  border: none;
+  margin: 0;
+  padding: 0;
+  display: block;
+}
+
+/* Fix for iframe scaling issues */
+.telegram-post-card .post-content iframe {
+  transform-origin: top left;
+  -webkit-transform-origin: top left;
+  -moz-transform-origin: top left;
+  -ms-transform-origin: top left;
+}
+
+@media (max-width: 768px) {
+  .telegram-post-card .post-content iframe {
+    transform-origin: center center;
+    -webkit-transform-origin: center center;
+    -moz-transform-origin: center center;
+    -ms-transform-origin: center center;
+  }
+}
+
+/* Fallback content styling */
+.telegram-post-card .post-content > div {
+  border-radius: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.telegram-post-card .post-content > div:hover {
+  /* zoom removed */
+}
+
+/* Error state improvements */
+.telegram-post-card .post-content .bg-red-500\/20 {
+  background: rgba(239, 68, 68, 0.2);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.telegram-post-card .post-content .text-red-400 {
+  color: #f87171;
+}
+
+/* Fallback button styling */
+.telegram-post-card .post-content button {
+  transition: all 0.2s ease;
+}
+
+.telegram-post-card .post-content button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+}
+
+/* Better mobile grid layout */
+@media (max-width: 640px) {
+  .telegram-post-card {
+    margin: 0 0.25rem 1rem 0.25rem;
+  }
+}
+
+/* Enhanced card spacing */
+@media (min-width: 641px) and (max-width: 1023px) {
+  .telegram-post-card {
+    margin: 0 0.5rem 1.5rem 0.5rem;
+  }
+}
+
+/* Desktop optimization */
+@media (min-width: 1024px) {
+  .telegram-post-card {
+    margin: 0 0 2rem 0;
+  }
+}
+
+/* Mobile-specific optimizations for news page */
+@media (max-width: 640px) {
+  .news-page-container {
+    padding: 0 0.5rem;
+  }
+
+  .news-title {
+    font-size: 1.75rem;
+    line-height: 2rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .news-subtitle {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    margin-bottom: 2rem;
+  }
+
+  .divider-container {
+    margin-bottom: 2rem;
+  }
+
+  .divider-container .divider {
+    width: 6rem;
+  }
+
+  .divider-container .divider:last-child {
+    width: 3rem;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 768px) {
+  .news-page-container {
+    padding: 0 1rem;
+  }
+
+  .news-title {
+    font-size: 2rem;
+    line-height: 2.25rem;
+    margin-bottom: 2rem;
+  }
+
+  .news-subtitle {
+    font-size: 1rem;
+    line-height: 1.5rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .divider-container {
+    margin-bottom: 3rem;
+  }
+}
+
+@media (min-width: 769px) {
+  .news-page-container {
+    padding: 0 2rem;
+  }
+
+  .news-title {
+    font-size: 2.5rem;
+    line-height: 3rem;
+    margin-bottom: 2rem;
+  }
+
+  .news-subtitle {
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .divider-container {
+    margin-bottom: 3rem;
+  }
+}
+
+/* Enhanced mobile touch targets */
+@media (max-width: 768px) {
+  .btn-primary {
+    min-height: 2.75rem;
+    min-width: 2.75rem;
+  }
+
+  .telegram-post-card button,
+  .telegram-post-card a {
+    min-height: 2.5rem;
+    min-width: 2.5rem;
+  }
+}
+
+@media (min-width: 769px) {
+  .btn-primary {
+    min-height: 3.5rem;
+  }
+
+  .telegram-post-card button,
+  .telegram-post-card a {
+    min-height: 3rem;
+  }
+}
+
+/* Improved mobile spacing */
+@media (max-width: 640px) {
+  .telegram-post-card .post-header,
+  .telegram-post-card .post-actions {
+    padding: 0.75rem;
+  }
+
+  .telegram-post-card .post-content {
+    min-height: 280px;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 768px) {
+  .telegram-post-card .post-header,
+  .telegram-post-card .post-actions {
+    padding: 1rem;
+  }
+
+  .telegram-post-card .post-content {
+    min-height: 320px;
+  }
+}
+
+/* Enhanced mobile animations */
+@media (max-width: 768px) {
+  .telegram-post-card {
+    animation-duration: 0.6s;
+  }
+
+  .telegram-post-card:hover {
+    transform: translateY(-2px);
+  }
+
+  .news-title.animate-fadeInUp {
+    animation-duration: 0.5s;
+  }
+}
+
+/* Better mobile grid responsiveness */
+@media (max-width: 640px) {
+  .grid {
+    gap: 1rem;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+  .grid {
+    gap: 1.5rem;
+  }
+}
+
+@media (min-width: 1025px) {
+  .grid {
+    gap: 2rem;
+  }
+}
+
+/* Additional mobile fixes for news page */
+@media (max-width: 640px) {
+  /* Fix container overflow */
+  .news-page-container {
+    overflow-x: hidden;
+    width: 100%;
+  }
+
+  /* Ensure proper text wrapping */
+  .news-title,
+  .news-subtitle {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+
+  /* Fix button sizing on very small screens */
+  .btn-primary {
+    width: 100%;
+    max-width: 280px;
+  }
+
+  /* Improve card spacing on mobile */
+  .telegram-post-card {
+    margin-bottom: 1rem;
+  }
+
+  /* Fix iframe container on mobile */
+  .telegram-post-card .post-content {
+    overflow: hidden;
+  }
+
+  /* Ensure proper touch targets */
+  .telegram-post-card button,
+  .telegram-post-card a {
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+/* Fix for iOS Safari iframe issues */
+@supports (-webkit-touch-callout: none) {
+  .telegram-post-card iframe {
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* Fix for Android Chrome iframe issues */
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+  .telegram-post-card iframe {
+    transform: none;
+    backface-visibility: visible;
+  }
+}
+
+/* Enhanced mobile performance */
+@media (max-width: 768px) {
+  .telegram-post-card {
+    will-change: transform;
+    transform: translateZ(0);
+  }
+
+  .telegram-post-card:hover {
+    will-change: auto;
+  }
+
+  /* Reduce animations on mobile for better performance */
+  .animate-fadeInUp {
+    animation-duration: 0.4s;
+  }
+
+  .telegram-post-card {
+    animation-duration: 0.5s;
+  }
+}
+
+/* Fix for mobile landscape orientation */
+@media (max-width: 768px) and (orientation: landscape) {
+  .news-page-container {
+    padding: 0 1rem;
+  }
+
+  .telegram-post-card .post-content {
+    min-height: 250px;
+  }
+}
+
+/* Fix for very small mobile screens */
+@media (max-width: 375px) {
+  .news-page-container {
+    padding: 0 0.25rem;
+  }
+
+  .news-title {
+    font-size: 1.5rem;
+    line-height: 1.75rem;
+  }
+
+  .news-subtitle {
+    font-size: 0.8125rem;
+    line-height: 1.125rem;
+  }
+
+  .telegram-post-card .post-header,
+  .telegram-post-card .post-actions {
+    padding: 0.5rem;
+  }
+
+  .telegram-post-card .post-content {
+    min-height: 250px;
+  }
+}
+
+/* Fix for mobile grid layout issues */
+@media (max-width: 640px) {
+  .grid.grid-cols-1 {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .grid.grid-cols-1 > * {
+    width: 100%;
+    margin: 0;
+  }
+}
+
+/* Enhanced mobile accessibility */
+@media (max-width: 768px) {
+  .telegram-post-card button:focus,
+  .telegram-post-card a:focus {
+    outline: 3px solid rgba(255, 122, 0, 0.8);
+    outline-offset: 2px;
+  }
+
+  .btn-primary:focus {
+    outline: 3px solid rgba(255, 122, 0, 0.8);
+    outline-offset: 2px;
+  }
+}
+
+/* Fix for mobile scroll issues */
+@media (max-width: 768px) {
+  html,
+  body {
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: auto;
+  }
+
+  .news-page-container {
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* Fix for mobile text rendering */
+@media (max-width: 768px) {
+  .news-title,
+  .news-subtitle,
+  .telegram-post-card * {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+}
+
+/* Fix for mobile background issues */
+@media (max-width: 768px) {
+  .news-page-container {
+    background-attachment: scroll;
+  }
+
+  .telegram-post-card {
+    background-attachment: scroll;
+  }
+}
+
+/* Enhanced mobile touch feedback */
+@media (max-width: 768px) {
+  .telegram-post-card:active {
+    transform: scale(0.98);
+    transition: transform 0.1s ease;
+  }
+
+  .btn-primary:active {
+    transform: scale(0.95);
+    transition: transform 0.1s ease;
+  }
+}
+
+/* Mobile menu button optimizations */
+@media (max-width: 768px) {
+  .nav-toggle {
+    min-width: 2rem;
+    min-height: 2rem;
+    font-size: 0.875rem;
+    line-height: 1;
+    padding: 0 !important;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+  }
+
+  .nav-toggle:hover {
+    /* zoom removed */
+  }
+
+  .nav-toggle:active {
+    /* zoom removed */
+  }
+
+  /* Mobile menu items */
+  .nav-toggle + div nav a,
+  .nav-toggle + div nav select {
+    font-size: 0.875rem;
+    padding: 0.5rem 0.75rem;
+    min-height: 2.5rem;
+  }
+
+  /* Mobile menu container */
+  .nav-toggle + div {
+    margin-top: 0.75rem;
+  }
+
+  .nav-toggle + div .glass {
+    padding: 0.75rem;
+    gap: 0.5rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .nav-toggle {
+    min-width: 1.75rem;
+    min-height: 1.75rem;
+    font-size: 0.75rem;
+    width: 1.75rem;
+    height: 1.75rem;
+  }
+
+  .nav-toggle + div nav a,
+  .nav-toggle + div nav select {
+    font-size: 0.8125rem;
+    padding: 0.375rem 0.625rem;
+    min-height: 2.25rem;
+  }
+
+  .nav-toggle + div .glass {
+    padding: 0.625rem;
+    gap: 0.375rem;
+  }
+}
+
+/* Enhanced mobile accessibility for menu */
+@media (max-width: 768px) {
+  .nav-toggle:focus {
+    outline: 2px solid rgba(255, 122, 0, 0.8);
+    outline-offset: 2px;
+  }
+
+  .nav-toggle + div nav a:focus,
+  .nav-toggle + div nav select:focus {
+    outline: 2px solid rgba(255, 122, 0, 0.8);
+    outline-offset: 2px;
+  }
+}
+
+/* Override btn-primary styles for nav-toggle to make it compact */
+.nav-toggle.btn-primary {
+  padding: 0 !important;
+  min-width: auto !important;
+  min-height: auto !important;
+  width: 2rem;
+  height: 2rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.875rem;
+  line-height: 1;
+}
+
+@media (min-width: 640px) {
+  .nav-toggle.btn-primary {
+    width: 2.25rem;
+    height: 2.25rem;
+    font-size: 1rem;
+  }
+}
+
+/* Дополнительные стили для центрирования текста во всех кнопках */
+.btn-primary {
+  text-align: center !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+/* Убеждаемся, что текст в кнопках всегда по центру */
+.btn-primary span,
+.btn-primary div {
+  text-align: center !important;
+}
+
+/* Исправляем выравнивание для кнопок с gap */
+.btn-primary.gap-2,
+.btn-primary.gap-3 {
+  text-align: center !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+/* Мобильные стили для кнопок */
+@media (max-width: 768px) {
+  .btn-primary.w-full {
+    width: 100% !important;
+    min-width: 100% !important;
+  }
+
+  /* Кнопки в мобильном меню */
+  .nav-toggle + div .btn-primary {
+    width: 100% !important;
+    min-width: 100% !important;
+  }
+}
+
+/* Исправление размера описания проекта на мобильных устройствах */
+@media (max-width: 640px) {
+  .prose.prose-invert p,
+  .text-gray-300.break-words {
+    font-size: 0.875rem !important;
+    line-height: 1.5 !important;
+    word-wrap: break-word !important;
+    overflow-wrap: break-word !important;
+    hyphens: auto !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .prose.prose-invert p,
+  .text-gray-300.break-words {
+    font-size: 0.8125rem !important;
+    line-height: 1.4 !important;
+  }
+}
+
+/* Дополнительные стили для корректного переноса текста */
+.break-words {
+  word-wrap: break-word !important;
+  overflow-wrap: break-word !important;
+  hyphens: auto !important;
+  word-break: break-word !important;
+  -webkit-hyphens: auto !important;
+  -ms-hyphens: auto !important;
+}
+
+/* Улучшенный перенос слов для мобильных устройств */
+@media (max-width: 768px) {
+  .break-words {
+    word-break: break-word !important;
+    overflow-wrap: anywhere !important;
+    hyphens: auto !important;
+    -webkit-hyphens: auto !important;
+  }
+}
+
+/* Центрирование текста на всех устройствах */
+.project-description {
+  text-align: center !important;
+}
+
+/* Дополнительное центрирование для ПК */
+@media (min-width: 768px) {
+  .project-description {
+    text-align: center !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+  }
+}
+
+.overflow-hidden {
+  overflow: hidden !important;
+}
+
+/* Стили для кнопки "В разработке" с серым свечением */
+.btn-disabled {
+  background: rgba(255, 255, 255, 0.05);
+  color: #d1d5db;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  line-height: 1;
+  transform-origin: center;
+  cursor: not-allowed;
+  transition: all 180ms ease;
+  transform: translateZ(0);
+  will-change: transform;
+  position: relative;
+  overflow: hidden;
+  opacity: 0.7;
+  box-shadow: 0 0 14px rgba(107, 114, 128, 0.3),
+    0 0 26px rgba(156, 163, 175, 0.2), 0 0 40px rgba(75, 85, 99, 0.1);
+}
+
+.btn-disabled::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
+  transition: left 0.5s;
+}
+
+.btn-disabled:hover::before {
+  left: -100%;
+}
+
+.btn-disabled:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.1);
+  transform: none;
+  box-shadow: 0 0 14px rgba(107, 114, 128, 0.3),
+    0 0 26px rgba(156, 163, 175, 0.2), 0 0 40px rgba(75, 85, 99, 0.1);
+  filter: none;
+  opacity: 0.7;
+}
+
+.btn-disabled:active {
+  transform: none;
+  box-shadow: 0 0 14px rgba(107, 114, 128, 0.3),
+    0 0 26px rgba(156, 163, 175, 0.2), 0 0 40px rgba(75, 85, 99, 0.1);
+}
+
+.btn-disabled:focus {
+  outline: 2px solid #9ca3af;
+  outline-offset: 2px;
+}
+
+.btn-disabled.w-full {
+  width: 100%;
+  min-height: 48px;
+  font-size: 0.95rem;
+  letter-spacing: 0.025em;
+  padding: 0.75rem 1rem;
+  text-align: center;
+  justify-content: center;
+}
+
+.btn-disabled.w-full:hover {
+  transform: translateY(-1px) scale(1.02);
+}
+
+.help-card-image {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  object-position: center !important;
+}
+
+@media (max-width: 640px) {
+  .help-card-image {
+    object-position: center center !important;
+  }
+}
+
