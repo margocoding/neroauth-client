@@ -221,7 +221,7 @@ const HelpPage = () => {
                     }}
                   >
                     <source
-                      src={`/api/video?locale=${language}`}
+                      src={`${process.env.REACT_APP_API_URL}/help/video?locale=${language}`}
                       type="video/mp4"
                     />
                     <source
