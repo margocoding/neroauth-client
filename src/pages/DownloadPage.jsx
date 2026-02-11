@@ -33,7 +33,7 @@ const DownloadPage = () => {
     if (fileName) {
       try {
         const link = document.createElement("a");
-        link.href = `/api/download?file=${encodeURIComponent(fileName)}`;
+        link.href = `${process.env.REACT_APP_API_URL}/help/download?fileName=${encodeURIComponent(fileName)}`;
         link.rel = "noopener";
         document.body.appendChild(link);
         link.click();
@@ -148,7 +148,7 @@ const DownloadPage = () => {
                       </p>
                       <p className="text-xs text-gray-500 mb-3">51 MB</p>
                       <Link
-                        to="/api/download?file=NeroRaiders130.apk"
+                        to={`${process.env.REACT_APP_API_URL}/help/download?fileName=NeroRaiders130.apk`}
                         className="btn-primary px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 neon-box w-full"
                       >
                         {t("download.download")}
@@ -162,7 +162,7 @@ const DownloadPage = () => {
               {fileName && (
                 <div className="mt-4 flex justify-center">
                   <a
-                    href={`/api/download?file=${encodeURIComponent(fileName)}`}
+                    href={`${process.env.REACT_APP_API_URL}/help/download?fileName=${encodeURIComponent(fileName)}`}
                     className="inline-flex items-center gap-2 text-sm sm:text-base px-4 py-2 rounded-lg border border-orange-500/40 text-orange-300 hover:text-white hover:bg-orange-500/20 transition-colors"
                   >
                     <svg
