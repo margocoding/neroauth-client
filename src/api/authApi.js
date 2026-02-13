@@ -27,6 +27,18 @@ export const authApi = {
     return data.user;
   },
 
+  async requestResetPassword(email) {
+    const {data} = await baseApi.post('/auth/request-reset-password', {email});
+
+    return data;
+  },
+
+  async resetPassword(email, code) {
+    const {data} = await baseApi.post('/auth/reset-password', {email, code});
+
+    return data;
+  },
+
   async login(email, password) {
     const { data } = await baseApi.post("/auth/login", {
       email,
