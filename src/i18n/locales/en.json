@@ -249,7 +249,10 @@
     "next": "Next",
     "login": "Username",
     "code": "Code from email",
-    "password": "Password"
+    "password": "Password",
+    "forgot_password": {
+      "button": "Reset Password"
+    }
   },
   "profile": {
     "title": "Profile",
@@ -280,25 +283,30 @@
   },
   "errors": {
     "login": {
-      "required": "Login is a required field",
-      "string": "Login must be a string"
+      "required": "Please enter your username",
+      "string": "Username must be text"
     },
     "email": {
-      "required": "Email is a required field",
-      "invalid": "Invalid email format"
+      "required": "Please provide your email",
+      "invalid": "Please enter a valid email address"
     },
     "password": {
-      "required": "Password is a required field",
-      "string": "Password must be a string",
-      "weak": "Password must contain at least 8 characters, including digits, uppercase letters, and special symbols"
+      "required": "Please enter your password",
+      "string": "Password must be text",
+      "weak": "Password is too weak. Use at least 8 characters, including numbers, uppercase letters, and special symbols"
     },
     "token": {
-      "required": "Token is a required field",
-      "invalid": "Invalid token format"
+      "required": "Token is required",
+      "invalid": "Token format is invalid"
     },
     "code": {
-      "required": "Code is a required field",
-      "invalid": "Invalid code"
+      "required": "Please enter the code",
+      "invalid": "The code is incorrect",
+      "resend": "You can request a new code only once every 2 minutes",
+      "expired": "The code has expired. Please request a new one"
+    },
+    "auth": {
+      "invalid": "Incorrect username or password"
     }
   }
 }
