@@ -171,7 +171,7 @@ export default function ProfilePage() {
             placeholder={t("profile.friend.invite_code.placeholder")}
             type="number"
           />
-          <Button onClick={inviteFriend} disabled={!code}>
+          <Button className={'w-full'} onClick={inviteFriend} disabled={!code}>
             {t("profile.friend.add")} <AnimatedArrow condition={code} />{" "}
           </Button>
         </div>
@@ -199,6 +199,7 @@ export default function ProfilePage() {
                 </div>
                 <div>
                   <Button
+                    className={'w-full'}
                     onClick={() => deleteFriend(friend._id)}
                     color="danger"
                     isLoading={friendLoading}
@@ -235,6 +236,7 @@ export default function ProfilePage() {
                 </div>
                 <div className="space-y-1">
                   <Button
+                    className={'w-full'}
                     isLoading={inviteLoading}
                     color="success"
                     onClick={() => applyInvitation(invitation._id)}
@@ -242,6 +244,7 @@ export default function ProfilePage() {
                     {t("profile.friend.invitations.buttons.apply")}
                   </Button>
                   <Button
+                    className={'w-full'}
                     isLoading={inviteLoading}
                     color="danger"
                     onClick={() => declineInvitation(invitation._id)}

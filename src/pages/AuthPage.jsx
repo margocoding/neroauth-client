@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from "framer-motion";
-import { useCallback, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { authApi } from "../api/authApi";
@@ -28,9 +28,26 @@ const AuthPage = () => {
     const { email, login, password, code } = watch();
 
     const [isUserExisting, setIsUserExisting] = useState(localStorage.getItem('auth-user-existing') === 'true');
-    const [authType, setAuthType] = useState('initial');
+    const [authType, setAuthType] = useState(localStorage.getItem('auth-type') || 'initial');
     const [step, setStep] = useState(+localStorage.getItem('auth-step') || 1);
     const [loading, setLoading] = useState(false);
+
+
+    const handleBackStep = useCallback(() => {
+        if (step < 2) return;
+
+        setStep(step => step - 1);
+        setAuthType('initial');
+        localStorage.setItem('auth-type', 'initial')
+        localStorage.setItem('auth-step', step - 1);
+    }, [step]);
+
+    const handleForgotPassword = useCallback(async () => {
+        await exceptAxiosError(() => authApi.createCode(email));
+        localStorage.setItem('auth-type', 'reset-password');
+        setAuthType('reset-password');
+
+    }, [email])
 
     const onSubmit = useCallback(async ({ email, login, password, code }) => {
         setLoading(true);
@@ -44,7 +61,6 @@ const AuthPage = () => {
                     }
 
                     localStorage.setItem('auth-email', email);
-                    localStorage.setItem('auth-code', code);
                     localStorage.setItem('auth-step', step + 1);
                     localStorage.setItem('auth-user-existing', userExisting);
 
@@ -64,28 +80,20 @@ const AuthPage = () => {
                             localStorage.removeItem('auth-code');
                             localStorage.removeItem('auth-step');
                             localStorage.removeItem('auth-user-existing');
-                            
+
                             const isGame = searchParams.get('isGame');
 
-                            if(isGame) console.log('exit');
+                            if (isGame) console.log('exit');
 
                         } else if (authType === 'reset-password') {
-                            await authApi.requestResetPassword(email);
+                            await authApi.resetPassword(email, code, password);
+                            setAuthType('initial');
+                            setIsUserExisting(true);
                         }
                     });
 
                     navigate(`/${language}/profile#token=${localStorage.getItem("token")}`,);
 
-                    break;
-
-                case 3:
-                    await exceptAxiosError(async () => {
-                        if (authType === 'reset-password') {
-                            await authApi.resetPassword(email, code);
-                        }
-                    })
-                    break;
-                default:
                     break;
             }
         } finally {
@@ -93,10 +101,86 @@ const AuthPage = () => {
         }
     }, [step, navigate, language, authType, isUserExisting]);
 
+    const getFormByStep = useCallback((step) => {
+        switch (step) {
+            case 2:
+                if (authType === 'initial') {
+                    return isUserExisting ? (
+                        <div>
+                            <Input
+                                autoFocus
+                                placeholder={t("auth.password")}
+                                {...register("password", { required: true })}
+                                type="password"
+                            />
+                            <button type="button" onClick={handleForgotPassword} className="w-full text-left text-orange-400">
+                                {t('auth.forgot_password.button')}
+                            </button>
+                        </div>
+                    ) : (<>
+                        <Input
+                            placeholder={t("auth.login")}
+                            autoFocus
+                            {...register("login", { required: true })}
+                        />
+                        <Input
+                            placeholder={t("auth.password")}
+                            {...register("password", { required: true })}
+                            type="password"
+                        />
+                        <Input
+                            placeholder={t("auth.code")}
+                            {...register("code", { required: true })}
+                            type="number"
+                        />
+                    </>)
+
+                } else if (authType === 'reset-password') {
+                    return <>
+                        <Input
+                            placeholder={t("auth.password")}
+                            {...register("password", { required: true })}
+                            type="password"
+                        />
+                        <Input
+                            placeholder={t("auth.code")}
+                            {...register("code", { required: true })}
+                            type="number"
+                        />
+                    </>
+                }
+
+            default:
+                break;
+        }
+    }, [authType, isUserExisting]);
+
+    const isNextButtonEnabled = useMemo(() => {
+
+        if (!email || loading) return false;
+        switch (step) {
+            case 1:
+                return !!email;
+            case 2:
+                if (authType === 'initial') {
+                    if (isUserExisting) {
+                        return password;
+                    } else {
+                        return login && password && code;
+                    }
+                } else if (authType === 'reset-password') {
+                    return password && code;
+                }
+                return false;
+            default:
+                return false;
+        }
+    }, [email, loading, login, password, code, step])
+
     return (<div className="h-[70vh] max-w-[300px] w-full mx-auto">
         <form
             onSubmit={handleSubmit(onSubmit)}
-            className="flex flex-col gap-3 items-center justify-center h-full"
+            className="flex flex-col gap-2 items-center justify-center h-full"
         >
             <header className="space-y-2">
                 <h2 className="text-3xl text-center">{t("auth.title")}</h2>
@@ -122,34 +206,13 @@ const AuthPage = () => {
                     transition={{ duration: 0.35, ease: "easeOut" }}
                     className="flex flex-col gap-3 w-full"
                 >
-                    {isUserExisting ? (<Input
-                        autoFocus
-                        placeholder={t("auth.password")}
-                        {...register("password", { required: true })}
-                        type="password"
-                    />) : (<>
-                        <Input
-                            placeholder={t("auth.login")}
-                            autoFocus
-                            {...register("login", { required: true })}
-                        />
-                        <Input
-                            placeholder={t("auth.password")}
-                            {...register("password", { required: true })}
-                            type="password"
-                        />
-                        <Input
-                            placeholder={t("auth.code")}
-                            {...register("code", { required: true })}
-                            type="number"
-                        />
-                    </>)}
+                    {getFormByStep(step)}
                 </motion.div>)}
             </AnimatePresence>
 
             <div className="flex gap-3 w-full">
                 {step > 1 &&
-                    <Button color="fade" onClick={() => setStep(step => step - 1)}>
+                    <Button color="fade" onClick={handleBackStep}>
                         <img
                             src="/icons/arrow-right.svg"
                             className="rotate-180 h-[20px]"
@@ -160,12 +223,12 @@ const AuthPage = () => {
                 <Button
                     className={'w-full'}
                     type="submit"
-                    disabled={!((step === 1 && email) || (step === 2 && (!isUserExisting ? email && password && login && code : email && password))) || loading}
+                    disabled={!isNextButtonEnabled}
                 >
                     {loading ? (<Spinner />) : (<>
                         {t("auth.next")}{" "}
                         <AnimatedArrow
-                            condition={(step === 1 && email) || (step === 2 && (!isUserExisting ? email && password && login && code : email && password))}
+                            condition={isNextButtonEnabled}
                         />
                     </>)}
                 </Button>

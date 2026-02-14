@@ -26,15 +26,14 @@ export const authApi = {
 
     return data.user;
   },
+  async resetPassword(email, code, password) {
+    const { data } = await baseApi.post('/auth/reset-password', { email, code, password });
 
-  async requestResetPassword(email) {
-    const {data} = await baseApi.post('/auth/request-reset-password', {email});
+    if(data.success && data.token) {
+      localStorage.setItem("token", data.token);
+    }
 
-    return data;
-  },
 
-  async resetPassword(email, code) {
-    const {data} = await baseApi.post('/auth/reset-password', {email, code});
 
     return data;
   },

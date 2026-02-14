@@ -10,7 +10,7 @@ export const exceptAxiosError = async (callback) => {
     if (e?.response?.data?.errors?.length) {
       e.response.data.errors.map(({ msg }) => toast(i18next.t(msg), { type: "error" }));
     } else if (e?.response?.data?.message) {
-      toast(e.response.data.message, { type: "error" });
+      toast(i18next.t(e.response.data.message), { type: "error" });
     }
 
     throw new Error();
