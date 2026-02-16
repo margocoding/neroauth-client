@@ -2,13 +2,13 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useCallback, useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { authApi } from "../api/authApi";
-import { exceptAxiosError } from "../utils/exceptAxiosError";
-import Input from "../components/ui/Input";
-import Button from "../components/ui/Button";
-import Spinner from "../components/ui/Spinner";
 import AnimatedArrow from "../components/ui/AnimatedArrow";
-import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
+import Button from "../components/ui/Button";
+import Input from "../components/ui/Input";
+import Spinner from "../components/ui/Spinner";
+import { exceptAxiosError } from "../utils/exceptAxiosError";
 
 const AuthPage = () => {
     const {
@@ -76,15 +76,6 @@ const AuthPage = () => {
                                 await authApi.login(email, password);
                             }
 
-                            localStorage.removeItem('auth-email');
-                            localStorage.removeItem('auth-code');
-                            localStorage.removeItem('auth-step');
-                            localStorage.removeItem('auth-user-existing');
-
-                            const isGame = searchParams.get('isGame');
-
-                            if (isGame) console.log('exit');
-
                         } else if (authType === 'reset-password') {
                             await authApi.resetPassword(email, code, password);
                             setAuthType('initial');
@@ -92,14 +83,24 @@ const AuthPage = () => {
                         }
                     });
 
+                    localStorage.removeItem('auth-email');
+                    localStorage.removeItem('auth-code');
+                    localStorage.removeItem('auth-step');
+                    localStorage.removeItem('auth-user-existing');
+
+                    const isGame = searchParams.get('isGame');
+                    if (isGame) console.log('exit');
+
                     navigate(`/${language}/profile#token=${localStorage.getItem("token")}`,);
 
+                    break;
+                default:
                     break;
             }
         } finally {
             setLoading(false);
         }
-    }, [step, navigate, language, authType, isUserExisting]);
+    }, [step, navigate, language, authType, isUserExisting, searchParams]);
 
     const getFormByStep = useCallback((step) => {
         switch (step) {
@@ -149,14 +150,13 @@ const AuthPage = () => {
                         />
                     </>
                 }
-
+                break;
             default:
                 break;
         }
-    }, [authType, isUserExisting]);
+    }, [authType, isUserExisting, handleForgotPassword, register, t]);
 
     const isNextButtonEnabled = useMemo(() => {
-
         if (!email || loading) return false;
         switch (step) {
             case 1:
@@ -175,7 +175,7 @@ const AuthPage = () => {
             default:
                 return false;
         }
-    }, [email, loading, login, password, code, step])
+    }, [email, loading, login, password, code, step, authType, isUserExisting])
 
     return (<div className="h-[70vh] max-w-[300px] w-full mx-auto">
         <form
@@ -212,7 +212,7 @@ const AuthPage = () => {
 
             <div className="flex gap-3 w-full">
                 {step > 1 &&
-                    <Button color="fade" onClick={handleBackStep}>
+                    <Button type="button" color="fade" onClick={handleBackStep}>
                         <img
                             src="/icons/arrow-right.svg"
                             className="rotate-180 h-[20px]"
