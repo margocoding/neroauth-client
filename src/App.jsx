@@ -6,9 +6,10 @@ import {
   Routes,
   useLocation,
   useNavigate,
-  useSearchParams,
+  useSearchParams
 } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
+import LanguageWrapper from "./components/shared/LanguageWrapper";
 import MobileOptimizer from "./components/shared/MobileOptimizer";
 import Button from "./components/ui/Button";
 import { languages } from "./i18n/i18n";
@@ -76,15 +77,15 @@ const App = () => {
     navigate(target, { replace: true });
   };
 
-  useEffect(() => {
-    const pathLocale = location.pathname.split("/")[1];
-    if (languages.includes(pathLocale) && pathLocale !== language) {
-      changeLanguage(pathLocale);
-    }
-    setUrlLocale(
-      languages.includes(pathLocale) ? pathLocale : language || "en",
-    );
-  }, [location.pathname]);
+  // useEffect(() => {
+  //   const pathLocale = location.pathname.split("/")[1];
+  //   if (languages.includes(pathLocale) && pathLocale !== language) {
+  //     changeLanguage(pathLocale);
+  //   }
+  //   setUrlLocale(
+  //     languages.includes(pathLocale) ? pathLocale : language || "en",
+  //   );
+  // }, [location.pathname]);
 
   useEffect(() => {
     if (location.pathname === "/") {
@@ -244,9 +245,11 @@ const App = () => {
         }
 
         <main className="grow container mx-auto max-w-6xl px-4 md:px-6 py-6 section">
+
           <Routes>
-            <Route path="/:locale">
+            <Route path="/:locale/*" element={<LanguageWrapper/>}>
               <Route index element={<MainPage />} />
+
               <Route path="news" element={<PostsPage />} />
               <Route path="news/:id" element={<PostPage />} />
               <Route path="projects" element={<ProjectsPage />} />
@@ -257,6 +260,7 @@ const App = () => {
               <Route path="download" element={<DownloadPage />} />
             </Route>
           </Routes>
+
         </main>
 
         {!isGame &&
