@@ -2,6 +2,7 @@ import { lazy, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
   Link,
+  Navigate,
   Route,
   Routes,
   useLocation,
@@ -269,6 +270,7 @@ const App = () => {
               <Route path="profile" element={<ProfilePage />} />
               <Route path="download" element={<DownloadPage />} />
               <Route path="donate" element={<DonatePage />} />
+              <Route path="*" element={<Navigate to="/" />} />
             </Route>
           </Routes>
 
