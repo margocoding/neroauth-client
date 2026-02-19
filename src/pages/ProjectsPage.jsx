@@ -28,6 +28,8 @@ export const projects = [
     description: "nero_troops.desc",
     details: "nero_troops.details",
     labelImage: "/nero_troops/splash.png",
+    file: ' ',
+    type: 'download',
     comingSoon: true,
   },
 ];

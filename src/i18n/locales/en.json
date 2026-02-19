@@ -9,7 +9,8 @@
     "projects": "Projects",
     "news": "News",
     "help": "Help",
-    "language": "Language"
+    "language": "Language",
+    "donate": "Help us"
   },
   "page": {
     "home": {
@@ -171,7 +172,32 @@
     "title": "Nero Troops",
     "desc": "Strategic military shooter.",
     "details": "...",
-    "screenshots": []
+    "screenshots": [
+      {
+        "image": "/nero_troops/en/screen1.png"
+      },
+      {
+        "image": "/nero_troops/en/screen2.png"
+      },
+      {
+        "image": "/nero_troops/en/screen3.png"
+      },
+      {
+        "image": "/nero_troops/en/screen4.png"
+      },
+      {
+        "image": "/nero_troops/en/screen5.png"
+      },
+      {
+        "image": "/nero_troops/en/screen6.png"
+      },
+      {
+        "image": "/nero_troops/en/screen7.png"
+      },
+      {
+        "image": "/nero_troops/en/screen8.png"
+      }
+    ]
   },
   "download": {
     "title": "Download",
@@ -242,9 +268,9 @@
     }
   },
   "auth": {
-    "title": "Authorization",
-    "description": "Log in to your account to see your friends list and update your profile.",
-    "authButton": "Log in",
+    "title": "Nero Auth",
+    "description": "Powerful authorization system. Ensures synchronization of game progress between devices and provides access to advanced features.",
+    "authButton": "Authorization",
     "emailInput": "Email",
     "next": "Next",
     "login": "Username",
@@ -308,5 +334,17 @@
     "auth": {
       "invalid": "Incorrect username or password"
     }
+  },
+  "donate": {
+    "title": "Help Us!",
+    "description": "By supporting us in any amount, you accelerate development and improve the quality of the product being delivered. Help us to be better.",
+    "service_title": "Available ways to help us:",
+    "services": [
+      {
+        "id": 1,
+        "link": "https: //t.me/send?start=IVTmDvcdzJFt",
+        "icon": "cryptobot.png"
+      }
+    ]
   }
 }

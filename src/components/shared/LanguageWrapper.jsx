@@ -5,13 +5,11 @@ import { Outlet, Navigate, useParams, useLocation } from "react-router-dom";
 const LanguageWrapper = () => {
   const { locale } = useParams();
   const location = useLocation();
-  const { i18n } = useTranslation();
+  const { i18n: {language, changeLanguage} } = useTranslation();
 
-  // если язык невалидный — редиректим СРАЗУ
   if (!locale || !languages.includes(locale)) {
-    const detected = i18n.language || "ru";
+    const detected = language?.split('-')[0] || "ru";
 
-    // убираем первый сегмент
     const restPath = location.pathname.split("/").slice(1).join("/");
 
     return (
@@ -22,9 +20,8 @@ const LanguageWrapper = () => {
     );
   }
 
-  // если валидный язык — меняем язык
-  if (i18n.language !== locale) {
-    i18n.changeLanguage(locale);
+  if (language !== locale) {
+    changeLanguage(locale);
   }
 
   return <Outlet />;

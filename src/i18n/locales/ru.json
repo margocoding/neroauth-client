@@ -9,7 +9,8 @@
     "projects": "Проекты",
     "news": "Новости",
     "help": "Помощь",
-    "language": "Язык"
+    "language": "Язык",
+    "donate": "Помогите нам"
   },
   "page": {
     "home": {
@@ -171,7 +172,32 @@
     "title": "Nero Troops",
     "desc": "Cтратегический военный шутер.",
     "details": "...",
-    "screenshots": []
+    "screenshots": [
+      {
+        "image": "/nero_troops/ru/screen1.png"
+      },
+      {
+        "image": "/nero_troops/ru/screen2.png"
+      },
+      {
+        "image": "/nero_troops/ru/screen3.png"
+      },
+      {
+        "image": "/nero_troops/ru/screen4.png"
+      },
+      {
+        "image": "/nero_troops/ru/screen5.png"
+      },
+      {
+        "image": "/nero_troops/ru/screen6.png"
+      },
+      {
+        "image": "/nero_troops/ru/screen7.png"
+      },
+      {
+        "image": "/nero_troops/ru/screen8.png"
+      }
+    ]
   },
   "download": {
     "title": "Загрузка",
@@ -242,9 +268,9 @@
     }
   },
   "auth": {
-    "title": "Авторизация",
-    "description": "Авторизуйтесь сейчас, чтобы получить доступ к списку своих друзей",
-    "authButton": "Войти",
+    "title": "Nero Auth",
+    "description": "Мощная система авторизации. Обеспечивает синхронизацию игрового прогресса между устройствами и открывает доступ к расширенным возможностям.",
+    "authButton": "Авторизация",
     "emailInput": "Почта",
     "next": "Далее",
     "login": "Логин",
@@ -280,6 +306,33 @@
       },
       "success_delete": "Друг был успешно удален"
     }
+  },
+  "donate": {
+    "title": "Помогите нам!",
+    "description": "Осуществляя поддержку на любую сумму, вы ускоряете разработку и улучшаете качество выдаваемого продукта. Помогите нам, чтобы стать лучше.",
+    "service_title": "Способы помочь нам:",
+    "services": [
+      {
+        "id": 1,
+        "link": "https: //messenger.online.sberbank.ru/sl/BluYH8uEdFFvZFvWf",
+        "icon": "sberbank.svg"
+      },
+      {
+        "id": 2,
+        "link": "https: //vk.com/app6471849_-207410409",
+        "icon": "tanody.jpg"
+      },
+      {
+        "id": 3,
+        "link": "https: //vk.com/app6887721_-207410409",
+        "icon": "donate-cake.jpg"
+      },
+      {
+        "id": 4,
+        "link": "https: //t.me/send?start=IVTmDvcdzJFt",
+        "icon": "cryptobot.png"
+      }
+    ]
   },
   "errors": {
     "login": {
