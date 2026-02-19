@@ -182,8 +182,8 @@ const AuthPage = () => {
             onSubmit={handleSubmit(onSubmit)}
             className="flex flex-col gap-2 items-center justify-center h-full"
         >
-            <header className="space-y-2">
-                <h2 className="text-3xl text-center">{t("auth.title")}</h2>
+            <header className="space-y-2 text-center">
+                <h2 className="text-3xl">{t("auth.title")}</h2>
                 <h4 className="text-gray-400 text-sm">{t("auth.description")}</h4>
             </header>
 

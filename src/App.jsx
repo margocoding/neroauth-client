@@ -24,6 +24,7 @@ const ProjectPage = lazy(() => import("./pages/ProjectPage"));
 const AuthPage = lazy(() => import("./pages/AuthPage"));
 const ProfilePage = lazy(() => import("./pages/ProfilePage"));
 const DownloadPage = lazy(() => import("./pages/DownloadPage"));
+const DonatePage = lazy(() => import("./pages/DonatePage"));
 
 const App = () => {
   const {
@@ -166,6 +167,12 @@ const App = () => {
                 >
                   {t("nav.news")}
                 </Link>
+                <Link
+                  to={getLocalizedPath("/donate")}
+                  className="link-underline hover-text-accent transition"
+                >
+                  {t("nav.donate")}
+                </Link>
                 <span className="select-wrapper">
                   <select
                     aria-label={t("nav.language")}
@@ -261,6 +268,7 @@ const App = () => {
               <Route path="auth" element={<AuthPage />} />
               <Route path="profile" element={<ProfilePage />} />
               <Route path="download" element={<DownloadPage />} />
+              <Route path="donate" element={<DonatePage />} />
             </Route>
           </Routes>
 
