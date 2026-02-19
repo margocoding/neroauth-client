@@ -10,6 +10,9 @@ const LanguageWrapper = () => {
   if (!locale || !languages.includes(locale)) {
     const detected = language?.split('-')[0] || "ru";
 
+    console.log(detected);
+
+
     const restPath = location.pathname.split("/").slice(1).join("/");
 
     return (
