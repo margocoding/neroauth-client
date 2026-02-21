@@ -277,7 +277,7 @@
     "code": "Code from email",
     "password": "Password",
     "forgot_password": {
-      "button": "Reset Password"
+      "button": "Forgot password?"
     }
   },
   "profile": {
@@ -305,7 +305,8 @@
         "delete": "Delete"
       },
       "success_delete": "Friend was successfully removed"
-    }
+    },
+    "logout": "Log out"
   },
   "errors": {
     "login": {
@@ -328,7 +329,7 @@
     "code": {
       "required": "Please enter the code",
       "invalid": "The code is incorrect",
-      "resend": "You can request a new code only once every 2 minutes",
+      "resend": "You can resend the code only after 2 minutes.",
       "expired": "The code has expired. Please request a new one"
     },
     "auth": {

@@ -49,6 +49,10 @@ export const authApi = {
     return data.user;
   },
 
+  async logout() {
+    localStorage.removeItem('token');
+  },
+
   async createCode(email) {
     const { data } = await baseApi.post("/auth/create-code", {
       email,

@@ -9,6 +9,16 @@ const NewsCard = ({ id, language, image, message }) => {
   const tagLabel = language === "en" ? "Spotlight" : "Главное";
 
   return (
+    <iframe
+      src={`https://t.me/neroteam_ru/${id}`}
+      className="w-full h-full rounded-b-lg transition-all duration-300"
+      title={`Telegram post ${id}`}
+      loading="lazy"
+      allowFullScreen
+      sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
+    />
+  );
+  return (
     <article
       className="
                 card neon-box group rounded-2xl flex flex-col relative
