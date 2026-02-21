@@ -1,14 +1,22 @@
-FROM node as builder
+FROM node:22 AS builder
+
 WORKDIR /app
-COPY package.json /app/package.json
-RUN yarn install
-COPY . /app
+
+COPY package.json yarn.lock ./
+RUN yarn install --frozen-lockfile
+
+COPY . .
 RUN yarn build
 
-FROM nginx:1.16.0-alpine
+FROM node:22-alpine
 
-COPY nginx/conf.d/default.conf /etc/nginx/conf.d/default.conf
-COPY --from=builder /app/build /usr/share/nginx/html
+WORKDIR /app
 
-EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
+COPY --from=builder /app/build ./public
+COPY package.json yarn.lock ./
+
+RUN yarn global add serve
+
+EXPOSE 3000
+
+CMD ["serve", "-s", "public", "-l", "3000"]
