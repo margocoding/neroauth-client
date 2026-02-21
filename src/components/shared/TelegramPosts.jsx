@@ -9,7 +9,7 @@ const TelegramPosts = ({ locale = "ru" }) => {
     const fetchPosts = async () => {
       try {
         setIsLoading(true);
-        const response = await fetch(`/api/posts/${locale}`);
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/posts/${locale}`);
         const data = await response.json();
 
         setIsLoading(false);

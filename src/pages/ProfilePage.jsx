@@ -8,6 +8,7 @@ import AnimatedArrow from "../components/ui/AnimatedArrow";
 import Button from "../components/ui/Button";
 import Input from "../components/ui/Input";
 import { exceptAxiosError } from "../utils/exceptAxiosError";
+import { authApi } from "../api/authApi";
 
 export default function ProfilePage() {
   const {
@@ -26,8 +27,8 @@ export default function ProfilePage() {
   const [invitations, setInvitations] = useState([]);
 
   useEffect(() => {
-    if (!loading && !user) navigate(`/${language}/auth`);
-  }, [loading, user?._id]);
+    if (!loading && !user?._id) navigate(`/${language}/auth`);
+  }, [loading, user?._id, language, navigate]);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -54,7 +55,7 @@ export default function ProfilePage() {
 
   useEffect(() => {
     const fetchFriends = async () => {
-      if (!user) return;
+      if (!user?._id) return;
       const data = await userApi.fetchFriends(user._id);
 
       setFriends(data);
@@ -73,7 +74,7 @@ export default function ProfilePage() {
     } finally {
       setFriendLoading(false);
     }
-  }, []);
+  }, [t]);
 
   const inviteFriend = useCallback(async () => {
     if (!code) return;
@@ -142,6 +143,11 @@ export default function ProfilePage() {
     [invitations, t],
   );
 
+  const handleLogout = useCallback(async () => {
+    await authApi.logout();
+    navigate('/');
+  }, [navigate])
+
   if (!user) return;
 
   return (
@@ -151,7 +157,6 @@ export default function ProfilePage() {
       </h2>
 
       <div className="flex flex-col gap-3">
-        <Input label={t("auth.emailInput")} value={user.email} disabled />
         <Input label={t("auth.login")} value={user.login} disabled />
         <Input
           label={t("profile.friend.invite_code.placeholder")}
@@ -169,7 +174,6 @@ export default function ProfilePage() {
             value={code}
             onChange={(e) => setCode(e.target.value)}
             placeholder={t("profile.friend.invite_code.placeholder")}
-            type="number"
           />
           <Button className={'w-full'} onClick={inviteFriend} disabled={!code}>
             {t("profile.friend.add")} <AnimatedArrow condition={code} />{" "}
@@ -257,6 +261,8 @@ export default function ProfilePage() {
           </div>
         </div>
       )}
+
+      <Button color="danger" onClick={handleLogout}>{t('profile.logout')}</Button>
     </div>
   );
 }

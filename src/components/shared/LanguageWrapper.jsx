@@ -1,11 +1,12 @@
 import { useTranslation } from "react-i18next";
 import { languages } from "../../i18n/i18n";
-import { Outlet, Navigate, useParams, useLocation } from "react-router-dom";
+import { Outlet, Navigate, useParams, useLocation, useSearchParams } from "react-router-dom";
 
 const LanguageWrapper = () => {
   const { locale } = useParams();
   const location = useLocation();
   const { i18n: {language, changeLanguage} } = useTranslation();
+  const [searchParams] = useSearchParams();
 
   if (!locale || !languages.includes(locale)) {
     const detected = language?.split('-')[0] || "ru";
@@ -17,7 +18,7 @@ const LanguageWrapper = () => {
 
     return (
       <Navigate
-        to={`/${detected}/${restPath}`}
+        to={`/${detected}/${restPath}?${searchParams.toString()}`}
         replace
       />
     );

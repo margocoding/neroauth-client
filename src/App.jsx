@@ -59,10 +59,6 @@ const App = () => {
     return p;
   };
 
-  const getLocalizedPath = (path) => {
-    const clean = normalizePath(path);
-    return clean === "/" ? `/${urlLocale}` : `/${urlLocale}${clean}`;
-  };
   const pathLocale = location.pathname.split("/")[1];
   const initialLocale = languages.includes(pathLocale)
     ? pathLocale
@@ -106,7 +102,7 @@ const App = () => {
           <header className="site-header glass backdrop-blur-md py-3 px-4 md:px-6 neon-box">
             <div className="container mx-auto max-w-6xl flex items-center justify-between gap-4">
               <Link
-                to={getLocalizedPath("/")}
+                to={"/"}
                 className="inline-flex items-center"
               >
                 <img
@@ -145,31 +141,31 @@ const App = () => {
               {/* Desktop Menu */}
               <nav className="hidden md:flex items-center gap-4 text-base">
                 <Link
-                  to={getLocalizedPath("/")}
+                  to={"/"}
                   className="link-underline hover-text-accent transition"
                 >
                   {t("nav.home")}
                 </Link>
                 <Link
-                  to={getLocalizedPath("/projects")}
+                  to={"/projects"}
                   className="link-underline hover-text-accent transition"
                 >
                   {t("nav.projects")}
                 </Link>
                 <Link
-                  to={getLocalizedPath("/help")}
+                  to={"/help"}
                   className="link-underline hover-text-accent transition"
                 >
                   {t("nav.help")}
                 </Link>
                 <Link
-                  to={getLocalizedPath("/news")}
+                  to={"/news"}
                   className="link-underline hover-text-accent transition"
                 >
                   {t("nav.news")}
                 </Link>
                 <Link
-                  to={getLocalizedPath("/donate")}
+                  to={"/donate"}
                   className="link-underline hover-text-accent transition"
                 >
                   {t("nav.donate")}
@@ -186,11 +182,11 @@ const App = () => {
                   </select>
                 </span>
                 {localStorage.getItem("token") ? (
-                  <Link to={getLocalizedPath("/profile")}>
+                  <Link to={"/profile"}>
                     <Button>{t("profile.title")}</Button>
                   </Link>
                 ) : (
-                  <Link to={getLocalizedPath("/auth")}>
+                  <Link to={"/auth"}>
                     <Button>{t("auth.authButton")}</Button>
                   </Link>
                 )}
@@ -203,28 +199,28 @@ const App = () => {
                 <div className="container mx-auto max-w-6xl">
                   <nav className="flex flex-col gap-2 p-3 glass rounded-lg">
                     <Link
-                      to={getLocalizedPath("/")}
+                      to={"/"}
                       className="btn-primary px-3 py-2 rounded-md text-sm w-full"
                       onClick={() => setMenuOpen(false)}
                     >
                       {t("nav.home")}
                     </Link>
                     <Link
-                      to={getLocalizedPath("/projects")}
+                      to={"/projects"}
                       className="btn-primary px-3 py-2 rounded-md text-sm w-full"
                       onClick={() => setMenuOpen(false)}
                     >
                       {t("nav.projects")}
                     </Link>
                     <Link
-                      to={getLocalizedPath("/help")}
+                      to={"/help"}
                       className="btn-primary px-3 py-2 rounded-md text-sm w-full"
                       onClick={() => setMenuOpen(false)}
                     >
                       {t("nav.help")}
                     </Link>
                     <Link
-                      to={getLocalizedPath("/news")}
+                      to={"/news"}
                       className="btn-primary px-3 py-2 rounded-md text-sm w-full"
                       onClick={() => setMenuOpen(false)}
                     >
@@ -233,17 +229,17 @@ const App = () => {
 
                     {localStorage.getItem("token") ? (
                       <Link
-                        to={getLocalizedPath("/profile")}
+                        to={"/profile"}
                         onClick={() => setMenuOpen(false)}
                       >
-                        <Button>{t("profile.title")}</Button>
+                        <Button className={'w-full'}>{t("profile.title")}</Button>
                       </Link>
                     ) : (
                       <Link
-                        to={getLocalizedPath("/auth")}
+                        to={"/auth"}
                         onClick={() => setMenuOpen(false)}
                       >
-                        <Button>{t("auth.authButton")}</Button>
+                        <Button className={'w-full'}>{t("auth.authButton")}</Button>
                       </Link>
                     )}
                   </nav>

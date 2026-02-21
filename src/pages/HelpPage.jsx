@@ -129,7 +129,7 @@ const HelpPage = () => {
                             return (<span key={index}>
                   {part}
                                     <a
-                                        // href={`https://t.me/${currentChannel}`}
+                                        href={`https://t.me/neroteam_ru`}
                                         className="text-orange-400 hover:text-orange-300 underline transition-colors"
                                         target="_blank"
                                         rel="noopener noreferrer"

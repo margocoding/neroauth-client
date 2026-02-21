@@ -58,15 +58,14 @@ const ProjectPage = () => {
             <div className="flex-1 min-w-0 flex flex-col">
               {/* Title and Description */}
               <div className="flex-shrink-0 flex flex-col items-center md:items-start">
-                <h1 className="text-2xl md:text-3xl font-bold mb-1 md:mb-2 neon-text text-center md:text-left -mt-2 md:mt-0">
+                <h1 className="text-2xl md:text-3xl font-bold mb-1 md:mb-2 neon-text md:text-left -mt-2 md:mt-0">
                   {t(project.title)}
                 </h1>
 
                 {/* Description */}
-                <div className="w-full flex justify-center md:justify-start">
+                <div className="w-full flex md:justify-start">
                   <p
-                    className="text-gray-300 mb-3 md:mb-4 leading-tight text-center -mt-2 md:-mt-1 text-sm sm:text-base md:text-lg overflow-hidden whitespace-pre-wrap project-description"
-                    style={{ textAlign: "center" }}
+                    className="text-gray-300 mb-3 md:mb-4 leading-tight -mt-2 md:-mt-1 text-sm sm:text-base md:text-lg overflow-hidden whitespace-pre-wrap"
                   >
                     {t(project.description)}
                   </p>
