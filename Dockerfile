@@ -1,9 +1,9 @@
 FROM node as builder
 WORKDIR /app
 COPY package.json /app/package.json
-RUN npm install --only=prod
+RUN yarn install
 COPY . /app
-RUN npm run build
+RUN yarn build
 
 FROM nginx:1.16.0-alpine
 
