@@ -1,15 +1,17 @@
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
-import {useEffect, useRef} from "react";
+import {useEffect, useRef, useState} from "react";
 
 const FALLBACK_IMAGE = "/nero_troops/splash.png";
 
-const NewsCard = ({ id, language, image, message }) => {
+const NewsCard = ({ id }) => {
   const containerRef = useRef(null);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
     if (!containerRef.current) return;
 
+    setIsLoaded(false);
     containerRef.current.innerHTML = "";
 
     const script = document.createElement("script");
@@ -20,11 +22,38 @@ const NewsCard = ({ id, language, image, message }) => {
     script.setAttribute("data-dark", "1");
 
     containerRef.current.appendChild(script);
+
+    const observer = new MutationObserver(() => {
+      const iframe = containerRef.current?.querySelector("iframe");
+      if (iframe) {
+        iframe.onload = () => {
+          setIsLoaded(true);
+        };
+        observer.disconnect();
+      }
+    });
+
+    observer.observe(containerRef.current, {
+      childList: true,
+      subtree: true,
+    });
+
+    return () => observer.disconnect();
   }, [id]);
 
   return (
-      <div className="h-[600px] p-1 rounded-xl overflow-y-auto">
-        <div ref={containerRef} className=" overflow-hidden" />
+      <div className="h-[600px] p-1 rounded-xl overflow-y-auto relative">
+
+        {!isLoaded && (
+            <div className="absolute inset-0 animate-pulse rounded-xl bg-gradient-to-br from-zinc-800 via-zinc-700 to-zinc-800" />
+        )}
+
+        <div
+            ref={containerRef}
+            className={`transition-opacity duration-500 ${
+                isLoaded ? "opacity-100" : "opacity-0"
+            }`}
+        />
       </div>
   );
 

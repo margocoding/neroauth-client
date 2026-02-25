@@ -41,7 +41,7 @@ const TelegramPosts = ({ locale = "ru" }) => {
 
   return (
     <div>
-      <div className="grid grid-cols-3">
+      <div className="grid lg:grid-cols-3 max-md:grid-cols-1 md:grid-cols-2">
         {currentPosts.map((post) => (
           <NewsCard
             key={post.id}
