@@ -7,6 +7,7 @@ const FALLBACK_IMAGE = "/nero_troops/splash.png";
 const NewsCard = ({ id }) => {
   const containerRef = useRef(null);
   const [isLoaded, setIsLoaded] = useState(false);
+  const {i18n: {language}} = useTranslation();
 
   useEffect(() => {
     if (!containerRef.current) return;
@@ -17,7 +18,7 @@ const NewsCard = ({ id }) => {
     const script = document.createElement("script");
     script.src = "https://telegram.org/js/telegram-widget.js?22";
     script.async = true;
-    script.setAttribute("data-telegram-post", `neroteam_ru/${id}`);
+    script.setAttribute("data-telegram-post", `neroteam_${language}/${id}`);
     script.setAttribute("data-width", "100%");
     script.setAttribute("data-dark", "1");
 
