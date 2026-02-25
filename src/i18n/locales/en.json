@@ -311,7 +311,8 @@
   "errors": {
     "login": {
       "required": "Please enter your username",
-      "string": "Username must be text"
+      "string": "Username must be text",
+      "length": "Login should not be longer than 15 symbols"
     },
     "email": {
       "required": "Please provide your email",

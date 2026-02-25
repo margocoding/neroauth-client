@@ -55,7 +55,7 @@ const ProjectPage = () => {
             </div>
 
             {/* Right: Project Info */}
-            <div className="flex-1 min-w-0 flex flex-col">
+            <div className="flex-1 max-md:items-center min-w-0 flex flex-col">
               {/* Title and Description */}
               <div className="flex-shrink-0 flex flex-col items-center md:items-start">
                 <h1 className="text-2xl md:text-3xl font-bold mb-1 md:mb-2 neon-text md:text-left -mt-2 md:mt-0">
