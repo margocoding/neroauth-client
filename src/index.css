@@ -1525,6 +1525,15 @@ html {
   }
 }
 
+.telegram-container iframe {
+  display: block;
+  margin: 0 !important;
+}
+
+.telegram-container > div {
+  margin-bottom: 0 !important;
+}
+
 /* Fix for mobile landscape orientation */
 @media (max-width: 768px) and (orientation: landscape) {
   .news-page-container {

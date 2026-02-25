@@ -130,6 +130,7 @@ const AuthPage = () => {
               <>
                 <Input
                   placeholder={t("auth.login")}
+                  maxLength={'15'}
                   autoFocus
                   {...register("login", { required: true })}
                 />
