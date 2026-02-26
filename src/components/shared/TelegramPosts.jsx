@@ -47,7 +47,6 @@ const TelegramPosts = ({ locale = "ru" }) => {
             key={post.id}
             id={post.id}
             date={post.date}
-            image={post.media.photo?.url}
             language={locale}
             message={post.message}
           />
