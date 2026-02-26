@@ -144,7 +144,7 @@ const DownloadPage = () => {
               <div className="mt-4 flex flex-col items-center gap-4">
                 <Link
                   to={`/${currentLocale || "ru"}/help`}
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3 sm:py-4 rounded-2xl font-extrabold text-white bg-linear-to-r from-orange-500/80 to-pink-500/80 hover:from-orange-500 hover:to-pink-500 transition-colors"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3 sm:py-4 rounded-2xl font-extrabold text-white bg-gradient-to-r from-orange-500 to-pink-500 hover:from-orange-600 hover:to-pink-600 shadow-lg shadow-orange-500/50 hover:shadow-orange-500/70 transition-all duration-300 ease-in-out"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
