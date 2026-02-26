@@ -24,9 +24,9 @@ const DownloadPage = () => {
     t,
     i18n: { language: currentLocale },
   } = useTranslation();
-  const params = useSearchParams();
+  const [searchParams] = useSearchParams();
 
-  const fileName = useMemo(() => params?.file, [params?.file]);
+  const fileName = useMemo(() => searchParams.get('file'), [searchParams.get('file')]);
   const [started, setStarted] = useState(false);
 
   useEffect(() => {
@@ -111,49 +111,6 @@ const DownloadPage = () => {
                       } animate-[progress_1.2s_ease_infinite]`}
                       style={{ width: started ? "100%" : "60%" }}
                     ></div>
-                  </div>
-                </div>
-              )}
-
-              {/* Список доступных файлов - показываем если не указан конкретный файл */}
-              {!fileName && (
-                <div className="mt-8">
-                  <h3 className="text-xl font-semibold mb-4 text-center">
-                    {t("download.availableFiles")}
-                  </h3>
-                  <div className="grid gap-4 md:grid-cols-2">
-                    <div className="neon-box glass border border-white/10 rounded-xl p-4 text-center">
-                      <div className="mb-3">
-                        <div className="w-12 h-12 mx-auto bg-orange-500/20 rounded-full flex items-center justify-center">
-                          <svg
-                            className="w-6 h-6 text-orange-400"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-                            />
-                          </svg>
-                        </div>
-                      </div>
-                      <h4 className="text-lg font-medium mb-2">
-                        NeroRaiders130.apk
-                      </h4>
-                      <p className="text-gray-400 text-sm mb-3">
-                        Nero Raiders - Android APK
-                      </p>
-                      <p className="text-xs text-gray-500 mb-3">51 MB</p>
-                      <Link
-                        to={`${process.env.REACT_APP_API_URL}/help/download?fileName=NeroRaiders130.apk`}
-                        className="btn-primary px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 neon-box w-full"
-                      >
-                        {t("download.download")}
-                      </Link>
-                    </div>
                   </div>
                 </div>
               )}

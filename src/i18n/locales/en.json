@@ -165,6 +165,18 @@
       },
       {
         "image": "/nr/en/screen5.png"
+      },
+      {
+        "image": "/nr/en/screen6.png"
+      },
+      {
+        "image": "/nr/en/screen7.png"
+      },
+      {
+        "image": "/nr/en/screen8.png"
+      },
+      {
+        "image": "/nr/en/screen9.png"
       }
     ]
   },
@@ -335,6 +347,12 @@
     },
     "auth": {
       "invalid": "Incorrect username or password"
+    },
+    "invitation": {
+      "self": "You can't send an invitation to yourself",
+      "user_not_found": "Code not found",
+      "already_friend": "You're already friends",
+      "already_invited": "You've already sent an invitation to this user"
     }
   },
   "donate": {
