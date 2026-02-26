@@ -1956,3 +1956,56 @@ html {
   }
 }
 
+@media (min-width: 769px) {
+  .telegram-post-card {
+    display: flex !important;
+    flex-direction: column !important;
+    overflow: hidden !important;
+  }
+
+  .telegram-post-card .post-content {
+    flex: 1 1 auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    overflow: hidden !important;
+    line-height: 0 !important;
+    font-size: 0 !important;
+    min-height: 400px !important;
+    max-height: 450px !important;
+  }
+
+  .telegram-post-card .post-content iframe {
+    flex: 1 1 auto !important;
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 100% !important;
+    max-height: 100% !important;
+    min-width: 100% !important;
+    max-width: 100% !important;
+    display: block !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+    line-height: 0 !important;
+    vertical-align: top !important;
+    position: relative !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+  }
+
+  .telegram-post-card .post-actions {
+    margin-top: -1px !important;
+    padding-top: 0.5rem !important;
+    padding-bottom: 0.5rem !important;
+  }
+}
+
+.telegram-post-card iframe {
+  object-fit: fill !important;
+  transform: none !important;
+  -webkit-transform: none !important;
+  backface-visibility: visible !important;
+  -webkit-backface-visibility: visible !important;
+}

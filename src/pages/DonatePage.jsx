@@ -18,7 +18,7 @@ const DonatePage = () => {
                 {t("donate.description")}
             </p>
 
-            <p className="text-2xl neon-text font-medium">{t('donate.service_title')}</p>
+            <p className="text-3xl neon-text font-bold">{t('donate.service_title')}</p>
             <p className="rotate-90">
                 
             <AnimatedArrow className={'h-16 w-16'} condition={true}/>
