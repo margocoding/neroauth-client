@@ -8,7 +8,8 @@
   src: url('../public/fonts/inter/Inter-Regular.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
-  font-display: swap; /* Важно: показывает текст сразу, не скрывая его */
+  font-display: swap;
+  /* Важно: показывает текст сразу, не скрывая его */
 }
 
 @font-face {
@@ -39,17 +40,13 @@
   --fg-0: #ffffff;
   --header-bg: rgba(0, 0, 0, 0.6);
   --footer-bg: rgba(0, 0, 0, 0.6);
-  --bg-gradient: radial-gradient(
-      1000px 800px at 10% 0%,
+  --bg-gradient: radial-gradient(1000px 800px at 10% 0%,
       rgba(255, 122, 0, 0.25) 0%,
       rgba(255, 176, 115, 0.15) 35%,
-      transparent 70%
-    ),
-    radial-gradient(
-      circle at 100% 100%,
+      transparent 70%),
+    radial-gradient(circle at 100% 100%,
       rgba(191, 110, 48, 0.15) 0%,
-      transparent 60%
-    ),
+      transparent 60%),
     linear-gradient(180deg, #0d0d0d, #121212);
 }
 
@@ -65,9 +62,11 @@ body {
 .site-footer {
   color: var(--fg-0);
 }
+
 .site-header {
   background-color: var(--header-bg);
 }
+
 .site-footer {
   background-color: var(--footer-bg);
 }
@@ -81,6 +80,7 @@ body {
   background-color: rgba(0, 0, 0, 0.6);
   color: #fff;
 }
+
 .footer-light {
   background-color: rgba(0, 0, 0, 0.6);
   color: #fff;
@@ -99,15 +99,14 @@ body {
 }
 
 .neon-image {
-  filter: drop-shadow(0 0 8px var(--color-primary))
-    drop-shadow(0 0 16px var(--color-primary-light))
-    drop-shadow(0 0 28px var(--color-primary-dark));
+  filter: drop-shadow(0 0 8px var(--color-primary)) drop-shadow(0 0 16px var(--color-primary-light)) drop-shadow(0 0 28px var(--color-primary-dark));
 }
 
 .bg-neroOrange {
   background-color: var(--color-primary);
   color: #fff;
 }
+
 .bg-neroOrange:hover {
   background-color: var(--color-primary-dark);
 }
@@ -126,6 +125,7 @@ body {
   flex-direction: column;
   height: 100%;
 }
+
 .card:hover {
   transform: translateY(-4px) scale(1.01);
   box-shadow: 0 20px 40px rgba(255, 122, 0, 0.1),
@@ -136,17 +136,16 @@ body {
 .text-gray-200 {
   color: #e5e7eb !important;
 }
+
 .text-gray-300 {
   color: #d1d5db !important;
 }
 
 .btn-primary {
-  background: linear-gradient(
-    135deg,
-    var(--color-primary) 0%,
-    #ff8c42 50%,
-    var(--color-primary) 100%
-  );
+  background: linear-gradient(135deg,
+      var(--color-primary) 0%,
+      #ff8c42 50%,
+      var(--color-primary) 100%);
   color: #fff;
   display: inline-flex;
   align-items: center;
@@ -170,12 +169,10 @@ body {
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.2),
-    transparent
-  );
+  background: linear-gradient(90deg,
+      transparent,
+      rgba(255, 255, 255, 0.2),
+      transparent);
   transition: left 0.5s;
 }
 
@@ -184,12 +181,10 @@ body {
 }
 
 .btn-primary:hover {
-  background: linear-gradient(
-    135deg,
-    var(--color-primary-dark) 0%,
-    #e65a00 50%,
-    var(--color-primary-dark) 100%
-  );
+  background: linear-gradient(135deg,
+      var(--color-primary-dark) 0%,
+      #e65a00 50%,
+      var(--color-primary-dark) 100%);
   transform: translateY(-2px) scale(1.05);
   box-shadow: 0 12px 32px rgba(255, 122, 0, 0.4),
     0 6px 16px rgba(255, 176, 115, 0.3), 0 0 0 0 rgba(255, 122, 0, 0.7);
@@ -243,9 +238,11 @@ body {
     backdrop-filter: none;
     background: rgba(255, 255, 255, 0.05);
   }
+
   .backdrop-blur-md {
     backdrop-filter: none !important;
   }
+
   .telegram-post-card .post-header,
   .telegram-post-card .post-actions {
     backdrop-filter: none;
@@ -259,6 +256,7 @@ body {
     box-shadow: 0 0 14px var(--color-primary),
       0 0 26px var(--color-primary-light), 0 0 40px rgba(166, 72, 0, 0.5) !important;
   }
+
   .card {
     box-shadow: 0 0 14px var(--color-primary),
       0 0 26px var(--color-primary-light), 0 0 40px rgba(166, 72, 0, 0.5) !important;
@@ -266,16 +264,19 @@ body {
     transition: transform 220ms ease, box-shadow 220ms ease,
       border-color 220ms ease, background-color 220ms ease !important;
   }
+
   .card:hover {
     /* Disable hover movement on touch to avoid artifacts and sticky :hover */
     transform: none !important;
     box-shadow: 0 0 14px var(--color-primary-light) !important;
   }
+
   .neon-text {
     text-shadow: 0 0 10px rgba(255, 176, 115, 0.95),
       0 0 22px rgba(255, 122, 0, 0.95), 0 0 46px rgba(166, 72, 0, 0.9),
       0 0 72px rgba(255, 176, 115, 0.6) !important;
   }
+
   /* Ensure images in cards don't trigger GPU layers */
   .card img {
     transform: none !important;
@@ -284,24 +285,26 @@ body {
     backface-visibility: visible !important;
     -webkit-backface-visibility: visible !important;
   }
+
   /* Soften overlay transitions */
   .card .transition-opacity,
   .card .transition-transform {
     transition-duration: 120ms !important;
   }
+
   /* Disable hover overlay and transforms specifically for project cards */
   .project-card .hover-overlay {
     opacity: 1 !important;
     transition: none !important;
-    background: linear-gradient(
-      180deg,
-      rgba(0, 0, 0, 0.12),
-      rgba(0, 0, 0, 0)
-    ) !important;
+    background: linear-gradient(180deg,
+        rgba(0, 0, 0, 0.12),
+        rgba(0, 0, 0, 0)) !important;
   }
+
   .project-card .project-image {
     transform: none !important;
   }
+
   .project-card {
     transform: none !important;
   }
@@ -316,25 +319,30 @@ body {
     -webkit-transform-style: flat;
     transform-style: flat;
   }
+
   /* Restore desktop neon text for project cards on mobile */
   .project-card .neon-text {
     text-shadow: 0 0 10px rgba(255, 176, 115, 0.95),
       0 0 22px rgba(255, 122, 0, 0.95), 0 0 46px rgba(166, 72, 0, 0.9),
       0 0 72px rgba(255, 176, 115, 0.6) !important;
   }
+
   /* Stronger specificity to override `.neon-box` mobile reset */
   .project-card.neon-box {
     box-shadow: 0 0 12px rgba(255, 122, 0, 0.26),
       0 0 30px rgba(255, 176, 115, 0.2) !important;
   }
+
   /* Overlay off on touch to avoid dark flash on tap */
   .project-card .hover-overlay {
     opacity: 0 !important;
     transition: none !important;
   }
+
   .project-card:active .hover-overlay {
     opacity: 0 !important;
   }
+
   /* Remove default tap highlight */
   .project-card,
   .project-card * {
@@ -376,6 +384,7 @@ body {
 .link-underline {
   position: relative;
 }
+
 .link-underline::after {
   content: "";
   position: absolute;
@@ -383,13 +392,12 @@ body {
   bottom: -6px;
   width: 0%;
   height: 2px;
-  background: linear-gradient(
-    90deg,
-    var(--color-primary),
-    var(--color-primary-light)
-  );
+  background: linear-gradient(90deg,
+      var(--color-primary),
+      var(--color-primary-light));
   transition: width 200ms ease;
 }
+
 .link-underline:hover::after {
   width: 100%;
 }
@@ -398,17 +406,17 @@ body {
   padding-top: 2rem;
   padding-bottom: 2rem;
 }
+
 .section-title {
   letter-spacing: 0.02em;
 }
+
 .divider {
   height: 2px;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    var(--color-primary),
-    transparent
-  );
+  background: linear-gradient(90deg,
+      transparent,
+      var(--color-primary),
+      transparent);
   opacity: 0.6;
 }
 
@@ -424,6 +432,7 @@ body {
   display: inline-flex;
   align-items: center;
 }
+
 .select {
   appearance: none;
   -moz-appearance: none;
@@ -438,6 +447,7 @@ body {
   height: 2.25rem;
   transition: all 200ms ease;
 }
+
 .select:focus {
   outline: 2px solid var(--color-primary-light);
   outline-offset: 2px;
@@ -493,6 +503,7 @@ html {
     opacity: 0;
     transform: translateY(30px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -510,9 +521,11 @@ html {
     transform: translateY(24px) scale(0.98);
     filter: blur(4px);
   }
+
   60% {
     opacity: 1;
   }
+
   to {
     opacity: 1;
     transform: translateY(0) scale(1);
@@ -530,6 +543,7 @@ html {
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
@@ -540,6 +554,7 @@ html {
     transform: scale(0.9);
     opacity: 0;
   }
+
   to {
     transform: scale(1);
     opacity: 1;
@@ -607,6 +622,7 @@ html {
 
 /* Improved mobile touch targets */
 @media (max-width: 768px) {
+
   /* Enhanced spacing for mobile thumbnails */
   .mobile-thumbnails {
     margin-top: 1.5rem;
@@ -628,20 +644,39 @@ html {
   .mobile-thumbnails button {
     flex: 1 !important;
     min-width: 0 !important;
-    height: 4rem !important; /* 64px - компактная высота для мобильных */
+    height: 4rem !important;
+    /* 64px - компактная высота для мобильных */
     flex-shrink: 0;
     position: relative;
   }
 
-  .mobile-thumbnails button > div {
+  .mobile-thumbnails button>div {
     border-radius: 0.5rem;
     position: relative;
+  }
+
+  @media (max-width: 768px) {
+    .mobile-thumbnails button {
+      height: 3rem !important;
+      /* 48px - компактнее */
+      /* или */
+      height: 2.5rem !important;
+      /* 40px - ещё меньше */
+    }
+  }
+
+  @media (min-width: 769px) {
+    .mobile-thumbnails button {
+      height: 4rem !important;
+      /* 64px - на десктопе */
+    }
   }
 
   /* Desktop adjustments */
   @media (min-width: 769px) {
     .mobile-thumbnails button {
-      height: 5rem !important; /* 80px - высота для десктопа */
+      height: 5rem !important;
+      /* 80px - высота для десктопа */
     }
   }
 
@@ -726,7 +761,8 @@ html {
   position: relative;
   width: 100%;
   height: 0;
-  padding-bottom: 75%; /* 4:3 aspect ratio */
+  padding-bottom: 75%;
+  /* 4:3 aspect ratio */
 }
 
 .iframe-aspect-container iframe {
@@ -741,7 +777,8 @@ html {
 /* Mobile optimizations for iframe */
 @media (max-width: 768px) {
   .iframe-aspect-container {
-    padding-bottom: 100%; /* 1:1 aspect ratio for mobile */
+    padding-bottom: 100%;
+    /* 1:1 aspect ratio for mobile */
   }
 
   .telegram-iframe-container {
@@ -773,7 +810,7 @@ html {
 }
 
 /* Ensure Telegram widgets are responsive */
-.telegram-widget-container > div {
+.telegram-widget-container>div {
   width: 100% !important;
   height: 100% !important;
   min-height: 300px !important;
@@ -873,7 +910,7 @@ html {
 
 /* Ensure widgets take full available width */
 .telegram-widget-container,
-.telegram-widget-container > div,
+.telegram-widget-container>div,
 .telegram-widget-container iframe {
   width: 100% !important;
   max-width: 100% !important;
@@ -890,7 +927,7 @@ html {
     line-height: 2rem;
   }
 
-  .telegram-widget-container > div {
+  .telegram-widget-container>div {
     min-height: 200px !important;
   }
 }
@@ -900,7 +937,7 @@ html {
     padding: 0 1rem;
   }
 
-  .telegram-widget-container > div {
+  .telegram-widget-container>div {
     min-height: 280px !important;
   }
 }
@@ -910,7 +947,7 @@ html {
     padding: 0 2rem;
   }
 
-  .telegram-widget-container > div {
+  .telegram-widget-container>div {
     min-height: 300px !important;
   }
 }
@@ -957,22 +994,18 @@ html {
 .telegram-post-card {
   @apply flex flex-col h-full rounded-2xl border border-orange-500/20 bg-[#0f1115] shadow-lg overflow-hidden;
   transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  background: linear-gradient(
-    135deg,
-    rgba(15, 17, 21, 0.95) 0%,
-    rgba(20, 22, 26, 0.95) 100%
-  );
+  background: linear-gradient(135deg,
+      rgba(15, 17, 21, 0.95) 0%,
+      rgba(20, 22, 26, 0.95) 100%);
   backdrop-filter: blur(10px);
 }
 
 .telegram-post-card:hover {
   @apply border-orange-500/40 shadow-2xl shadow-orange-500/30;
   transform: translateY(-8px);
-  background: linear-gradient(
-    135deg,
-    rgba(15, 17, 21, 1) 0%,
-    rgba(25, 27, 31, 1) 100%
-  );
+  background: linear-gradient(135deg,
+      rgba(15, 17, 21, 1) 0%,
+      rgba(25, 27, 31, 1) 100%);
 }
 
 .telegram-post-card .post-header {
@@ -983,11 +1016,9 @@ html {
 
 .telegram-post-card .post-content {
   @apply bg-gray-900/30;
-  background: linear-gradient(
-    135deg,
-    rgba(17, 24, 39, 0.3) 0%,
-    rgba(31, 41, 55, 0.2) 100%
-  );
+  background: linear-gradient(135deg,
+      rgba(17, 24, 39, 0.3) 0%,
+      rgba(31, 41, 55, 0.2) 100%);
   position: relative;
   overflow: hidden;
 }
@@ -999,12 +1030,10 @@ html {
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(
-    45deg,
-    transparent 30%,
-    rgba(255, 122, 0, 0.03) 50%,
-    transparent 70%
-  );
+  background: linear-gradient(45deg,
+      transparent 30%,
+      rgba(255, 122, 0, 0.03) 50%,
+      transparent 70%);
   pointer-events: none;
   z-index: 1;
 }
@@ -1025,6 +1054,7 @@ html {
 }
 
 @keyframes ping {
+
   75%,
   100% {
     transform: scale(2);
@@ -1145,6 +1175,7 @@ html {
     opacity: 0;
     transform: translateY(30px) scale(0.95);
   }
+
   to {
     opacity: 1;
     transform: translateY(0) scale(1);
@@ -1268,12 +1299,12 @@ html {
 }
 
 /* Fallback content styling */
-.telegram-post-card .post-content > div {
+.telegram-post-card .post-content>div {
   border-radius: 0.5rem;
   transition: all 0.3s ease;
 }
 
-.telegram-post-card .post-content > div:hover {
+.telegram-post-card .post-content>div:hover {
   /* zoom removed */
 }
 
@@ -1420,6 +1451,7 @@ html {
 
 /* Improved mobile spacing */
 @media (max-width: 640px) {
+
   .telegram-post-card .post-header,
   .telegram-post-card .post-actions {
     padding: 0.75rem;
@@ -1431,6 +1463,7 @@ html {
 }
 
 @media (min-width: 641px) and (max-width: 768px) {
+
   .telegram-post-card .post-header,
   .telegram-post-card .post-actions {
     padding: 1rem;
@@ -1477,6 +1510,7 @@ html {
 
 /* Additional mobile fixes for news page */
 @media (max-width: 640px) {
+
   /* Fix container overflow */
   .news-page-container {
     overflow-x: hidden;
@@ -1555,7 +1589,7 @@ html {
   margin: 0 !important;
 }
 
-.telegram-container > div {
+.telegram-container>div {
   margin-bottom: 0 !important;
 }
 
@@ -1604,7 +1638,7 @@ html {
     gap: 1rem;
   }
 
-  .grid.grid-cols-1 > * {
+  .grid.grid-cols-1>* {
     width: 100%;
     margin: 0;
   }
@@ -1612,6 +1646,7 @@ html {
 
 /* Enhanced mobile accessibility */
 @media (max-width: 768px) {
+
   .telegram-post-card button:focus,
   .telegram-post-card a:focus {
     outline: 3px solid rgba(255, 122, 0, 0.8);
@@ -1626,6 +1661,7 @@ html {
 
 /* Fix for mobile scroll issues */
 @media (max-width: 768px) {
+
   html,
   body {
     -webkit-overflow-scrolling: touch;
@@ -1639,6 +1675,7 @@ html {
 
 /* Fix for mobile text rendering */
 @media (max-width: 768px) {
+
   .news-title,
   .news-subtitle,
   .telegram-post-card * {
@@ -1696,19 +1733,19 @@ html {
   }
 
   /* Mobile menu items */
-  .nav-toggle + div nav a,
-  .nav-toggle + div nav select {
+  .nav-toggle+div nav a,
+  .nav-toggle+div nav select {
     font-size: 0.875rem;
     padding: 0.5rem 0.75rem;
     min-height: 2.5rem;
   }
 
   /* Mobile menu container */
-  .nav-toggle + div {
+  .nav-toggle+div {
     margin-top: 0.75rem;
   }
 
-  .nav-toggle + div .glass {
+  .nav-toggle+div .glass {
     padding: 0.75rem;
     gap: 0.5rem;
   }
@@ -1723,14 +1760,14 @@ html {
     height: 1.75rem;
   }
 
-  .nav-toggle + div nav a,
-  .nav-toggle + div nav select {
+  .nav-toggle+div nav a,
+  .nav-toggle+div nav select {
     font-size: 0.8125rem;
     padding: 0.375rem 0.625rem;
     min-height: 2.25rem;
   }
 
-  .nav-toggle + div .glass {
+  .nav-toggle+div .glass {
     padding: 0.625rem;
     gap: 0.375rem;
   }
@@ -1743,8 +1780,8 @@ html {
     outline-offset: 2px;
   }
 
-  .nav-toggle + div nav a:focus,
-  .nav-toggle + div nav select:focus {
+  .nav-toggle+div nav a:focus,
+  .nav-toggle+div nav select:focus {
     outline: 2px solid rgba(255, 122, 0, 0.8);
     outline-offset: 2px;
   }
@@ -1801,7 +1838,7 @@ html {
   }
 
   /* Кнопки в мобильном меню */
-  .nav-toggle + div .btn-primary {
+  .nav-toggle+div .btn-primary {
     width: 100% !important;
     min-width: 100% !important;
   }
@@ -1809,6 +1846,7 @@ html {
 
 /* Исправление размера описания проекта на мобильных устройствах */
 @media (max-width: 640px) {
+
   .prose.prose-invert p,
   .text-gray-300.break-words {
     font-size: 0.875rem !important;
@@ -1820,6 +1858,7 @@ html {
 }
 
 @media (max-width: 480px) {
+
   .prose.prose-invert p,
   .text-gray-300.break-words {
     font-size: 0.8125rem !important;
@@ -1895,12 +1934,10 @@ html {
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.1),
-    transparent
-  );
+  background: linear-gradient(90deg,
+      transparent,
+      rgba(255, 255, 255, 0.1),
+      transparent);
   transition: left 0.5s;
 }
 

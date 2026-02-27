@@ -54,7 +54,7 @@ const ScreenshotGallery = ({ screenshots }) => {
     }
     const hideDelay =
       typeof window !== "undefined" &&
-      ("ontouchstart" in window || (navigator && navigator.maxTouchPoints > 0))
+        ("ontouchstart" in window || (navigator && navigator.maxTouchPoints > 0))
         ? 4000
         : 3000;
     const timer = setTimeout(() => {
@@ -358,18 +358,17 @@ const ScreenshotGallery = ({ screenshots }) => {
                 key={index}
                 onClick={() => goToSlide(index)}
                 onTouchStart={handleTouchForControls}
-                className={`w-2 h-2 md:w-3 md:h-3 rounded-full transition-all duration-300 ${
-                  index === currentIndex
+                className={`w-2 h-2 md:w-3 md:h-3 rounded-full transition-all duration-300 ${index === currentIndex
                     ? "bg-orange-500 scale-125"
                     : "bg-white/50 hover:bg-white/75 hover:scale-110"
-                }`}
+                  }`}
                 aria-label={`Go to slide ${index + 1}`}
               />
             ))}
           </div>
         </div>
 
-        {/* Thumbnail Navigation - Stretched to match main screenshot width */}
+        {/* Thumbnail Navigation */}
         <div className="flex flex-row gap-2 md:gap-3 overflow-x-auto pb-4 md:pb-6 scrollbar-hide mt-8 md:mt-2 mobile-thumbnails w-full px-2 md:px-4">
           {screenshots.map((screenshot, index) => (
             <button
@@ -378,28 +377,18 @@ const ScreenshotGallery = ({ screenshots }) => {
               onTouchStart={handleTouchForControls}
               onFocus={(e) => e.currentTarget.blur()}
               tabIndex={-1}
-              className={`relative flex-shrink-0 flex-1 h-16 md:h-20 rounded-none transition-all duration-300 appearance-none outline-none focus:outline-none ring-0 focus:ring-0 focus:ring-offset-0 ${
-                index === currentIndex
+              // 🔥 Главное изменение: w-20 md:w-24 вместо flex-1, и h-12 md:h-16
+              className={`relative flex-shrink-0 w-20 md:w-24 h-12 md:h-16 rounded-none transition-all duration-300 appearance-none outline-none focus:outline-none ring-0 focus:ring-0 focus:ring-offset-0 ${index === currentIndex
                   ? "border-2 border-orange-500 shadow-lg shadow-orange-500/25"
                   : "opacity-70 hover:opacity-100 border border-orange-500/30"
-              }`}
+                }`}
               style={{ WebkitTapHighlightColor: "transparent" }}
             >
-              <div className="w-full h-full rounded-none overflow-hidden">
+              <div className="w-full h-full rounded-none overflow-hidden relative">
                 {imageErrors.has(index) ? (
                   <div className="w-full h-full bg-gray-800 flex items-center justify-center">
-                    <svg
-                      className="w-4 h-4 md:w-6 md:h-6 text-gray-500"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2 2v12a2 2 0 002 2z"
-                      />
+                    <svg className="w-4 h-4 md:w-6 md:h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                     </svg>
                   </div>
                 ) : (
@@ -407,8 +396,9 @@ const ScreenshotGallery = ({ screenshots }) => {
                     src={screenshot.image || screenshot}
                     alt={screenshot.title || "post"}
                     fill
-                    sizes="(max-width: 768px) 100vw, 96px"
-                    className="object-contain"
+                    sizes="(max-width: 768px) 80px, 96px"
+                    // 🔥 object-cover заставит картинку заполнить всю область превью
+                    className="object-cover"
                   />
                 )}
               </div>
@@ -430,11 +420,10 @@ const ScreenshotGallery = ({ screenshots }) => {
             <button
               onClick={closeFullscreen}
               onTouchStart={handleTouchForControls}
-              className={`absolute top-2 md:top-4 right-2 md:right-4 w-10 h-10 md:w-12 md:h-12 bg-black/60 hover:bg-black/80 text-white rounded-full flex items-center justify-center transition-all duration-300 backdrop-blur-sm z-20 gallery-button hover:scale-110 hover:shadow-lg transition-opacity duration-300 ${
-                showFullscreenControls
+              className={`absolute top-2 md:top-4 right-2 md:right-4 w-10 h-10 md:w-12 md:h-12 bg-black/60 hover:bg-black/80 text-white rounded-full flex items-center justify-center transition-all duration-300 backdrop-blur-sm z-20 gallery-button hover:scale-110 hover:shadow-lg transition-opacity duration-300 ${showFullscreenControls
                   ? "opacity-100"
                   : "opacity-0 pointer-events-none"
-              }`}
+                }`}
               aria-label="Close fullscreen"
             >
               <svg
@@ -498,11 +487,10 @@ const ScreenshotGallery = ({ screenshots }) => {
               <button
                 onClick={prevSlide}
                 onTouchStart={handleTouchForControls}
-                className={`absolute left-2 md:left-4 top-1/2 transform -translate-y-1/2 w-12 h-12 md:w-16 md:h-16 bg-black/60 hover:bg-black/80 text-white rounded-full flex items-center justify-center transition-all duration-300 backdrop-blur-sm z-20 gallery-button hover:scale-110 hover:shadow-lg transition-opacity duration-300 ${
-                  showFullscreenControls
+                className={`absolute left-2 md:left-4 top-1/2 transform -translate-y-1/2 w-12 h-12 md:w-16 md:h-16 bg-black/60 hover:bg-black/80 text-white rounded-full flex items-center justify-center transition-all duration-300 backdrop-blur-sm z-20 gallery-button hover:scale-110 hover:shadow-lg transition-opacity duration-300 ${showFullscreenControls
                     ? "opacity-100"
                     : "opacity-0 pointer-events-none"
-                }`}
+                  }`}
                 aria-label="Previous screenshot"
               >
                 <svg
@@ -523,11 +511,10 @@ const ScreenshotGallery = ({ screenshots }) => {
               <button
                 onClick={nextSlide}
                 onTouchStart={handleTouchForControls}
-                className={`absolute right-2 md:right-4 top-1/2 transform -translate-y-1/2 w-12 h-12 md:w-16 md:h-16 bg-black/60 hover:bg-black/80 text-white rounded-full flex items-center justify-center transition-all duration-300 backdrop-blur-sm z-20 gallery-button hover:scale-110 hover:shadow-lg transition-opacity duration-300 ${
-                  showFullscreenControls
+                className={`absolute right-2 md:right-4 top-1/2 transform -translate-y-1/2 w-12 h-12 md:w-16 md:h-16 bg-black/60 hover:bg-black/80 text-white rounded-full flex items-center justify-center transition-all duration-300 backdrop-blur-sm z-20 gallery-button hover:scale-110 hover:shadow-lg transition-opacity duration-300 ${showFullscreenControls
                     ? "opacity-100"
                     : "opacity-0 pointer-events-none"
-                }`}
+                  }`}
                 aria-label="Next screenshot"
               >
                 <svg

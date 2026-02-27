@@ -88,9 +88,8 @@ const ProjectPage = () => {
                 </a>
               ) : project.file ? (
                 <a
-                  href={`/${
-                    language || "ru"
-                  }/download?file=${encodeURIComponent(project.file)}`}
+                  href={`/${language || "ru"
+                    }/download?file=${encodeURIComponent(project.file)}`}
                   className="btn-primary px-8 py-4 md:px-12 md:py-3 rounded-lg text-lg md:text-lg font-bold transition-all duration-300 neon-box flex items-center justify-center group"
                 >
                   <span className="text-center">
@@ -110,16 +109,20 @@ const ProjectPage = () => {
         )}
 
         {project.logo && (
-          <div className="flex justify-center -mt-4 md:-mt-6">
-            <img
-              src={project.logo}
-              alt={project.title}
-              width={250}
-              height={250}
-              className="w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-72 lg:h-72 object-contain"
-              priority
-            />
-          </div>
+          <>
+            <div className="divider mx-auto w-64 h-2 rounded-full mt-4"></div>
+
+            <div className="flex justify-center -mt-4 md:-mt-6">
+              <img
+                src={project.logo}
+                alt={project.title}
+                width={250}
+                height={250}
+                className="w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-72 lg:h-72 object-contain"
+                priority
+              />
+            </div>
+          </>
         )}
 
         {/* Project Details */}

@@ -105,7 +105,7 @@
   "magnate": {
     "title": "Magnate Bot",
     "desc": "Game bot in the\neconomic strategy genre.",
-    "details": "Welcome to Magnate Bot — the ultimate economic game bot!\n\n— Build an empire: start with a small business and turn it into a huge company, earning millions!\n\n— Play games: roulette, crash, dream, dice, and more directly in the chat!\n\n— Develop a mining farm: mine cryptocurrency and upgrade equipment for steady income.\n\n— Complete tasks: daily missions, Magnate Pass, and company contracts with generous rewards.\n\n— Interact with players: trade, compete, and form alliances in a friendly community.\n\n— Become a legend: break records, lead leaderboards, and gain recognition as the top player!\n\n— Use promo code MAGNATE for a starter bonus and start your path to success!",
+    "details": "Welcome to Magnate Bot — the ultimate economic game bot!\n• Build an empire: start with a small business and turn it into a huge company, earning millions!\n• Play games: roulette, crash, dream, dice, and more directly in the chat!\n• Develop a mining farm: mine cryptocurrency and upgrade equipment for steady income.\n• Complete tasks: daily missions, Magnate Pass, and company contracts with generous rewards.\n• Interact with players: trade, compete, and form alliances in a friendly community.\n• Become a legend: break records, lead leaderboards, and gain recognition as the top player!\n• Use promo code MAGNATE for a starter bonus and start your path to success!",
     "screenshots": [
       {
         "image": "/magnate/ru/1.png"
@@ -130,19 +130,19 @@
     "details": "Raiders, assemble! A collection of mysterious islands with unimaginable treasures and unique creatures awaits you! Play completely free and dive into the thrilling world of an MMO RPG that blends strategy with real-time battles.\nNero Raiders is a unique strategy game where you collect legendary heroes and fight millions of players online in various battle modes. Crush enemies with brute force, magic spells, or powerful ranged attacks — the choice is yours!\nKey features:\n• Completely free game with no in-game purchases.\n• Use smart strategies to win PvE and PvP battles\n• Explore mysterious islands and tombs to uncover vast treasures\n• Turn your island from a humble settlement into an impregnable fortress\n• Control every move of your heroes to showcase combat skills and win epic wars\n• Build a massive army to achieve victory\n• Craft and upgrade equipment to conquer the world\n• Enhance heroes with special items, gear, and attributes\n• Use each hero's unique skills to defeat enemies\n• Destroy enemy settlements using various troop compositions and tactics\n• Immerse yourself in an engaging game world with many challenging stages\n• Defeat opponents in multiplayer modes",
     "screenshots": [
       {
-        "image": "/nr/en/screen1.png"
+        "image": "/nero_raiders/en/screen1.png"
       },
       {
-        "image": "/nr/en/screen2.png"
+        "image": "/nero_raiders/en/screen2.png"
       },
       {
-        "image": "/nr/en/screen3.png"
+        "image": "/nero_raiders/en/screen3.png"
       },
       {
-        "image": "/nr/en/screen4.png"
+        "image": "/nero_raiders/en/screen4.png"
       },
       {
-        "image": "/nr/en/screen5.png"
+        "image": "/nero_raiders/en/screen5.png"
       }
     ]
   },
@@ -152,31 +152,31 @@
     "details": "Raiders, assemble! A collection of mysterious islands full of countless treasures and unique creatures awaits you! Play completely free and immerse yourself in the exciting world of MMO RPG with dynamic strategy and real-time battles.\nNero Raiders is a unique combat strategy game where you collect legendary heroes and compete with millions of players online in various battle modes. Crush enemies with brute force, magic, or powerful ranged attacks — the choice is yours!\nMain features:\n• Completely free game with no in-game purchases.\n• Use smart strategy to win PvE and PvP battles\n• Explore mysterious islands and tombs to discover vast treasures\n• Transform your island from a humble settlement into an impregnable fortress\n• Manage every move of heroes to demonstrate combat skills and win epic wars\n• Build a massive army to achieve victory\n• Craft and upgrade equipment to conquer the world\n• Enhance heroes with special items, equipment, and attributes\n• Use each hero's unique skills to defeat enemies\n• Destroy enemy settlements using different troop compositions and strategies\n• Immerse yourself in an engaging game world with many challenging stages\n• Defeat opponents in multiplayer modes",
     "screenshots": [
       {
-        "image": "/nr/en/screen1.png"
+        "image": "/nero_raiders/en/screen1.png"
       },
       {
-        "image": "/nr/en/screen2.png"
+        "image": "/nero_raiders/en/screen2.png"
       },
       {
-        "image": "/nr/en/screen3.png"
+        "image": "/nero_raiders/en/screen3.png"
       },
       {
-        "image": "/nr/en/screen4.png"
+        "image": "/nero_raiders/en/screen4.png"
       },
       {
-        "image": "/nr/en/screen5.png"
+        "image": "/nero_raiders/en/screen5.png"
       },
       {
-        "image": "/nr/en/screen6.png"
+        "image": "/nero_raiders/en/screen6.png"
       },
       {
-        "image": "/nr/en/screen7.png"
+        "image": "/nero_raiders/en/screen7.png"
       },
       {
-        "image": "/nr/en/screen8.png"
+        "image": "/nero_raiders/en/screen8.png"
       },
       {
-        "image": "/nr/en/screen9.png"
+        "image": "/nero_raiders/en/screen9.png"
       }
     ]
   },
