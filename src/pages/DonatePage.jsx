@@ -7,7 +7,7 @@ const DonatePage = () => {
     const { t } = useTranslation();
 
 
-    const services = t('donate.services', {returnObjects: true})
+    const services = t('donate.services', { returnObjects: true })
 
     return <div className="space-y-10">
         <header className="text-center w-full gap-3 flex flex-col items-center">
@@ -20,8 +20,8 @@ const DonatePage = () => {
 
             <p className="text-3xl neon-text font-bold">{t('donate.service_title')}</p>
             <p className="rotate-90">
-                
-            <AnimatedArrow className={'h-16 w-16'} condition={true}/>
+
+                <AnimatedArrow className={'h-16 w-16'} condition={true} />
             </p>
         </header>
 
