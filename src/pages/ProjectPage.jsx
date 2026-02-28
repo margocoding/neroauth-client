@@ -110,7 +110,9 @@ const ProjectPage = () => {
 
         {project.logo && (
           <>
-            <div className="divider mx-auto w-64 h-2 rounded-full mt-4"></div>
+            <div className="flex items-center justify-center my-8 md:my-12">
+              <div className="w-full max-w-md h-px bg-gradient-to-r from-transparent via-orange-500 to-transparent animate-pulse"></div>
+            </div>
 
             <div className="flex justify-center -mt-4 md:-mt-6">
               <img
