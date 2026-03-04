@@ -318,6 +318,13 @@
       },
       "success_delete": "Friend was successfully removed"
     },
+    "avatar": {
+      "buttons": {
+        "change": "Change",
+        "delete": "Remove",
+        "add": "Add"
+      }
+    },
     "logout": "Log out"
   },
   "errors": {
@@ -366,5 +373,17 @@
         "icon": "cryptobot.png"
       }
     ]
+  },
+  "sessions": {
+    "title": "Connected devices",
+    "actions": {
+      "title": "Available actions",
+      "success_closed": "Session is successfully closed",
+      "success_closed_all": "All sessions are successfully closed",
+      "buttons": {
+        "close": "Close session",
+        "close_all": "Close all sessions"
+      }
+    }
   }
 }
