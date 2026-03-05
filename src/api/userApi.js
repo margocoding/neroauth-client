@@ -13,6 +13,22 @@ export const userApi = {
         return data;
     },
 
+    async changePassword(currentPassword, password) {
+        const {data} = await baseApi.put('/user/change-password', {
+            currentPassword,
+            password,
+            refreshToken: localStorage.getItem('refreshToken')
+        });
+
+        return data;
+    },
+
+    async updateUser(dto) {
+        const {data} = await baseApi.put('/user', dto);
+
+        return data;
+    },
+
     async fetchFriends(id) {
         const {data} = await baseApi.get(`/user/${id}/friends`);
 

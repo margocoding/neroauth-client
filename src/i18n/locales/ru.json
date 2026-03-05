@@ -294,6 +294,7 @@
   },
   "profile": {
     "title": "Профиль",
+    "succeed_update": "Профиль был успешно обновлен",
     "friend": {
       "list": "Список друзей",
       "delete": "Удалить",
@@ -318,11 +319,17 @@
       },
       "success_delete": "Друг был успешно удален"
     },
-    "avatar": {
+    "buttons": {
+      "update": "Изменить профиль"
+    },
+    "password": {
+      "title": "Пароль",
+      "old_password_input": "Старый пароль",
+      "new_password_input": "Новый пароль",
+      "success_change": "Пароль был успешно изменен. Все устройства, кроме вашего, были отключены от аккаунта.",
       "buttons": {
-        "change": "Изменить",
-        "delete": "Удалить",
-        "add": "Добавить"
+        "change": "Изменить пароль",
+        "cancel": "Отменить"
       }
     },
     "logout": "Выйти из аккаунта"
@@ -334,22 +341,22 @@
     "services": [
       {
         "id": 1,
-        "link": "https: //messenger.online.sberbank.ru/sl/BluYH8uEdFFvZFvWf",
+        "link": "https://messenger.online.sberbank.ru/sl/BluYH8uEdFFvZFvWf",
         "icon": "sberbank.svg"
       },
       {
         "id": 2,
-        "link": "https: //vk.com/app6471849_-207410409",
+        "link": "https://vk.com/app6471849_-207410409",
         "icon": "tanody.jpg"
       },
       {
         "id": 3,
-        "link": "https: //vk.com/app6887721_-207410409",
+        "link": "https://vk.com/app6887721_-207410409",
         "icon": "donate-cake.jpg"
       },
       {
         "id": 4,
-        "link": "https: //t.me/send?start=IVTmDvcdzJFt",
+        "link": "https://t.me/send?start=IVTmDvcdzJFt",
         "icon": "cryptobot.png"
       }
     ]
@@ -358,7 +365,9 @@
     "login": {
       "required": "Пожалуйста, введите логин",
       "string": "Логин должен быть текстом",
-      "length": "Логин не должен быть длиннее 15 символов"
+      "length": "Логин не должен быть длиннее 15 символов",
+      "already_changed": "Вы можете менять логин только раз в 24 часа.",
+      "already_exists": "Пользователь с этим логином уже существует. Попробуйте другой."
     },
     "email": {
       "required": "Пожалуйста, укажите email",
@@ -367,7 +376,8 @@
     "password": {
       "required": "Пожалуйста, введите пароль",
       "string": "Пароль должен быть текстом",
-      "weak": "Пароль слишком простой. Используйте минимум 8 символов, включая цифры, заглавные буквы и специальные символы"
+      "weak": "Пароль слишком простой. Используйте минимум 8 символов, включая цифры, заглавные буквы и специальные символы",
+      "same": "Новый пароль совпадает со старым. Пожалуйста, введите новый пароль"
     },
     "token": {
       "required": "Требуется токен",

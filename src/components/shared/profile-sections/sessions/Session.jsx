@@ -1,4 +1,4 @@
-import Button from "../ui/Button";
+import Button from "../../../ui/Button";
 import {useTranslation} from "react-i18next";
 
 const Session = ({deviceType, deviceName, os, browser, isCurrentSession, lastJoin, country, city, closeSession}) => {
