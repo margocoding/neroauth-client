@@ -1,10 +1,11 @@
 import {useCallback, useEffect, useState} from "react";
-import {authApi} from "../../api/authApi";
+import {authApi} from "../../../../api/authApi";
 import Session from "./Session";
 import {useTranslation} from "react-i18next";
-import {exceptAxiosError} from "../../utils/exceptAxiosError";
+import {exceptAxiosError} from "../../../../utils/exceptAxiosError";
 import {toast} from "react-toastify";
-import Button from "../ui/Button";
+import Button from "../../../ui/Button";
+import Password from "./Password";
 
 const Sessions = () => {
     const {t} = useTranslation();
@@ -21,13 +22,15 @@ const Sessions = () => {
         fetchSessions()
     }, []);
 
+    const clearSessions = useCallback((id) => setSessions(prev => prev.filter((session) => session._id !== id)), [])
+
     const handleCloseSession = useCallback(async (id) => {
         const {success} = await exceptAxiosError(() => authApi.closeSession(id));
         if (success) {
+            clearSessions()
             toast(t('sessions.actions.success_closed'), {type: 'success'})
-            setSessions(prev => prev.filter((session) => session._id !== id));
         }
-    }, [t]);
+    }, [t, clearSessions]);
 
     const handleCloseAllSessions = useCallback(async () => {
         const {success} = await exceptAxiosError(() => authApi.closeAllSessions());
@@ -54,6 +57,8 @@ const Sessions = () => {
             <Button color={'danger'} onClick={handleCloseAllSessions}
                     className={'w-full'}>{t('sessions.actions.buttons.close_all')}</Button>
         }
+
+        <Password clearSessions={clearSessions}/>
     </div>
 }
 

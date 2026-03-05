@@ -57,10 +57,10 @@ const App = () => {
         : language || "en";
     const [urlLocale, setUrlLocale] = useState(initialLocale);
 
-    const handleLocaleSwitch = (newLocale) => {
+    const handleLocaleSwitch = async (newLocale) => {
         if (newLocale === urlLocale) return;
         setUrlLocale(newLocale);
-        changeLanguage(newLocale);
+        await changeLanguage(newLocale);
 
         const basePath = normalizePath(location.pathname);
         const target =
@@ -109,18 +109,18 @@ const App = () => {
 
                             {/* Mobile Menu */}
                             <div className="flex items-center gap-2 md:hidden">
-                <span className="select-wrapper">
-                  <select
-                      aria-label={t("nav.language")}
-                      className="select text-sm"
-                      value={urlLocale}
-                      onChange={(e) => handleLocaleSwitch(e.target.value)}
-                  >
-                    <option value="ru">RU</option>
-                    <option value="en">EN</option>
-                  </select>
-                </span>
- 
+                                <span className="select-wrapper">
+                                  <select
+                                      aria-label={t("nav.language")}
+                                      className="select text-sm"
+                                      value={urlLocale}
+                                      onChange={(e) => handleLocaleSwitch(e.target.value)}
+                                  >
+                                    <option value="ru">RU</option>
+                                    <option value="en">EN</option>
+                                  </select>
+                                </span>
+
                                 <button
                                     className="nav-toggle inline-flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 rounded btn-primary text-sm p-0"
                                     onClick={() => setMenuOpen((v) => !v)}

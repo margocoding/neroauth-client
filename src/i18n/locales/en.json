@@ -325,6 +325,16 @@
         "add": "Add"
       }
     },
+    "password": {
+      "title": "Password",
+      "old_password_input": "Old password",
+      "new_password_input": "New password",
+      "success_change": "Password has successfully changed. All devices exclude your had disconnected from account.",
+      "buttons": {
+        "change": "Change password",
+        "cancel": "Cancel"
+      }
+    },
     "logout": "Log out"
   },
   "errors": {
@@ -340,7 +350,8 @@
     "password": {
       "required": "Please enter your password",
       "string": "Password must be text",
-      "weak": "Password is too weak. Use at least 8 characters, including numbers, uppercase letters, and special symbols"
+      "weak": "Password is too weak. Use at least 8 characters, including numbers, uppercase letters, and special symbols",
+      "same": "Old password matched new password. Please, enter new password"
     },
     "token": {
       "required": "Token is required",

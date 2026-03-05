@@ -1,10 +1,8 @@
-import {useTranslation} from "react-i18next";
 import React, {useCallback, useEffect, useState} from "react";
 import {userApi} from "../../api/userApi";
 import {exceptAxiosError} from "../../utils/exceptAxiosError";
 
 const Avatar = ({path, self = false}) => {
-    const {t} = useTranslation();
     const [avatarPath, setAvatarPath] = useState(null);
     const [file, setFile] = useState(null);
 
@@ -47,7 +45,7 @@ const Avatar = ({path, self = false}) => {
                             className={'absolute top-0 right-0 bg-red-400 w-7 h-7 rounded-full'}>
                         <img src={'/icons/cross.svg'} alt={'close'}/>
                     </button>
-                    }
+                }
             </>}
             <img
                 className="rounded-full h-32 w-full"

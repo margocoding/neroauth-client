@@ -9,9 +9,10 @@ import Button from "../components/ui/Button";
 import Input from "../components/ui/Input";
 import {exceptAxiosError} from "../utils/exceptAxiosError";
 import {authApi} from "../api/authApi";
-import Avatar from "../components/shared/Avatar";
-import Sessions from "../components/shared/Sessions";
+import Avatar from "../components/ui/Avatar";
+import Sessions from "../components/shared/profile-sections/sessions/Sessions";
 import {useVerifyAuth} from "../utils/hooks/verifyAuth";
+import MainInformation from "../components/shared/profile-sections/main-information/MainInformation";
 
 export default function ProfilePage() {
     useVerifyAuth();
@@ -165,17 +166,7 @@ export default function ProfilePage() {
                 {t("profile.title")}
             </h2>
 
-            <div className="flex w-full gap-3 items-center">
-                <Avatar path={user.avatar} self/>
-                <div className="flex flex-col gap-3 w-full">
-                    <Input label={t("auth.login")} value={user.login} disabled/>
-                    <Input
-                        label={t("profile.friend.invite_code.placeholder")}
-                        value={user.inviteCode}
-                        disabled
-                    />
-                </div>
-            </div>
+            <MainInformation avatar={user.avatar} inviteCode={user.inviteCode} login={user.login}/>
 
             <div className="space-y-5">
                 <h2 className="text-3xl font-semibold text-center">
@@ -201,14 +192,8 @@ export default function ProfilePage() {
                     <div className="grid grid-cols-3 max-md:grid-cols-2">
                         {friends.map((friend) => (
                             <div className="space-y-1">
-                                <div>
-                                    <img
-                                        src="/icons/user.svg"
-                                        width={100}
-                                        height={100}
-                                        alt="user"
-                                        className="w-full"
-                                    />
+                                <div className={'w-full flex justify-center'}>
+                                    <Avatar path={friend.avatar}/>
                                 </div>
                                 <div className="text-center text-xl font-semibold">
                                     {friend.login}
@@ -238,14 +223,9 @@ export default function ProfilePage() {
                     <div className="grid grid-cols-3 max-md:grid-cols-2">
                         {invitations.map((invitation) => (
                             <div className="space-y-3">
-                                <div>
-                                    <img
-                                        src="/icons/user.svg"
-                                        width={100}
-                                        height={100}
-                                        alt="user"
-                                        className="w-full"
-                                    />
+                                <div className={'w-full flex justify-center'}>
+                                    <Avatar path={invitation.from.avatar}/>
+
                                 </div>
                                 <div className="text-center text-xl font-semibold">
                                     {invitation.from.login}
@@ -275,6 +255,7 @@ export default function ProfilePage() {
             )}
 
             <Sessions/>
+
 
             <Button color="danger" onClick={handleLogout}>
                 {t("profile.logout")}
