@@ -110,7 +110,7 @@ const ProjectPage = () => {
 
         {project.logo && (
           <>
-            <div className="flex items-center justify-center my-8 md:my-12">
+            <div className="flex items-center justify-center my-3">
               <div className="w-full max-w-md h-px bg-gradient-to-r from-transparent via-orange-500 to-transparent animate-pulse"></div>
             </div>
 

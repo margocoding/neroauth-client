@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <body style="margin:0; padding:0; font-family: Arial, sans-serif; background-color:#111111; color:#fff;">
+    <table width="100%" cellpadding="0" cellspacing="0" bgcolor="#111111" style="padding:40px 0;">
+      <tr>
+        <td align="center">
+          <!-- Карточка -->
+          <table width="500" cellpadding="0" cellspacing="0" bgcolor="#222222" border="0" style="border-collapse:collapse;">
+            
+            <!-- Заголовок -->
+            <tr>
+              <td align="center" bgcolor="#ffa500" style="padding:30px; color:#111111; font-size:28px; font-weight:bold; font-family:Arial, sans-serif;">
+                {title}
+              </td>
+            </tr>
+
+            <!-- Описание -->
+            <tr>
+              <td style="padding:20px; text-align:center; font-family:Arial, sans-serif; font-size:16px; color:#ffffff;">
+                {description}
+              </td>
+            </tr>
+
+            <!-- Кодовый блок -->
+            <tr>
+              <td align="center" style="padding:15px;">
+                <table width="90%" cellpadding="10" cellspacing="0" bgcolor="#333333" border="0" style="border-collapse:collapse;">
+                  <tr>
+                    <td style="font-family:monospace; font-size:18px; color:#ffa500; text-align:center;">
+                      {code}
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+
+            <!-- Кнопка -->
+            <tr>
+              <td align="center" style="padding:20px;">
+                <table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">
+                  <tr>
+                    <td align="center" bgcolor="#ffa500" style="border-radius:5px;">
+                      <a href="{button_link}" style="display:inline-block; padding:12px 25px; font-family:Arial, sans-serif; font-weight:bold; color:#111111; text-decoration:none;">
+                        {button_text}
+                      </a>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+
+            <!-- Подвал -->
+            <tr>
+              <td style="padding:15px; text-align:center; font-size:12px; color:#888888; font-family:Arial, sans-serif;">
+                Если вы не хотите получать эти письма, вы можете <a href="{unsubscribe_link}" style="color:#ffa500; text-decoration:none;">отписаться</a>.
+              </td>
+            </tr>
+
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>
