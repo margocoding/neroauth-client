@@ -267,7 +267,7 @@ const ScreenshotGallery = ({ screenshots }) => {
                 alt={currentScreenshot.title || "post"}
                 fill
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
-                className={`object-contain transition-all duration-500 ease-in-out cursor-pointer
+                className={`object-contain transition-all w-full duration-500 ease-in-out cursor-pointer
                   ${!imagesLoaded ? "opacity-0" : "opacity-100"}`}
                 priority
                 onClick={openFullscreen}
@@ -367,15 +367,15 @@ const ScreenshotGallery = ({ screenshots }) => {
             ))}
           </div>
         </div>
+        
 
         {/* Thumbnail Navigation - ОДНА РАМКА */}
-        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-9 gap-1 md:gap-2 mt-8 md:mt-2 w-full px-2 md:px-4">
+        <div className="flex justify-center gap-1 md:gap-2 mt-8 md:mt-2 px-2 md:px-4">
           {screenshots.map((screenshot, index) => (
             <button
               key={index}
               onClick={() => goToSlide(index)}
-              // 🔥 Используем ТОЛЬКО ring для рамки
-              className={`relative aspect-video rounded transition-all duration-300 ${index === currentIndex
+              className={`relative aspect-video rounded transition-all w-[100px] duration-300 ${index === currentIndex
                   ? "ring-2 ring-orange-500 ring-offset-2 ring-offset-gray-900 shadow-lg shadow-orange-500/25 opacity-100"
                   : "opacity-70 hover:opacity-100"
                 }`}
@@ -393,12 +393,10 @@ const ScreenshotGallery = ({ screenshots }) => {
                     src={screenshot.image || screenshot}
                     alt={screenshot.title || "post"}
                     className="w-full h-full object-cover"
-                    loading="lazy"
                   />
                 )}
               </div>
 
-              {/* ❌ УБРАЛИ лишний div с border, который создавал вторую рамку */}
             </button>
           ))}
         </div>
