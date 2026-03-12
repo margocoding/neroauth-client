@@ -31,7 +31,7 @@ const Avatar = ({path, self = false}) => {
         handleChange();
     }, [file]);
 
-    return (<div className="max-w-32 space-y-3">
+        return (<div className="min-w-32 space-y-3">
         <div className={'relative'}>
             {self && <>
                 <input
@@ -48,8 +48,9 @@ const Avatar = ({path, self = false}) => {
                 }
             </>}
             <img
-                className="rounded-full h-32 w-full"
+                className="rounded-full h-32 aspect-square"
                 src={avatarPath || "/icons/user.svg"}
+                alt="avatar"
             />
 
 
