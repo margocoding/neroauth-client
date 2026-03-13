@@ -410,5 +410,11 @@
         "close_all": "Завершить все сессии"
       }
     }
+  },
+  "security": {
+    "title": "Security"
+  },
+  "friends": {
+    "title": "Друзья"
   }
 }
