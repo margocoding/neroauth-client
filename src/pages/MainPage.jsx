@@ -1,6 +1,41 @@
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
+const socials = [
+  {
+    id: 1,
+    href: "https://t.me/neroteam_ru",
+    icon: "telegram.svg",
+    language: "RU",
+  },
+  {
+    id: 2,
+    href: "https://t.me/neroteam_en",
+    icon: "telegram.svg",
+    language: "EN",
+  },
+  {
+    id: 3,
+    href: "https://youtube.com/@nero_team_official",
+    icon: "youtube.svg",
+  },
+  {
+    id: 4,
+    href: "https://vk.ru/neroteam_ru",
+    icon: "vk.svg",
+  },
+  {
+    id: 5,
+    href: "https://www.patreon.com/c/NeroTeam",
+    icon: "patreon.svg",
+  },
+  {
+    id: 6,
+    href: "https://boosty.to/neroteam",
+    icon: "boosty.svg",
+  },
+];
+
 const MainPage = () => {
   const {
     t,
@@ -21,7 +56,7 @@ const MainPage = () => {
           <div className="absolute top-1/2 left-1/4 w-24 h-24 bg-orange-300/6 rounded-full blur-2xl animate-pulse"></div>
         </div>
 
-        <div className="relative z-10">
+        <div className="relative">
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-4 sm:mb-6 neon-text animate-fadeUpSoft">
             {t("home.title")}
           </h1>
@@ -35,6 +70,23 @@ const MainPage = () => {
             >
               <span className="text-center">{t("home.cta")}</span>
             </Link>
+          </div>
+
+          <div className="flex gap-3 w-full justify-center mt-10">
+            {socials.map((social) => (
+              <Link to={social.href} className="relative p-1">
+                {social.language && (
+                  <span className="absolute top-0 right-0 bg-black text-white text-xs font-bold px-1.5 py-0.5 rounded-full transform translate-x-1/4 -translate-y-1/4">
+                    {social.language}
+                  </span>
+                )}
+                <img
+                  src={"/icons/social/" + social.icon}
+                  className="h-16 w-16"
+                  alt="social icon"
+                />
+              </Link>
+            ))}
           </div>
         </div>
       </section>

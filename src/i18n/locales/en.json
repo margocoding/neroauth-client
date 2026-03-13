@@ -295,6 +295,7 @@
   "profile": {
     "title": "Profile",
     "friend": {
+      "title": "Friends",
       "list": "Friends list",
       "delete": "Delete",
       "add": "Add",
@@ -318,6 +319,7 @@
       },
       "success_delete": "Friend was successfully removed"
     },
+    "buttons": { "open": "Open profile" },
     "avatar": {
       "buttons": {
         "change": "Change",
@@ -396,5 +398,11 @@
         "close_all": "Close all sessions"
       }
     }
+  },
+  "security": {
+    "title": "Security"
+  },
+  "friends": {
+    "title": "Friends"
   }
 }

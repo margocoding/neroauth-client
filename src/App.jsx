@@ -1,12 +1,24 @@
-import {lazy, useEffect, useState} from "react";
-import {useTranslation} from "react-i18next";
-import {Link, Navigate, Route, Routes, useLocation, useNavigate, useSearchParams} from "react-router-dom";
-import {ToastContainer} from "react-toastify";
+import { lazy, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
+import {
+  Link,
+  Navigate,
+  Route,
+  Routes,
+  useLocation,
+  useNavigate,
+  useSearchParams,
+} from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 import LanguageWrapper from "./components/shared/LanguageWrapper";
 import MobileOptimizer from "./components/shared/MobileOptimizer";
 import Button from "./components/ui/Button";
-import {languages} from "./i18n/i18n";
+import { languages } from "./i18n/i18n";
 import GameCross from "./components/ui/GameCross";
+import SecurityPage from "./pages/SecurityPage";
+import FriendsPage from "./pages/FriendsPage";
+import ProfileNavigationMenu from "./components/shared/ProfileNavigationMenu";
+import ProfileWrapper from "./components/shared/ProfileWrapper";
 
 const MainPage = lazy(() => import("./pages/MainPage"));
 const PostPage = lazy(() => import("./pages/PostPage"));
@@ -20,258 +32,248 @@ const DownloadPage = lazy(() => import("./pages/DownloadPage"));
 const DonatePage = lazy(() => import("./pages/DonatePage"));
 
 const App = () => {
-    const {
-        t,
-        i18n: {language, changeLanguage},
-    } = useTranslation();
-    const [menuOpen, setMenuOpen] = useState(false);
+  const {
+    t,
+    i18n: { language, changeLanguage },
+  } = useTranslation();
+  const [menuOpen, setMenuOpen] = useState(false);
 
-    const [searchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
 
-    const isGame = searchParams.get('isGame');
+  const isGame = searchParams.get("isGame");
 
-    const navigate = useNavigate();
-    const location = useLocation();
+  const navigate = useNavigate();
+  const location = useLocation();
 
-    const normalizePath = (input) => {
-        let p = input || "/";
-        if (!p.startsWith("/")) p = "/" + p;
-        while (
-            p === "/en" ||
-            p.startsWith("/en/") ||
-            p === "/ru" ||
-            p.startsWith("/ru/")
-            ) {
-            if (p === "/en" || p === "/ru") {
-                p = "/";
-                break;
-            }
-            p = p.startsWith("/en/") ? p.slice(3) : p.slice(3);
-        }
-        return p;
-    };
+  const normalizePath = (input) => {
+    let p = input || "/";
+    if (!p.startsWith("/")) p = "/" + p;
+    while (
+      p === "/en" ||
+      p.startsWith("/en/") ||
+      p === "/ru" ||
+      p.startsWith("/ru/")
+    ) {
+      if (p === "/en" || p === "/ru") {
+        p = "/";
+        break;
+      }
+      p = p.startsWith("/en/") ? p.slice(3) : p.slice(3);
+    }
+    return p;
+  };
 
-    const pathLocale = location.pathname.split("/")[1];
-    const initialLocale = languages.includes(pathLocale)
-        ? pathLocale
-        : language || "en";
-    const [urlLocale, setUrlLocale] = useState(initialLocale);
+  const pathLocale = location.pathname.split("/")[1];
+  const initialLocale = languages.includes(pathLocale)
+    ? pathLocale
+    : language || "en";
+  const [urlLocale, setUrlLocale] = useState(initialLocale);
 
-    const handleLocaleSwitch = async (newLocale) => {
-        if (newLocale === urlLocale) return;
-        setUrlLocale(newLocale);
-        await changeLanguage(newLocale);
+  const handleLocaleSwitch = async (newLocale) => {
+    if (newLocale === urlLocale) return;
+    setUrlLocale(newLocale);
+    await changeLanguage(newLocale);
 
-        const basePath = normalizePath(location.pathname);
-        const target =
-            basePath === "/" ? `/${newLocale}` : `/${newLocale}${basePath}`;
-        navigate(target, {replace: true});
-    };
+    const basePath = normalizePath(location.pathname);
+    const target =
+      basePath === "/" ? `/${newLocale}` : `/${newLocale}${basePath}`;
+    navigate(target, { replace: true });
+  };
 
-    // useEffect(() => {
-    //   const pathLocale = location.pathname.split("/")[1];
-    //   if (languages.includes(pathLocale) && pathLocale !== language) {
-    //     changeLanguage(pathLocale);
-    //   }
-    //   setUrlLocale(
-    //     languages.includes(pathLocale) ? pathLocale : language || "en",
-    //   );
-    // }, [location.pathname]);
+  // useEffect(() => {
+  //   const pathLocale = location.pathname.split("/")[1];
+  //   if (languages.includes(pathLocale) && pathLocale !== language) {
+  //     changeLanguage(pathLocale);
+  //   }
+  //   setUrlLocale(
+  //     languages.includes(pathLocale) ? pathLocale : language || "en",
+  //   );
+  // }, [location.pathname]);
 
-    useEffect(() => {
-        if (location.pathname === "/") {
-            navigate(`/${language}`);
-        }
-    }, [location.pathname, language, navigate]);
+  useEffect(() => {
+    if (location.pathname === "/") {
+      navigate(`/${language}`);
+    }
+  }, [location.pathname, language, navigate]);
 
-    return (
-        <div className="App">
-            <ToastContainer/>
-            <div className="min-h-screen flex flex-col">
-                <MobileOptimizer/>
+  return (
+    <div className="App">
+      <ToastContainer />
+      <div className="min-h-screen flex flex-col">
+        <MobileOptimizer />
 
-                {!isGame &&
-                    <header className="site-header glass backdrop-blur-md py-3 px-4 md:px-6 neon-box">
-                        <div className="container mx-auto max-w-6xl flex items-center justify-between gap-4">
-                            <Link
-                                to={"/"}
-                                className="inline-flex items-center"
-                            >
-                                <img
-                                    src="/NeroTeam.svg"
-                                    alt="Nero Team"
-                                    width={140}
-                                    height={36}
-                                    className="neon-image"
-                                    priority
-                                />
-                            </Link>
+        {!isGame && (
+          <header className="site-header z-10 glass backdrop-blur-md py-3 px-4 md:px-6 neon-box">
+            <div className="container mx-auto max-w-6xl flex items-center justify-between gap-4">
+              <Link to={"/"} className="inline-flex items-center">
+                <img
+                  src="/NeroTeam.svg"
+                  alt="Nero Team"
+                  width={140}
+                  height={36}
+                  className="neon-image"
+                  priority
+                />
+              </Link>
 
-                            {/* Mobile Menu */}
-                            <div className="flex items-center gap-2 md:hidden">
-                                <span className="select-wrapper">
-                                  <select
-                                      aria-label={t("nav.language")}
-                                      className="select text-sm"
-                                      value={urlLocale}
-                                      onChange={(e) => handleLocaleSwitch(e.target.value)}
-                                  >
-                                    <option value="ru">RU</option>
-                                    <option value="en">EN</option>
-                                  </select>
-                                </span>
-
-                                <button
-                                    className="nav-toggle inline-flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 rounded btn-primary text-sm p-0"
-                                    onClick={() => setMenuOpen((v) => !v)}
-                                    aria-label="Toggle menu"
-                                >
-                                    {menuOpen ? "✕" : "☰"}
-                                </button>
-                            </div>
-
-                            {/* Desktop Menu */}
-                            <nav className="hidden md:flex items-center gap-4 text-base">
-                                <Link
-                                    to={"/"}
-                                    className="link-underline hover-text-accent transition"
-                                >
-                                    {t("nav.home")}
-                                </Link>
-                                <Link
-                                    to={"/projects"}
-                                    className="link-underline hover-text-accent transition"
-                                >
-                                    {t("nav.projects")}
-                                </Link>
-                                <Link
-                                    to={"/help"}
-                                    className="link-underline hover-text-accent transition"
-                                >
-                                    {t("nav.help")}
-                                </Link>
-                                <Link
-                                    to={"/news"}
-                                    className="link-underline hover-text-accent transition"
-                                >
-                                    {t("nav.news")}
-                                </Link>
-                                <Link
-                                    to={"/donate"}
-                                    className="link-underline hover-text-accent transition"
-                                >
-                                    {t("nav.donate")}
-                                </Link>
-                                <span className="select-wrapper">
+              {/* Mobile Menu */}
+              <div className="flex items-center gap-2 md:hidden">
+                <span className="select-wrapper">
                   <select
-                      aria-label={t("nav.language")}
-                      className="select"
-                      value={urlLocale}
-                      onChange={(e) => handleLocaleSwitch(e.target.value)}
+                    aria-label={t("nav.language")}
+                    className="select text-sm"
+                    value={urlLocale}
+                    onChange={(e) => handleLocaleSwitch(e.target.value)}
                   >
                     <option value="ru">RU</option>
                     <option value="en">EN</option>
                   </select>
                 </span>
-                                {localStorage.getItem("refreshToken") ? (
-                                    <Link to={"/profile"}>
-                                        <Button>{t("profile.title")}</Button>
-                                    </Link>
-                                ) : (
-                                    <Link to={"/auth"}>
-                                        <Button>{t("auth.authButton")}</Button>
-                                    </Link>
-                                )}
-                            </nav>
-                        </div>
 
-                        {/* Mobile Menu */}
-                        {menuOpen && (
-                            <div className="md:hidden mt-3">
-                                <div className="container mx-auto max-w-6xl">
-                                    <nav className="flex flex-col gap-2 p-3 glass rounded-lg">
-                                        <Link
-                                            to={"/"}
-                                            className="btn-primary px-3 py-2 rounded-md text-sm w-full"
-                                            onClick={() => setMenuOpen(false)}
-                                        >
-                                            {t("nav.home")}
-                                        </Link>
-                                        <Link
-                                            to={"/projects"}
-                                            className="btn-primary px-3 py-2 rounded-md text-sm w-full"
-                                            onClick={() => setMenuOpen(false)}
-                                        >
-                                            {t("nav.projects")}
-                                        </Link>
-                                        <Link
-                                            to={"/help"}
-                                            className="btn-primary px-3 py-2 rounded-md text-sm w-full"
-                                            onClick={() => setMenuOpen(false)}
-                                        >
-                                            {t("nav.help")}
-                                        </Link>
-                                        <Link
-                                            to={"/news"}
-                                            className="btn-primary px-3 py-2 rounded-md text-sm w-full"
-                                            onClick={() => setMenuOpen(false)}
-                                        >
-                                            {t("nav.news")}
-                                        </Link>
+                <button
+                  className="nav-toggle inline-flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 rounded btn-primary text-sm p-0"
+                  onClick={() => setMenuOpen((v) => !v)}
+                  aria-label="Toggle menu"
+                >
+                  {menuOpen ? "✕" : "☰"}
+                </button>
+              </div>
 
-                                        {localStorage.getItem("refreshToken") ? (
-                                            <Link
-                                                to={"/profile"}
-                                                onClick={() => setMenuOpen(false)}
-                                            >
-                                                <Button className={'w-full'}>{t("profile.title")}</Button>
-                                            </Link>
-                                        ) : (
-                                            <Link
-                                                to={"/auth"}
-                                                onClick={() => setMenuOpen(false)}
-                                            >
-                                                <Button className={'w-full'}>{t("auth.authButton")}</Button>
-                                            </Link>
-                                        )}
-                                    </nav>
-                                </div>
-                            </div>
-                        )}
-                    </header>
-                }
+              {/* Desktop Menu */}
+              <nav className="hidden md:flex items-center z-10 gap-4 text-base">
+                <Link
+                  to={"/"}
+                  className="link-underline hover-text-accent transition"
+                >
+                  {t("nav.home")}
+                </Link>
+                <Link
+                  to={"/projects"}
+                  className="link-underline hover-text-accent transition"
+                >
+                  {t("nav.projects")}
+                </Link>
+                <Link
+                  to={"/help"}
+                  className="link-underline hover-text-accent transition"
+                >
+                  {t("nav.help")}
+                </Link>
+                <Link
+                  to={"/news"}
+                  className="link-underline hover-text-accent transition"
+                >
+                  {t("nav.news")}
+                </Link>
+                <Link
+                  to={"/donate"}
+                  className="link-underline hover-text-accent transition"
+                >
+                  {t("nav.donate")}
+                </Link>
+                <span className="select-wrapper">
+                  <select
+                    aria-label={t("nav.language")}
+                    className="select"
+                    value={urlLocale}
+                    onChange={(e) => handleLocaleSwitch(e.target.value)}
+                  >
+                    <option value="ru">RU</option>
+                    <option value="en">EN</option>
+                  </select>
+                </span>
 
-                {isGame && <GameCross/>}
-
-                <main className="grow container mx-auto max-w-6xl px-4 md:px-6 py-6 section">
-
-                    <Routes>
-                        <Route path="/:locale/*" element={<LanguageWrapper/>}>
-                            <Route index element={<MainPage/>}/>
-
-                            <Route path="news" element={<PostsPage/>}/>
-                            <Route path="news/:id" element={<PostPage/>}/>
-                            <Route path="projects" element={<ProjectsPage/>}/>
-                            <Route path="projects/:id" element={<ProjectPage/>}/>
-                            <Route path="help" element={<HelpPage/>}/>
-                            <Route path="auth" element={<AuthPage/>}/>
-                            <Route path="profile" element={<ProfilePage/>}/>
-                            <Route path="download" element={<DownloadPage/>}/>
-                            <Route path="donate" element={<DonatePage/>}/>
-                            <Route path="*" element={<Navigate to="/"/>}/>
-                        </Route>
-                    </Routes>
-
-                </main>
-
-                {!isGame &&
-                    <footer className="site-footer glass backdrop-blur-md text-center py-4 mt-8 neon-box">
-                        <p className="text-sm">© 2026 Nero Team. {t("footer.rights")}</p>
-                    </footer>
-                }
+                <ProfileNavigationMenu />
+              </nav>
             </div>
-        </div>
-    );
+
+            {/* Mobile Menu */}
+            {menuOpen && (
+              <div className="md:hidden mt-3">
+                <div className="container mx-auto max-w-6xl">
+                  <nav className="flex flex-col gap-2 p-3 glass rounded-lg">
+                    <Link
+                      to={"/"}
+                      className="btn-primary px-3 py-2 rounded-md text-sm w-full"
+                      onClick={() => setMenuOpen(false)}
+                    >
+                      {t("nav.home")}
+                    </Link>
+                    <Link
+                      to={"/projects"}
+                      className="btn-primary px-3 py-2 rounded-md text-sm w-full"
+                      onClick={() => setMenuOpen(false)}
+                    >
+                      {t("nav.projects")}
+                    </Link>
+                    <Link
+                      to={"/help"}
+                      className="btn-primary px-3 py-2 rounded-md text-sm w-full"
+                      onClick={() => setMenuOpen(false)}
+                    >
+                      {t("nav.help")}
+                    </Link>
+                    <Link
+                      to={"/news"}
+                      className="btn-primary px-3 py-2 rounded-md text-sm w-full"
+                      onClick={() => setMenuOpen(false)}
+                    >
+                      {t("nav.news")}
+                    </Link>
+
+                    {localStorage.getItem("refreshToken") ? (
+                      <Link to={"/profile"} onClick={() => setMenuOpen(false)}>
+                        <Button className={"w-full"}>
+                          {t("profile.title")}
+                        </Button>
+                      </Link>
+                    ) : (
+                      <Link to={"/auth"} onClick={() => setMenuOpen(false)}>
+                        <Button className={"w-full"}>
+                          {t("auth.authButton")}
+                        </Button>
+                      </Link>
+                    )}
+                  </nav>
+                </div>
+              </div>
+            )}
+          </header>
+        )}
+
+        {isGame && <GameCross />}
+
+        <main className="grow container mx-auto max-w-6xl px-4 md:px-6 py-6 section">
+          <Routes>
+            <Route path="/:locale/*" element={<LanguageWrapper />}>
+              <Route index element={<MainPage />} />
+              <Route path="profile/*" element={<ProfileWrapper />}>
+                <Route index element={<ProfilePage />} />
+                <Route path="security" element={<SecurityPage />} />
+                <Route path="friends" element={<FriendsPage />} />
+              </Route>
+
+              <Route path="news" element={<PostsPage />} />
+              <Route path="news/:id" element={<PostPage />} />
+              <Route path="projects" element={<ProjectsPage />} />
+              <Route path="projects/:id" element={<ProjectPage />} />
+              <Route path="help" element={<HelpPage />} />
+              <Route path="auth" element={<AuthPage />} />
+              <Route path="download" element={<DownloadPage />} />
+              <Route path="donate" element={<DonatePage />} />
+              <Route path="*" element={<Navigate to="/" />} />
+            </Route>
+          </Routes>
+        </main>
+
+        {!isGame && (
+          <footer className="site-footer glass backdrop-blur-md text-center py-4 mt-8 neon-box">
+            <p className="text-sm">© 2026 Nero Team. {t("footer.rights")}</p>
+          </footer>
+        )}
+      </div>
+    </div>
+  );
 };
 
 export default App;
