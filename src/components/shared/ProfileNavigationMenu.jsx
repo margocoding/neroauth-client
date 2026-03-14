@@ -64,9 +64,12 @@ const ProfileNavigationMenu = () => {
 
   return (
     <div className="relative" ref={ref}>
-      <button onClick={() => setOpened((prev) => !prev)}>
-        {" "}
-        <Avatar className={"h-12 w-12"} path={user.avatar} />{" "}
+      <button
+        onClick={() => setOpened((prev) => !prev)}
+        className="inline-flex items-center justify-center p-0 m-0 border-0 bg-transparent cursor-pointer focus:outline-none"
+        aria-label={t("profile.menu")}
+      >
+        <Avatar className="h-12 w-12" path={user.avatar} />
       </button>
       {opened && (
         <motion.div

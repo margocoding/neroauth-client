@@ -183,7 +183,7 @@ const App = () => {
                   </select>
                 </span>
 
-                <ProfileNavigationMenu />
+                <ProfileNavigationMenu/>
               </nav>
             </div>
 
