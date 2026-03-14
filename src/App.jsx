@@ -220,6 +220,13 @@ const App = () => {
                     >
                       {t("nav.news")}
                     </Link>
+                    <Link
+                      to={"/donate"}
+                      className="btn-primary px-3 py-2 rounded-md text-sm w-full"
+                      onClick={() => setMenuOpen(false)}
+                    >
+                      {t("nav.donate")}
+                    </Link>
 
                     {localStorage.getItem("refreshToken") ? (
                       <Link to={"/profile"} onClick={() => setMenuOpen(false)}>

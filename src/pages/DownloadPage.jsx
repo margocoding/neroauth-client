@@ -59,11 +59,6 @@ const DownloadPage = () => {
         </div>
 
         <div className="relative max-w-4xl mx-auto">
-          <div className="text-center mb-6">
-            <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold neon-text">
-              {t("download.title")}
-            </h1>
-          </div>
 
           {/* Основной блок — карточка */}
           <div className="neon-box rounded-2xl overflow-hidden">
