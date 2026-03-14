@@ -319,7 +319,10 @@
       },
       "success_delete": "Friend was successfully removed"
     },
-    "buttons": { "open": "Open profile" },
+    "buttons": {
+      "open": "Open profile",
+      "update": "Update profile"
+    },
     "avatar": {
       "buttons": {
         "change": "Change",

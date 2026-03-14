@@ -56,7 +56,7 @@ const Avatar = ({ path, self = false, className }) => {
           </>
         )}
         <img
-          className="rounded-full aspect-square border"
+          className="rounded-full aspect-square border-0"
           src={avatarPath || "/icons/user.svg"}
           alt="avatar"
         />
