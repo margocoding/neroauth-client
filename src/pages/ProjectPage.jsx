@@ -110,17 +110,19 @@ const ProjectPage = () => {
 
         {project.logo && (
           <>
+            {/* Разделитель */}
             <div className="flex items-center justify-center my-3">
               <div className="w-full max-w-md h-px bg-gradient-to-r from-transparent via-orange-500 to-transparent animate-pulse"></div>
             </div>
 
-            <div className="flex justify-center -mt-4 md:-mt-6">
+            {/* Логотип — без отрицательных отступов */}
+            <div className="flex justify-center mt-4">
               <img
                 src={project.logo}
                 alt={project.title}
+                className="w-48 sm:w-56 md:w-64 lg:w-72 h-auto object-contain relative z-10"
                 width={250}
-                height={250}
-                className="w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-72 lg:h-72 object-contain"
+                height={100}
                 priority
               />
             </div>

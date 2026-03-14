@@ -10,7 +10,7 @@
     "news": "News",
     "help": "Help",
     "language": "Language",
-    "donate": "Help us"
+    "donate": "Donations"
   },
   "page": {
     "home": {
@@ -376,7 +376,7 @@
     }
   },
   "donate": {
-    "title": "Help Us!",
+    "title": "Donations",
     "description": "By supporting us in any amount, you accelerate development and improve the quality of the product being delivered. Help us to be better.",
     "service_title": "Available ways to help us:",
     "services": [
