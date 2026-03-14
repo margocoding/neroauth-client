@@ -2,14 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
-
 @font-face {
   font-family: 'Inter';
   src: url('../public/fonts/inter/Inter-Regular.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
-  /* Важно: показывает текст сразу, не скрывая его */
 }
 
 @font-face {
@@ -115,6 +113,7 @@ body {
   background-color: rgba(26, 26, 26, 0.8);
 }
 
+/* ========== CARD STYLES ========== */
 .card {
   background: rgba(0, 0, 0, 0.35);
   border: 1px solid rgba(255, 122, 0, 0.18);
@@ -126,11 +125,23 @@ body {
   height: 100%;
 }
 
-.card:hover {
-  transform: translateY(-4px) scale(1.01);
-  box-shadow: 0 20px 40px rgba(255, 122, 0, 0.1),
-    0 0 14px var(--color-primary-light);
-  border-color: rgba(255, 176, 115, 0.35);
+/* Hover — только для устройств с курсором */
+@media (hover: hover) {
+  .card:hover {
+    transform: none !important;
+    box-shadow: 0 20px 40px rgba(255, 122, 0, 0.1),
+      0 0 14px var(--color-primary-light);
+    border-color: rgba(255, 176, 115, 0.35);
+  }
+}
+
+/* Active — для тач-устройств */
+@media (hover: none) {
+  .card:active {
+    transform: scale(0.98);
+    transition: transform 100ms ease;
+    border-color: rgba(255, 176, 115, 0.35);
+  }
 }
 
 .text-gray-200 {
@@ -141,6 +152,7 @@ body {
   color: #d1d5db !important;
 }
 
+/* ========== BTN-PRIMARY STYLES ========== */
 .btn-primary {
   background: linear-gradient(135deg,
       var(--color-primary) 0%,
@@ -176,24 +188,31 @@ body {
   transition: left 0.5s;
 }
 
-.btn-primary:hover::before {
-  left: 100%;
+/* Hover — только для устройств с курсором */
+@media (hover: hover) {
+  .btn-primary:hover::before {
+    left: 100%;
+  }
+
+  .btn-primary:hover {
+    background: linear-gradient(135deg,
+        var(--color-primary-dark) 0%,
+        #e65a00 50%,
+        var(--color-primary-dark) 100%);
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 12px 32px rgba(255, 122, 0, 0.4),
+      0 6px 16px rgba(255, 176, 115, 0.3), 0 0 0 0 rgba(255, 122, 0, 0.7);
+    filter: saturate(1.1);
+  }
 }
 
-.btn-primary:hover {
-  background: linear-gradient(135deg,
-      var(--color-primary-dark) 0%,
-      #e65a00 50%,
-      var(--color-primary-dark) 100%);
-  transform: translateY(-2px) scale(1.05);
-  box-shadow: 0 12px 32px rgba(255, 122, 0, 0.4),
-    0 6px 16px rgba(255, 176, 115, 0.3), 0 0 0 0 rgba(255, 122, 0, 0.7);
-  filter: saturate(1.1);
-}
-
-.btn-primary:active {
-  transform: translateY(0) scale(0.98);
-  box-shadow: 0 4px 14px rgba(255, 122, 0, 0.25);
+/* Active — для тач-устройств */
+@media (hover: none) {
+  .btn-primary:active {
+    transform: scale(0.97);
+    transition: transform 80ms ease;
+    box-shadow: 0 4px 14px rgba(255, 122, 0, 0.25);
+  }
 }
 
 .btn-primary:focus {
@@ -218,8 +237,16 @@ body {
   justify-content: center;
 }
 
-.btn-primary.w-full:hover {
-  transform: translateY(-1px) scale(1.02);
+@media (hover: hover) {
+  .btn-primary.w-full:hover {
+    transform: translateY(-1px) scale(1.02);
+  }
+}
+
+@media (hover: none) {
+  .btn-primary.w-full:active {
+    transform: scale(0.98);
+  }
 }
 
 .hover-text-accent:hover {
@@ -249,10 +276,9 @@ body {
   }
 }
 
-/* Mobile-safe rendering for project cards to avoid black squares */
+/* ========== MOBILE OPTIMIZATIONS ========== */
 @media (max-width: 768px) {
   .neon-box {
-    /* allow neon shadows on mobile */
     box-shadow: 0 0 14px var(--color-primary),
       0 0 26px var(--color-primary-light), 0 0 40px rgba(166, 72, 0, 0.5) !important;
   }
@@ -263,12 +289,6 @@ body {
     border-color: rgba(255, 176, 115, 0.35) !important;
     transition: transform 220ms ease, box-shadow 220ms ease,
       border-color 220ms ease, background-color 220ms ease !important;
-  }
-
-  .card:hover {
-    /* Disable hover movement on touch to avoid artifacts and sticky :hover */
-    transform: none !important;
-    box-shadow: 0 0 14px var(--color-primary-light) !important;
   }
 
   .neon-text {
@@ -290,23 +310,6 @@ body {
   .card .transition-opacity,
   .card .transition-transform {
     transition-duration: 120ms !important;
-  }
-
-  /* Disable hover overlay and transforms specifically for project cards */
-  .project-card .hover-overlay {
-    opacity: 1 !important;
-    transition: none !important;
-    background: linear-gradient(180deg,
-        rgba(0, 0, 0, 0.12),
-        rgba(0, 0, 0, 0)) !important;
-  }
-
-  .project-card .project-image {
-    transform: none !important;
-  }
-
-  .project-card {
-    transform: none !important;
   }
 
   /* Reintroduce subtle, mobile-safe glow for project cards */
@@ -333,27 +336,10 @@ body {
       0 0 30px rgba(255, 176, 115, 0.2) !important;
   }
 
-  /* Overlay off on touch to avoid dark flash on tap */
-  .project-card .hover-overlay {
-    opacity: 0 !important;
-    transition: none !important;
-  }
-
-  .project-card:active .hover-overlay {
-    opacity: 0 !important;
-  }
-
   /* Remove default tap highlight */
   .project-card,
   .project-card * {
     -webkit-tap-highlight-color: transparent;
-  }
-}
-
-/* Disable hover effects on devices without hover capability */
-@media (hover: none) {
-  .card:hover {
-    transform: none !important;
   }
 }
 
@@ -372,15 +358,7 @@ body {
   -webkit-backface-visibility: hidden !important;
 }
 
-/* Disable all hover effects for project cards to prevent title shifting */
-.project-card:hover {
-  transform: none !important;
-}
-
-.project-card:hover * {
-  transform: none !important;
-}
-
+/* ========== LINK-UNDERLINE STYLES ========== */
 .link-underline {
   position: relative;
 }
@@ -398,8 +376,11 @@ body {
   transition: width 200ms ease;
 }
 
-.link-underline:hover::after {
-  width: 100%;
+/* Hover — только для устройств с курсором */
+@media (hover: hover) {
+  .link-underline:hover::after {
+    width: 100%;
+  }
 }
 
 .section {
@@ -618,8 +599,6 @@ html {
   }
 }
 
-/* Line clamp for mobile descriptions */
-
 /* Improved mobile touch targets */
 @media (max-width: 768px) {
 
@@ -645,7 +624,6 @@ html {
     flex: 1 !important;
     min-width: 0 !important;
     height: 4rem !important;
-    /* 64px - компактная высота для мобильных */
     flex-shrink: 0;
     position: relative;
   }
@@ -654,41 +632,35 @@ html {
     border-radius: 0.5rem;
     position: relative;
   }
+}
 
-  @media (max-width: 768px) {
-    .mobile-thumbnails button {
-      height: 3rem !important;
-      /* 48px - компактнее */
-      /* или */
-      height: 2.5rem !important;
-      /* 40px - ещё меньше */
-    }
+@media (max-width: 768px) {
+  .mobile-thumbnails button {
+    height: 3rem !important;
   }
+}
 
-  @media (min-width: 769px) {
-    .mobile-thumbnails button {
-      height: 4rem !important;
-      /* 64px - на десктопе */
-    }
+@media (min-width: 769px) {
+  .mobile-thumbnails button {
+    height: 4rem !important;
   }
+}
 
-  /* Desktop adjustments */
-  @media (min-width: 769px) {
-    .mobile-thumbnails button {
-      height: 5rem !important;
-      /* 80px - высота для десктопа */
-    }
+/* Desktop adjustments */
+@media (min-width: 769px) {
+  .mobile-thumbnails button {
+    height: 5rem !important;
   }
+}
 
-  /* Enhanced button styles */
+/* Enhanced button styles */
+.btn-primary {
+  min-height: 3rem;
+}
+
+@media (min-width: 768px) {
   .btn-primary {
-    min-height: 3rem;
-  }
-
-  @media (min-width: 768px) {
-    .btn-primary {
-      min-height: 3.5rem;
-    }
+    min-height: 3.5rem;
   }
 }
 
@@ -743,9 +715,19 @@ html {
   transition: all 0.3s ease;
 }
 
-.telegram-iframe-container:hover {
-  border-color: rgba(255, 122, 0, 0.4);
-  box-shadow: 0 0 20px rgba(255, 122, 0, 0.1);
+@media (hover: hover) {
+  .telegram-iframe-container:hover {
+    border-color: rgba(255, 122, 0, 0.4);
+    box-shadow: 0 0 20px rgba(255, 122, 0, 0.1);
+  }
+}
+
+@media (hover: none) {
+  .telegram-iframe-container:active {
+    transform: scale(0.99);
+    transition: transform 100ms ease;
+    border-color: rgba(255, 122, 0, 0.3);
+  }
 }
 
 .telegram-iframe-container iframe {
@@ -799,9 +781,19 @@ html {
   min-height: 400px;
 }
 
-.telegram-widget-container:hover {
-  border-color: rgba(255, 122, 0, 0.4);
-  box-shadow: 0 0 20px rgba(255, 122, 0, 0.1);
+@media (hover: hover) {
+  .telegram-widget-container:hover {
+    border-color: rgba(255, 122, 0, 0.4);
+    box-shadow: 0 0 20px rgba(255, 122, 0, 0.1);
+  }
+}
+
+@media (hover: none) {
+  .telegram-widget-container:active {
+    transform: scale(0.99);
+    transition: transform 100ms ease;
+    border-color: rgba(255, 122, 0, 0.3);
+  }
 }
 
 /* Telegram widget loading state */
@@ -990,7 +982,7 @@ html {
   line-height: 1.5;
 }
 
-/* Enhanced Telegram Post Cards */
+/* ========== TELEGRAM-POST-CARD STYLES ========== */
 .telegram-post-card {
   @apply flex flex-col h-full rounded-2xl border border-orange-500/20 bg-[#0f1115] shadow-lg overflow-hidden;
   transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
@@ -1000,12 +992,25 @@ html {
   backdrop-filter: blur(10px);
 }
 
-.telegram-post-card:hover {
-  @apply border-orange-500/40 shadow-2xl shadow-orange-500/30;
-  transform: translateY(-8px);
-  background: linear-gradient(135deg,
-      rgba(15, 17, 21, 1) 0%,
-      rgba(25, 27, 31, 1) 100%);
+/* Hover — только для устройств с курсором */
+@media (hover: hover) {
+  .telegram-post-card:hover {
+    @apply border-orange-500/40 shadow-2xl shadow-orange-500/30;
+    transform: none !important;
+    /* Карточка не двигается */
+    background: linear-gradient(135deg,
+        rgba(15, 17, 21, 1) 0%,
+        rgba(25, 27, 31, 1) 100%);
+  }
+}
+
+/* Active — для тач-устройств */
+@media (hover: none) {
+  .telegram-post-card:active {
+    transform: scale(0.99);
+    transition: transform 100ms ease;
+    border-color: rgba(255, 122, 0, 0.3);
+  }
 }
 
 .telegram-post-card .post-header {
@@ -1063,10 +1068,22 @@ html {
 }
 
 /* Enhanced Button Hover Effects */
-.telegram-post-card button:hover,
-.telegram-post-card a:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+@media (hover: hover) {
+
+  .telegram-post-card button:hover,
+  .telegram-post-card a:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+  }
+}
+
+@media (hover: none) {
+
+  .telegram-post-card button:active,
+  .telegram-post-card a:active {
+    transform: scale(0.97);
+    transition: transform 80ms ease;
+  }
 }
 
 /* Enhanced Focus States for Accessibility */
@@ -1085,9 +1102,11 @@ html {
 }
 
 /* Enhanced Shadow Effects */
-.telegram-post-card:hover {
-  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4), 0 0 30px rgba(255, 122, 0, 0.2),
-    0 0 60px rgba(255, 122, 0, 0.1);
+@media (hover: hover) {
+  .telegram-post-card:hover {
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4), 0 0 30px rgba(255, 122, 0, 0.2),
+      0 0 60px rgba(255, 122, 0, 0.1);
+  }
 }
 
 /* Responsive adjustments for telegram cards */
@@ -1109,8 +1128,10 @@ html {
     min-height: 300px !important;
   }
 
-  .telegram-post-card:hover {
-    transform: translateY(-2px);
+  @media (hover: hover) {
+    .telegram-post-card:hover {
+      transform: translateY(-2px);
+    }
   }
 }
 
@@ -1132,8 +1153,10 @@ html {
     min-height: 350px !important;
   }
 
-  .telegram-post-card:hover {
-    transform: translateY(-4px);
+  @media (hover: hover) {
+    .telegram-post-card:hover {
+      transform: translateY(-4px);
+    }
   }
 }
 
@@ -1142,8 +1165,10 @@ html {
     min-height: 400px !important;
   }
 
-  .telegram-post-card:hover {
-    transform: translateY(-6px);
+  @media (hover: hover) {
+    .telegram-post-card:hover {
+      transform: translateY(-6px);
+    }
   }
 }
 
@@ -1152,8 +1177,10 @@ html {
     min-height: 450px !important;
   }
 
-  .telegram-post-card:hover {
-    transform: translateY(-8px);
+  @media (hover: hover) {
+    .telegram-post-card:hover {
+      transform: translateY(-8px);
+    }
   }
 }
 
@@ -1191,10 +1218,6 @@ html {
   min-height: 100% !important;
   max-height: 100% !important;
   object-fit: cover;
-}
-
-.telegram-post-card:hover iframe {
-  /* zoom removed */
 }
 
 /* Fix for mobile iframe issues */
@@ -1304,10 +1327,6 @@ html {
   transition: all 0.3s ease;
 }
 
-.telegram-post-card .post-content>div:hover {
-  /* zoom removed */
-}
-
 /* Error state improvements */
 .telegram-post-card .post-content .bg-red-500\/20 {
   background: rgba(239, 68, 68, 0.2);
@@ -1323,9 +1342,18 @@ html {
   transition: all 0.2s ease;
 }
 
-.telegram-post-card .post-content button:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+@media (hover: hover) {
+  .telegram-post-card .post-content button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+  }
+}
+
+@media (hover: none) {
+  .telegram-post-card .post-content button:active {
+    transform: scale(0.98);
+    transition: transform 80ms ease;
+  }
 }
 
 /* Better mobile grid layout */
@@ -1480,8 +1508,10 @@ html {
     animation-duration: 0.6s;
   }
 
-  .telegram-post-card:hover {
-    transform: translateY(-2px);
+  @media (hover: hover) {
+    .telegram-post-card:hover {
+      transform: translateY(-2px);
+    }
   }
 
   .news-title.animate-fadeInUp {
@@ -1570,8 +1600,10 @@ html {
     transform: translateZ(0);
   }
 
-  .telegram-post-card:hover {
-    will-change: auto;
+  @media (hover: hover) {
+    .telegram-post-card:hover {
+      will-change: auto;
+    }
   }
 
   /* Reduce animations on mobile for better performance */
@@ -1696,16 +1728,18 @@ html {
   }
 }
 
-/* Enhanced mobile touch feedback */
+/* ========== ENHANCED MOBILE TOUCH FEEDBACK ========== */
 @media (max-width: 768px) {
-  .telegram-post-card:active {
-    transform: scale(0.98);
-    transition: transform 0.1s ease;
-  }
+  @media (hover: none) {
+    .telegram-post-card:active {
+      transform: scale(0.98);
+      transition: transform 0.1s ease;
+    }
 
-  .btn-primary:active {
-    transform: scale(0.95);
-    transition: transform 0.1s ease;
+    .btn-primary:active {
+      transform: scale(0.95);
+      transition: transform 0.1s ease;
+    }
   }
 }
 
@@ -1724,12 +1758,17 @@ html {
     height: 2rem;
   }
 
-  .nav-toggle:hover {
-    /* zoom removed */
+  @media (hover: hover) {
+    .nav-toggle:hover {
+      /* hover effect for cursor devices */
+    }
   }
 
-  .nav-toggle:active {
-    /* zoom removed */
+  @media (hover: none) {
+    .nav-toggle:active {
+      transform: scale(0.95);
+      transition: transform 80ms ease;
+    }
   }
 
   /* Mobile menu items */
@@ -1905,6 +1944,7 @@ html {
   overflow: hidden !important;
 }
 
+/* ========== BTN-DISABLED STYLES ========== */
 /* Стили для кнопки "В разработке" с серым свечением */
 .btn-disabled {
   background: rgba(255, 255, 255, 0.05);
@@ -1941,6 +1981,7 @@ html {
   transition: left 0.5s;
 }
 
+/* No hover effects for disabled button */
 .btn-disabled:hover::before {
   left: -100%;
 }
