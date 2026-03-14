@@ -215,7 +215,7 @@
     "title": "Download",
     "started": "Download started",
     "starting": "Preparing download...",
-    "autoHint": "If the download does not start within a few seconds, use the 'Retry' button",
+    "autoHint": "If the download does not start within a few seconds, use the «Retry» button",
     "chooseFile": "Choose a file to download",
     "availableFiles": "Available files",
     "download": "Download",
