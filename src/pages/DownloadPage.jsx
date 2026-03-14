@@ -39,7 +39,7 @@ const DownloadPage = () => {
         link.click();
         document.body.removeChild(link);
         setStarted(true);
-      } catch {}
+      } catch { }
     }
   }, [fileName]);
 
@@ -59,12 +59,8 @@ const DownloadPage = () => {
         </div>
 
         <div className="relative max-w-4xl mx-auto">
-          <div className="text-center mb-6">
-            <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold neon-text">
-              {t("download.title")}
-            </h1>
-          </div>
 
+          {/* Основной блок — карточка */}
           <div className="neon-box rounded-2xl overflow-hidden">
             <div className="p-5 sm:p-8 md:p-5">
               <div className="text-center">
@@ -100,21 +96,20 @@ const DownloadPage = () => {
                 )}
               </div>
 
-              {/* Progress bar - показываем только при загрузке конкретного файла */}
+              {/* Progress bar */}
               {fileName && (
                 <div className="mt-4">
                   <div className="h-2 w-full bg-white/10 rounded-full overflow-hidden">
                     <div
-                      className={`h-full ${
-                        started ? "bg-green-500" : "bg-orange-500"
-                      } animate-[progress_1.2s_ease_infinite]`}
+                      className={`h-full ${started ? "bg-green-500" : "bg-orange-500"
+                        } animate-[progress_1.2s_ease_infinite]`}
                       style={{ width: started ? "100%" : "60%" }}
                     ></div>
                   </div>
                 </div>
               )}
 
-              {/* Кнопка перезапуска загрузки - показываем только при загрузке конкретного файла */}
+              {/* Кнопка перезапуска загрузки */}
               {fileName && (
                 <div className="mt-4 flex justify-center">
                   <a
@@ -139,37 +134,38 @@ const DownloadPage = () => {
                   </a>
                 </div>
               )}
-
-              <div className="mt-4 flex flex-col items-center gap-4">
-                <Link
-                  to={`/${currentLocale || "ru"}/help`}
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3 sm:py-4 rounded-2xl font-extrabold text-white bg-gradient-to-r from-orange-500 to-pink-500 hover:from-orange-600 hover:to-pink-600 shadow-lg shadow-orange-500/50 hover:shadow-orange-500/70 transition-all duration-300 ease-in-out"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="w-5 h-5"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M12 9v4m0 4h.01"
-                    />
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"
-                    />
-                  </svg>
-                  {t("download.help_short")}
-                </Link>
-              </div>
             </div>
           </div>
+
+          <div className="mt-6 flex justify-center">
+            <Link
+              to={`/${currentLocale || "ru"}/help`}
+              className="inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3 sm:py-4 rounded-2xl font-extrabold text-white bg-gradient-to-r from-orange-500 to-pink-500 hover:from-orange-600 hover:to-pink-600 shadow-lg shadow-orange-500/50 hover:shadow-orange-500/70 transition-all duration-300 ease-in-out"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="w-5 h-5"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M12 9v4m0 4h.01"
+                />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"
+                />
+              </svg>
+              {t("download.help_short")}
+            </Link>
+          </div>
+
         </div>
       </section>
     </>

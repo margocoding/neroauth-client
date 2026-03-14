@@ -50,6 +50,7 @@ const MainPage = () => {
         <meta name="keywords" content={t("page.home.keywords")} />
       </header>
       <section className="text-center py-12 sm:py-16 md:py-20 relative">
+        {/* Background accents */}
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute top-20 left-10 w-32 h-32 bg-orange-500/10 rounded-full blur-3xl animate-pulse"></div>
           <div className="absolute bottom-20 right-10 w-40 h-40 bg-orange-400/8 rounded-full blur-3xl animate-pulse"></div>
@@ -57,12 +58,17 @@ const MainPage = () => {
         </div>
 
         <div className="relative">
+          {/* Title */}
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-4 sm:mb-6 neon-text animate-fadeUpSoft">
             {t("home.title")}
           </h1>
+
+          {/* Subtitle */}
           <p className="text-base sm:text-lg max-w-2xl mx-auto mb-6 sm:mb-8 text-gray-200 leading-relaxed animate-fadeUpSoft">
             {t("home.subtitle")}
           </p>
+
+          {/* CTA Button */}
           <div className="animate-fadeUpSoft">
             <Link
               to={`/${language}/projects`}
@@ -72,21 +78,33 @@ const MainPage = () => {
             </Link>
           </div>
 
-          <div className="flex gap-3 w-full justify-center mt-10">
-            {socials.map((social) => (
-              <Link to={social.href} className="relative p-1">
-                {social.language && (
-                  <span className="absolute top-0 right-0 bg-black text-white text-xs font-bold px-1.5 py-0.5 rounded-full transform translate-x-1/4 -translate-y-1/4">
-                    {social.language}
-                  </span>
-                )}
-                <img
-                  src={"/icons/social/" + social.icon}
-                  className="h-16 w-16"
-                  alt="social icon"
-                />
-              </Link>
-            ))}
+          {/* Socials Group — исправлены отступы на мобильных */}
+          <div className="mt-10 flex justify-center">
+            <div className="socials-grid inline-flex flex-wrap items-center justify-center gap-1.5 sm:gap-2 px-1.5 sm:px-2 py-2 sm:py-2.5 rounded-2xl glass border border-orange-500/20 neon-box max-w-full">
+              {socials.map((social) => (
+                <Link
+                  key={social.id}
+                  to={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="relative group p-1.5 sm:p-2 rounded-xl transition-all duration-200 hover:bg-orange-500/10 active:bg-orange-500/20 min-w-[2.75rem] min-h-[2.75rem] sm:min-w-[3rem] sm:min-h-[3rem] flex items-center justify-center"
+                >
+                  {/* Language Badge */}
+                  {social.language && (
+                    <span className="absolute -top-1 -right-1 bg-orange-500 text-black text-[9px] sm:text-[10px] font-bold px-1 py-0.5 rounded-full border border-black/20 shadow-sm z-10 leading-tight">
+                      {social.language}
+                    </span>
+                  )}
+                  
+                  {/* Icon */}
+                  <img
+                    src={"/icons/social/" + social.icon}
+                    className="h-10 w-10 sm:h-11 sm:w-11 md:h-12 md:w-12 object-contain transition-transform duration-200 hover:scale-105 active:scale-95"
+                    alt={social.icon.replace(".svg", "")}
+                  />
+                </Link>
+              ))}
+            </div>
           </div>
         </div>
       </section>

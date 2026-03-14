@@ -257,7 +257,7 @@ const AuthPage = () => {
                         <button
                             type="button"
                             onClick={handleForgotPassword}
-                            className="w-full mt-5 text-left text-orange-400"
+                            className="w-full mt-1 text-left text-orange-400"
                         >
                             {t("auth.forgot_password.button")}
                         </button>

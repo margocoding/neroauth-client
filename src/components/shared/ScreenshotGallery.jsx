@@ -193,20 +193,21 @@ const ScreenshotGallery = ({ screenshots }) => {
     const handleKeyDown = (e) => {
       if (!isFullscreen) return;
 
-      switch (e.key) {
+      switch (e.code) {
         case "Escape":
           closeFullscreen();
           break;
+        case "KeyA":
         case "ArrowLeft":
           prevSlide();
           showControls(); // Показываем кнопки при навигации
           break;
+        case "KeyD":
         case "ArrowRight":
           nextSlide();
           showControls(); // Показываем кнопки при навигации
           break;
         default:
-          nextSlide();
           showControls(); // Показываем кнопки при навигации
           break;
       }
@@ -370,7 +371,7 @@ const ScreenshotGallery = ({ screenshots }) => {
         
 
         {/* Thumbnail Navigation - ОДНА РАМКА */}
-        <div className="flex justify-center gap-1 md:gap-2 mt-8 md:mt-2 px-2 md:px-4">
+        <div className="mobile-thumbnail flex justify-center gap-1 md:gap-2 mt-8 md:mt-2 px-2 md:px-4">
           {screenshots.map((screenshot, index) => (
             <button
               key={index}

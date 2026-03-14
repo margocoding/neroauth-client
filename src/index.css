@@ -2,14 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
-
 @font-face {
   font-family: 'Inter';
   src: url('../public/fonts/inter/Inter-Regular.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
-  /* Важно: показывает текст сразу, не скрывая его */
 }
 
 @font-face {
@@ -115,6 +113,7 @@ body {
   background-color: rgba(26, 26, 26, 0.8);
 }
 
+/* ========== CARD STYLES ========== */
 .card {
   background: rgba(0, 0, 0, 0.35);
   border: 1px solid rgba(255, 122, 0, 0.18);
@@ -126,11 +125,23 @@ body {
   height: 100%;
 }
 
-.card:hover {
-  transform: translateY(-4px) scale(1.01);
-  box-shadow: 0 20px 40px rgba(255, 122, 0, 0.1),
-    0 0 14px var(--color-primary-light);
-  border-color: rgba(255, 176, 115, 0.35);
+/* Hover — только для устройств с курсором */
+@media (hover: hover) {
+  .card:hover {
+    transform: none !important;
+    box-shadow: 0 20px 40px rgba(255, 122, 0, 0.1),
+      0 0 14px var(--color-primary-light);
+    border-color: rgba(255, 176, 115, 0.35);
+  }
+}
+
+/* Active — для тач-устройств */
+@media (hover: none) {
+  .card:active {
+    transform: scale(0.98);
+    transition: transform 100ms ease;
+    border-color: rgba(255, 176, 115, 0.35);
+  }
 }
 
 .text-gray-200 {
@@ -141,6 +152,7 @@ body {
   color: #d1d5db !important;
 }
 
+/* ========== BTN-PRIMARY STYLES ========== */
 .btn-primary {
   background: linear-gradient(135deg,
       var(--color-primary) 0%,
@@ -176,24 +188,31 @@ body {
   transition: left 0.5s;
 }
 
-.btn-primary:hover::before {
-  left: 100%;
+/* Hover — только для устройств с курсором */
+@media (hover: hover) {
+  .btn-primary:hover::before {
+    left: 100%;
+  }
+
+  .btn-primary:hover {
+    background: linear-gradient(135deg,
+        var(--color-primary-dark) 0%,
+        #e65a00 50%,
+        var(--color-primary-dark) 100%);
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 12px 32px rgba(255, 122, 0, 0.4),
+      0 6px 16px rgba(255, 176, 115, 0.3), 0 0 0 0 rgba(255, 122, 0, 0.7);
+    filter: saturate(1.1);
+  }
 }
 
-.btn-primary:hover {
-  background: linear-gradient(135deg,
-      var(--color-primary-dark) 0%,
-      #e65a00 50%,
-      var(--color-primary-dark) 100%);
-  transform: translateY(-2px) scale(1.05);
-  box-shadow: 0 12px 32px rgba(255, 122, 0, 0.4),
-    0 6px 16px rgba(255, 176, 115, 0.3), 0 0 0 0 rgba(255, 122, 0, 0.7);
-  filter: saturate(1.1);
-}
-
-.btn-primary:active {
-  transform: translateY(0) scale(0.98);
-  box-shadow: 0 4px 14px rgba(255, 122, 0, 0.25);
+/* Active — для тач-устройств */
+@media (hover: none) {
+  .btn-primary:active {
+    transform: scale(0.97);
+    transition: transform 80ms ease;
+    box-shadow: 0 4px 14px rgba(255, 122, 0, 0.25);
+  }
 }
 
 .btn-primary:focus {
@@ -218,8 +237,16 @@ body {
   justify-content: center;
 }
 
-.btn-primary.w-full:hover {
-  transform: translateY(-1px) scale(1.02);
+@media (hover: hover) {
+  .btn-primary.w-full:hover {
+    transform: translateY(-1px) scale(1.02);
+  }
+}
+
+@media (hover: none) {
+  .btn-primary.w-full:active {
+    transform: scale(0.98);
+  }
 }
 
 .hover-text-accent:hover {
@@ -249,10 +276,9 @@ body {
   }
 }
 
-/* Mobile-safe rendering for project cards to avoid black squares */
+/* ========== MOBILE OPTIMIZATIONS ========== */
 @media (max-width: 768px) {
   .neon-box {
-    /* allow neon shadows on mobile */
     box-shadow: 0 0 14px var(--color-primary),
       0 0 26px var(--color-primary-light), 0 0 40px rgba(166, 72, 0, 0.5) !important;
   }
@@ -263,12 +289,6 @@ body {
     border-color: rgba(255, 176, 115, 0.35) !important;
     transition: transform 220ms ease, box-shadow 220ms ease,
       border-color 220ms ease, background-color 220ms ease !important;
-  }
-
-  .card:hover {
-    /* Disable hover movement on touch to avoid artifacts and sticky :hover */
-    transform: none !important;
-    box-shadow: 0 0 14px var(--color-primary-light) !important;
   }
 
   .neon-text {
@@ -290,23 +310,6 @@ body {
   .card .transition-opacity,
   .card .transition-transform {
     transition-duration: 120ms !important;
-  }
-
-  /* Disable hover overlay and transforms specifically for project cards */
-  .project-card .hover-overlay {
-    opacity: 1 !important;
-    transition: none !important;
-    background: linear-gradient(180deg,
-        rgba(0, 0, 0, 0.12),
-        rgba(0, 0, 0, 0)) !important;
-  }
-
-  .project-card .project-image {
-    transform: none !important;
-  }
-
-  .project-card {
-    transform: none !important;
   }
 
   /* Reintroduce subtle, mobile-safe glow for project cards */
@@ -333,27 +336,10 @@ body {
       0 0 30px rgba(255, 176, 115, 0.2) !important;
   }
 
-  /* Overlay off on touch to avoid dark flash on tap */
-  .project-card .hover-overlay {
-    opacity: 0 !important;
-    transition: none !important;
-  }
-
-  .project-card:active .hover-overlay {
-    opacity: 0 !important;
-  }
-
   /* Remove default tap highlight */
   .project-card,
   .project-card * {
     -webkit-tap-highlight-color: transparent;
-  }
-}
-
-/* Disable hover effects on devices without hover capability */
-@media (hover: none) {
-  .card:hover {
-    transform: none !important;
   }
 }
 
@@ -372,15 +358,7 @@ body {
   -webkit-backface-visibility: hidden !important;
 }
 
-/* Disable all hover effects for project cards to prevent title shifting */
-.project-card:hover {
-  transform: none !important;
-}
-
-.project-card:hover * {
-  transform: none !important;
-}
-
+/* ========== LINK-UNDERLINE STYLES ========== */
 .link-underline {
   position: relative;
 }
@@ -398,8 +376,11 @@ body {
   transition: width 200ms ease;
 }
 
-.link-underline:hover::after {
-  width: 100%;
+/* Hover — только для устройств с курсором */
+@media (hover: hover) {
+  .link-underline:hover::after {
+    width: 100%;
+  }
 }
 
 .section {
@@ -618,77 +599,14 @@ html {
   }
 }
 
-/* Line clamp for mobile descriptions */
+/* Enhanced button styles */
+.btn-primary {
+  min-height: 3rem;
+}
 
-/* Improved mobile touch targets */
-@media (max-width: 768px) {
-
-  /* Enhanced spacing for mobile thumbnails */
-  .mobile-thumbnails {
-    margin-top: 1.5rem;
-  }
-
-  /* Full-width mobile thumbnails */
-  .mobile-thumbnails button {
-    min-width: 100%;
-  }
-
-  /* Responsive thumbnail sizing */
-  .mobile-thumbnails {
-    display: flex;
-    flex-direction: row;
-    gap: 0.5rem;
-    width: 100%;
-  }
-
-  .mobile-thumbnails button {
-    flex: 1 !important;
-    min-width: 0 !important;
-    height: 4rem !important;
-    /* 64px - компактная высота для мобильных */
-    flex-shrink: 0;
-    position: relative;
-  }
-
-  .mobile-thumbnails button>div {
-    border-radius: 0.5rem;
-    position: relative;
-  }
-
-  @media (max-width: 768px) {
-    .mobile-thumbnails button {
-      height: 3rem !important;
-      /* 48px - компактнее */
-      /* или */
-      height: 2.5rem !important;
-      /* 40px - ещё меньше */
-    }
-  }
-
-  @media (min-width: 769px) {
-    .mobile-thumbnails button {
-      height: 4rem !important;
-      /* 64px - на десктопе */
-    }
-  }
-
-  /* Desktop adjustments */
-  @media (min-width: 769px) {
-    .mobile-thumbnails button {
-      height: 5rem !important;
-      /* 80px - высота для десктопа */
-    }
-  }
-
-  /* Enhanced button styles */
+@media (min-width: 768px) {
   .btn-primary {
-    min-height: 3rem;
-  }
-
-  @media (min-width: 768px) {
-    .btn-primary {
-      min-height: 3.5rem;
-    }
+    min-height: 3.5rem;
   }
 }
 
@@ -713,25 +631,6 @@ html {
   opacity: 1;
 }
 
-/* Thumbnail navigation fixes */
-.mobile-thumbnails {
-  scroll-padding-left: 0.5rem;
-  scroll-padding-right: 0.5rem;
-}
-
-.mobile-thumbnails::-webkit-scrollbar {
-  display: none;
-}
-
-/* Ensure thumbnails are not cropped */
-.mobile-thumbnails button:first-child {
-  margin-left: 0;
-}
-
-.mobile-thumbnails button:last-child {
-  margin-right: 0;
-}
-
 /* Telegram iframe styles */
 .telegram-iframe-container {
   position: relative;
@@ -743,9 +642,19 @@ html {
   transition: all 0.3s ease;
 }
 
-.telegram-iframe-container:hover {
-  border-color: rgba(255, 122, 0, 0.4);
-  box-shadow: 0 0 20px rgba(255, 122, 0, 0.1);
+@media (hover: hover) {
+  .telegram-iframe-container:hover {
+    border-color: rgba(255, 122, 0, 0.4);
+    box-shadow: 0 0 20px rgba(255, 122, 0, 0.1);
+  }
+}
+
+@media (hover: none) {
+  .telegram-iframe-container:active {
+    transform: scale(0.99);
+    transition: transform 100ms ease;
+    border-color: rgba(255, 122, 0, 0.3);
+  }
 }
 
 .telegram-iframe-container iframe {
@@ -799,9 +708,19 @@ html {
   min-height: 400px;
 }
 
-.telegram-widget-container:hover {
-  border-color: rgba(255, 122, 0, 0.4);
-  box-shadow: 0 0 20px rgba(255, 122, 0, 0.1);
+@media (hover: hover) {
+  .telegram-widget-container:hover {
+    border-color: rgba(255, 122, 0, 0.4);
+    box-shadow: 0 0 20px rgba(255, 122, 0, 0.1);
+  }
+}
+
+@media (hover: none) {
+  .telegram-widget-container:active {
+    transform: scale(0.99);
+    transition: transform 100ms ease;
+    border-color: rgba(255, 122, 0, 0.3);
+  }
 }
 
 /* Telegram widget loading state */
@@ -990,7 +909,7 @@ html {
   line-height: 1.5;
 }
 
-/* Enhanced Telegram Post Cards */
+/* ========== TELEGRAM-POST-CARD STYLES ========== */
 .telegram-post-card {
   @apply flex flex-col h-full rounded-2xl border border-orange-500/20 bg-[#0f1115] shadow-lg overflow-hidden;
   transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
@@ -1000,12 +919,25 @@ html {
   backdrop-filter: blur(10px);
 }
 
-.telegram-post-card:hover {
-  @apply border-orange-500/40 shadow-2xl shadow-orange-500/30;
-  transform: translateY(-8px);
-  background: linear-gradient(135deg,
-      rgba(15, 17, 21, 1) 0%,
-      rgba(25, 27, 31, 1) 100%);
+/* Hover — только для устройств с курсором */
+@media (hover: hover) {
+  .telegram-post-card:hover {
+    @apply border-orange-500/40 shadow-2xl shadow-orange-500/30;
+    transform: none !important;
+    /* Карточка не двигается */
+    background: linear-gradient(135deg,
+        rgba(15, 17, 21, 1) 0%,
+        rgba(25, 27, 31, 1) 100%);
+  }
+}
+
+/* Active — для тач-устройств */
+@media (hover: none) {
+  .telegram-post-card:active {
+    transform: scale(0.99);
+    transition: transform 100ms ease;
+    border-color: rgba(255, 122, 0, 0.3);
+  }
 }
 
 .telegram-post-card .post-header {
@@ -1063,10 +995,22 @@ html {
 }
 
 /* Enhanced Button Hover Effects */
-.telegram-post-card button:hover,
-.telegram-post-card a:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+@media (hover: hover) {
+
+  .telegram-post-card button:hover,
+  .telegram-post-card a:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+  }
+}
+
+@media (hover: none) {
+
+  .telegram-post-card button:active,
+  .telegram-post-card a:active {
+    transform: scale(0.97);
+    transition: transform 80ms ease;
+  }
 }
 
 /* Enhanced Focus States for Accessibility */
@@ -1085,9 +1029,11 @@ html {
 }
 
 /* Enhanced Shadow Effects */
-.telegram-post-card:hover {
-  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4), 0 0 30px rgba(255, 122, 0, 0.2),
-    0 0 60px rgba(255, 122, 0, 0.1);
+@media (hover: hover) {
+  .telegram-post-card:hover {
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4), 0 0 30px rgba(255, 122, 0, 0.2),
+      0 0 60px rgba(255, 122, 0, 0.1);
+  }
 }
 
 /* Responsive adjustments for telegram cards */
@@ -1109,8 +1055,10 @@ html {
     min-height: 300px !important;
   }
 
-  .telegram-post-card:hover {
-    transform: translateY(-2px);
+  @media (hover: hover) {
+    .telegram-post-card:hover {
+      transform: translateY(-2px);
+    }
   }
 }
 
@@ -1132,8 +1080,10 @@ html {
     min-height: 350px !important;
   }
 
-  .telegram-post-card:hover {
-    transform: translateY(-4px);
+  @media (hover: hover) {
+    .telegram-post-card:hover {
+      transform: translateY(-4px);
+    }
   }
 }
 
@@ -1142,8 +1092,10 @@ html {
     min-height: 400px !important;
   }
 
-  .telegram-post-card:hover {
-    transform: translateY(-6px);
+  @media (hover: hover) {
+    .telegram-post-card:hover {
+      transform: translateY(-6px);
+    }
   }
 }
 
@@ -1152,8 +1104,10 @@ html {
     min-height: 450px !important;
   }
 
-  .telegram-post-card:hover {
-    transform: translateY(-8px);
+  @media (hover: hover) {
+    .telegram-post-card:hover {
+      transform: translateY(-8px);
+    }
   }
 }
 
@@ -1191,10 +1145,6 @@ html {
   min-height: 100% !important;
   max-height: 100% !important;
   object-fit: cover;
-}
-
-.telegram-post-card:hover iframe {
-  /* zoom removed */
 }
 
 /* Fix for mobile iframe issues */
@@ -1304,10 +1254,6 @@ html {
   transition: all 0.3s ease;
 }
 
-.telegram-post-card .post-content>div:hover {
-  /* zoom removed */
-}
-
 /* Error state improvements */
 .telegram-post-card .post-content .bg-red-500\/20 {
   background: rgba(239, 68, 68, 0.2);
@@ -1323,9 +1269,18 @@ html {
   transition: all 0.2s ease;
 }
 
-.telegram-post-card .post-content button:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+@media (hover: hover) {
+  .telegram-post-card .post-content button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+  }
+}
+
+@media (hover: none) {
+  .telegram-post-card .post-content button:active {
+    transform: scale(0.98);
+    transition: transform 80ms ease;
+  }
 }
 
 /* Better mobile grid layout */
@@ -1480,8 +1435,10 @@ html {
     animation-duration: 0.6s;
   }
 
-  .telegram-post-card:hover {
-    transform: translateY(-2px);
+  @media (hover: hover) {
+    .telegram-post-card:hover {
+      transform: translateY(-2px);
+    }
   }
 
   .news-title.animate-fadeInUp {
@@ -1570,8 +1527,10 @@ html {
     transform: translateZ(0);
   }
 
-  .telegram-post-card:hover {
-    will-change: auto;
+  @media (hover: hover) {
+    .telegram-post-card:hover {
+      will-change: auto;
+    }
   }
 
   /* Reduce animations on mobile for better performance */
@@ -1696,16 +1655,18 @@ html {
   }
 }
 
-/* Enhanced mobile touch feedback */
+/* ========== ENHANCED MOBILE TOUCH FEEDBACK ========== */
 @media (max-width: 768px) {
-  .telegram-post-card:active {
-    transform: scale(0.98);
-    transition: transform 0.1s ease;
-  }
+  @media (hover: none) {
+    .telegram-post-card:active {
+      transform: scale(0.98);
+      transition: transform 0.1s ease;
+    }
 
-  .btn-primary:active {
-    transform: scale(0.95);
-    transition: transform 0.1s ease;
+    .btn-primary:active {
+      transform: scale(0.95);
+      transition: transform 0.1s ease;
+    }
   }
 }
 
@@ -1724,12 +1685,17 @@ html {
     height: 2rem;
   }
 
-  .nav-toggle:hover {
-    /* zoom removed */
+  @media (hover: hover) {
+    .nav-toggle:hover {
+      /* hover effect for cursor devices */
+    }
   }
 
-  .nav-toggle:active {
-    /* zoom removed */
+  @media (hover: none) {
+    .nav-toggle:active {
+      transform: scale(0.95);
+      transition: transform 80ms ease;
+    }
   }
 
   /* Mobile menu items */
@@ -1905,6 +1871,7 @@ html {
   overflow: hidden !important;
 }
 
+/* ========== BTN-DISABLED STYLES ========== */
 /* Стили для кнопки "В разработке" с серым свечением */
 .btn-disabled {
   background: rgba(255, 255, 255, 0.05);
@@ -1941,6 +1908,7 @@ html {
   transition: left 0.5s;
 }
 
+/* No hover effects for disabled button */
 .btn-disabled:hover::before {
   left: -100%;
 }
@@ -2045,4 +2013,348 @@ html {
   -webkit-transform: none !important;
   backface-visibility: visible !important;
   -webkit-backface-visibility: visible !important;
+}
+
+@media (max-width: 640px) {
+  .socials-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 0.5rem !important;
+    padding: 0.75rem !important;
+    width: fit-content !important;
+    margin: 0 auto !important;
+  }
+  
+  .socials-grid a {
+    padding: 0.75rem !important;
+    min-width: 0 !important;
+    min-height: 0 !important;
+    justify-self: center !important;
+  }
+  
+  .socials-grid img {
+    height: 2.5rem !important;
+    width: 2.5rem !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .donate-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 0.75rem !important;
+    padding: 1rem !important;
+    border-radius: 1rem !important;
+    width: fit-content !important;
+    margin: 0 auto !important;
+  }
+  
+  .donate-grid a {
+    padding: 1rem !important;
+    border-radius: 0.75rem !important;
+    min-width: 0 !important;
+    min-height: 0 !important;
+    justify-self: center !important;
+  }
+  
+  .donate-grid img {
+    height: 3rem !important; 
+    width: 3rem !important;
+    border-radius: 0.5rem !important;
+  }
+}
+
+@media (min-width: 641px) {
+  .donate-grid {
+    display: inline-flex !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    gap: 1rem !important;
+    padding: 1.25rem !important;
+    border-radius: 1rem !important;
+  }
+  
+  .donate-grid a {
+    padding: 1rem !important;
+    border-radius: 0.75rem !important;
+  }
+  
+  .donate-grid img {
+    height: 3.5rem !important;  
+    width: 3.5rem !important;
+    border-radius: 0.5rem !important;
+  }
+}
+
+.mobile-thumbnail button {
+  border: 2px solid transparent;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Активная миниатюра — оранжевая рамка */
+.mobile-thumbnail button[class*="ring-orange"] {
+  border-color: #ff7a00 !important;
+  box-shadow: 0 0 12px rgba(255, 122, 0, 0.6),
+    0 0 24px rgba(255, 122, 0, 0.3) !important;
+}
+
+/* ========== FULLSCREEN GALLERY — КНОПКИ ВНЕ ИЗОБРАЖЕНИЯ ========== */
+
+/* Основной контейнер — на весь экран */
+.fullscreen-modal {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 0 !important;
+  position: fixed !important;
+  inset: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+}
+
+/* Контейнер изображения — с отступами для кнопок */
+.fullscreen-modal .relative.w-full.h-full {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  height: 100% !important;
+  padding: 4rem 1rem 1rem 1rem !important; /* Отступ сверху для кнопки закрытия */
+}
+
+/* Изображение — максимально большое */
+.fullscreen-modal img {
+  max-width: 100% !important;
+  max-height: 100% !important;
+  width: auto !important;
+  height: auto !important;
+  object-fit: contain !important;
+}
+
+/* ========== КНОПКИ — ФИКСИРОВАННЫЕ, С ОТСТУПАМИ ========== */
+
+/* Все кнопки галереи */
+.fullscreen-modal .gallery-button,
+.fullscreen-modal button[aria-label] {
+  background: rgba(0, 0, 0, 0.9) !important;
+  backdrop-filter: blur(4px) !important;
+  opacity: 1 !important;
+  border: 1px solid rgba(255, 122, 0, 0.4) !important;
+  pointer-events: auto !important;
+  position: fixed !important;
+  z-index: 60 !important;
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.1s ease !important;
+}
+
+/* Кнопка закрытия — правый верхний угол с отступом */
+.fullscreen-modal button[aria-label="Close fullscreen"] {
+  top: 1rem !important;
+  right: 1rem !important;
+  left: auto !important;
+  bottom: auto !important;
+  transform: none !important;
+}
+
+/* Кнопка назад — левый центр */
+.fullscreen-modal button[aria-label="Previous screenshot"] {
+  top: 50% !important;
+  left: 1rem !important;
+  right: auto !important;
+  bottom: auto !important;
+  transform: translateY(-50%) !important;
+}
+
+/* Кнопка вперёд — правый центр */
+.fullscreen-modal button[aria-label="Next screenshot"] {
+  top: 50% !important;
+  right: 1rem !important;
+  left: auto !important;
+  bottom: auto !important;
+  transform: translateY(-50%) !important;
+}
+
+/* ========== FULLSCREEN GALLERY — ИСПРАВЛЕНИЕ ПОЗИЦИИ НА МОБИЛЬНЫХ ========== */
+
+/* Основной контейнер — на весь экран, без отступов */
+.fullscreen-modal {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 0 !important;
+  position: fixed !important;
+  inset: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  max-width: 100vw !important;
+  max-height: 100vh !important;
+  overflow: hidden !important;
+}
+
+/* Контейнер изображения — центрирование без padding */
+.fullscreen-modal .relative.w-full.h-full {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  height: 100% !important;
+  padding: 0 !important; /* Убираем padding который смещает изображение */
+  margin: 0 !important;
+}
+
+/* Изображение — максимально большое, центрированное */
+.fullscreen-modal img {
+  max-width: 100% !important;
+  max-height: 100% !important;
+  width: auto !important;
+  height: auto !important;
+  object-fit: contain !important;
+  transform: none !important;
+  position: relative !important;
+  display: block !important;
+  margin: auto !important;
+}
+
+/* ========== КНОПКИ — ФИКСИРОВАННЫЕ ПОВЕРХ ИЗОБРАЖЕНИЯ ========== */
+
+/* Все кнопки галереи */
+.fullscreen-modal .gallery-button,
+.fullscreen-modal button[aria-label] {
+  background: rgba(0, 0, 0, 0.9) !important;
+  backdrop-filter: blur(4px) !important;
+  opacity: 1 !important;
+  border: 1px solid rgba(255, 122, 0, 0.4) !important;
+  pointer-events: auto !important;
+  position: fixed !important;
+  z-index: 60 !important;
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.1s ease !important;
+}
+
+/* Кнопка закрытия — правый верхний угол */
+.fullscreen-modal button[aria-label="Close fullscreen"] {
+  top: 0.75rem !important;
+  right: 0.75rem !important;
+  left: auto !important;
+  bottom: auto !important;
+  transform: none !important;
+}
+
+/* Кнопка назад — левый центр */
+.fullscreen-modal button[aria-label="Previous screenshot"] {
+  top: 50% !important;
+  left: 0.75rem !important;
+  right: auto !important;
+  bottom: auto !important;
+  transform: translateY(-50%) !important;
+}
+
+/* Кнопка вперёд — правый центр */
+.fullscreen-modal button[aria-label="Next screenshot"] {
+  top: 50% !important;
+  right: 0.75rem !important;
+  left: auto !important;
+  bottom: auto !important;
+  transform: translateY(-50%) !important;
+}
+
+/* ========== МОБИЛЬНЫЕ УСТРОЙСТВА ========== */
+@media (max-width: 640px) {
+  .fullscreen-modal {
+    padding: 0 !important;
+  }
+  
+  .fullscreen-modal .relative.w-full.h-full {
+    padding: 0 !important; /* Ключевое исправление — убираем смещение */
+    margin: 0 !important;
+  }
+  
+  /* Кнопки */
+  .fullscreen-modal .gallery-button,
+  .fullscreen-modal button[aria-label] {
+    width: 2.75rem !important;
+    height: 2.75rem !important;
+    min-width: 2.75rem !important;
+    min-height: 2.75rem !important;
+  }
+  
+  .fullscreen-modal .gallery-button svg,
+  .fullscreen-modal button[aria-label] svg {
+    width: 1.25rem !important;
+    height: 1.25rem !important;
+  }
+  
+  .fullscreen-modal button[aria-label="Close fullscreen"] {
+    top: 0.75rem !important;
+    right: 0.75rem !important;
+  }
+  
+  .fullscreen-modal button[aria-label="Previous screenshot"] {
+    left: 0.75rem !important;
+  }
+  
+  .fullscreen-modal button[aria-label="Next screenshot"] {
+    right: 0.75rem !important;
+  }
+}
+
+/* ========== ПЛАНШЕТ ========== */
+@media (min-width: 641px) and (max-width: 768px) {
+  .fullscreen-modal .gallery-button,
+  .fullscreen-modal button[aria-label] {
+    width: 3rem !important;
+    height: 3rem !important;
+  }
+  
+  .fullscreen-modal .gallery-button svg,
+  .fullscreen-modal button[aria-label] svg {
+    width: 1.5rem !important;
+    height: 1.5rem !important;
+  }
+  
+  .fullscreen-modal button[aria-label="Close fullscreen"] {
+    top: 1rem !important;
+    right: 1rem !important;
+  }
+  
+  .fullscreen-modal button[aria-label="Previous screenshot"] {
+    left: 1rem !important;
+  }
+  
+  .fullscreen-modal button[aria-label="Next screenshot"] {
+    right: 1rem !important;
+  }
+}
+
+/* ========== ПК ========== */
+@media (min-width: 769px) {
+  .fullscreen-modal .gallery-button,
+  .fullscreen-modal button[aria-label] {
+    width: 3.5rem !important;
+    height: 3.5rem !important;
+  }
+  
+  .fullscreen-modal .gallery-button svg,
+  .fullscreen-modal button[aria-label] svg {
+    width: 1.75rem !important;
+    height: 1.75rem !important;
+  }
+  
+  .fullscreen-modal button[aria-label="Close fullscreen"] {
+    top: 1.5rem !important;
+    right: 1.5rem !important;
+  }
+  
+  .fullscreen-modal button[aria-label="Previous screenshot"] {
+    left: 1.5rem !important;
+  }
+  
+  .fullscreen-modal button[aria-label="Next screenshot"] {
+    right: 1.5rem !important;
+  }
+}
+
+/* ========== КНОПКИ ВСЕГДА ВИДИМЫ ========== */
+.fullscreen-modal .opacity-0,
+.fullscreen-modal .pointer-events-none {
+  opacity: 1 !important;
+  pointer-events: auto !important;
 }
