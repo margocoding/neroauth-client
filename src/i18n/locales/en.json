@@ -382,6 +382,14 @@
     "title": "Donations",
     "description": "By supporting us in any amount, you accelerate development and improve the quality of the product being delivered. Help us to be better.",
     "service_title": "Available ways to help us:",
+    "regions": {
+      "russia": "Russia",
+      "world": "Worldwide"
+    },
+    "region_hint": {
+      "russia": "Bank and local services convenient for users from Russia.",
+      "world": "International support methods available from most countries worldwide."
+    },
     "services": [
       {
         "id": 1,
