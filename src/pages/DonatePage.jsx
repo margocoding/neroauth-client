@@ -138,7 +138,7 @@ const DonatePage = () => {
                   <div className="absolute inset-0 rounded-xl bg-orange-500/40 blur-lg opacity-0 group-hover:opacity-70 transition-opacity duration-200" />
                   <img
                     className="relative h-10 w-10 sm:h-12 sm:w-12 md:h-14 md:w-14 object-contain transition-transform duration-200 group-hover:scale-110 group-active:scale-95 drop-shadow-[0_0_18px_rgba(0,0,0,0.6)] rounded-xl"
-                    src={`/icons/${service.icon}`}
+                    src={`/icons/donate/${service.icon}`}
                     alt={service.label || service.icon}
                   />
                 </div>

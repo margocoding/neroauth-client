@@ -22,7 +22,7 @@ const socials = [
   {
     id: 4,
     href: "https://vk.ru/neroteam_ru",
-    icon: "vk.svg",
+    icon: "vkontakte.svg",
   },
   {
     id: 5,
