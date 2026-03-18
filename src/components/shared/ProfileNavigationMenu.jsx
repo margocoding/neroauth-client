@@ -1,36 +1,23 @@
+import { motion } from "framer-motion";
 import { useCallback, useEffect, useRef, useState } from "react";
-import Avatar from "../ui/Avatar";
 import { useTranslation } from "react-i18next";
-import { userApi } from "../../api/userApi";
-import AnimatedArrow from "../ui/AnimatedArrow";
-import Button from "../ui/Button";
 import { Link, useNavigate } from "react-router-dom";
 import { authApi } from "../../api/authApi";
-import { motion } from "framer-motion";
+import { useUser } from "../../store/user";
+import Avatar from "../ui/Avatar";
+import Button from "../ui/Button";
+import Spinner from "../ui/Spinner";
 
 const ProfileNavigationMenu = () => {
   const { t } = useTranslation();
 
   const navigate = useNavigate();
 
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const { user, setUser, isLoading } = useUser();
+
   const [opened, setOpened] = useState(false);
 
   const ref = useRef();
-
-  useEffect(() => {
-    const fetchUser = async () => {
-      setLoading(true);
-      const data = await userApi.fetchProfile();
-
-      setUser(data);
-
-      setLoading(false);
-    };
-
-    fetchUser();
-  }, []);
 
   const handleLogout = useCallback(async () => {
     await authApi.logout();
@@ -55,9 +42,11 @@ const ProfileNavigationMenu = () => {
     };
   }, []);
 
+  if (isLoading) return <Spinner />;
+
   if (!user)
     return (
-      <Link to={"/auth"}>
+      <Link to={"/auth"} className="max-md:hidden">
         <Button>{t("auth.authButton")}</Button>
       </Link>
     );
@@ -69,13 +58,13 @@ const ProfileNavigationMenu = () => {
         className="inline-flex items-center justify-center p-0 m-0 border-0 bg-transparent cursor-pointer focus:outline-none"
         aria-label={t("profile.menu")}
       >
-        <Avatar className="h-12 w-12" path={user.avatar} />
+        <Avatar className="md:h-12 md:w-12 h-10 w-10" path={user.avatar} />
       </button>
       {opened && (
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          className="neon-box min-w-[300px] top-18 z-40 left-1/2 -translate-x-1/2 p-3 space-y-3 bg-[#111] rounded-xl absolute "
+          className="neon-box min-w-[300px] top-18 z-40 md:left-1/2 md:-translate-x-1/2 max-md:right-0 p-3 space-y-3 bg-[#111] rounded-xl absolute "
         >
           <div className="flex flex-col gap-3 justify-center border-b border-gray-600 pb-3">
             <div className="w-full flex flex-col gap-3 items-center">

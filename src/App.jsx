@@ -19,6 +19,9 @@ import SecurityPage from "./pages/SecurityPage";
 import FriendsPage from "./pages/FriendsPage";
 import ProfileNavigationMenu from "./components/shared/ProfileNavigationMenu";
 import ProfileWrapper from "./components/shared/ProfileWrapper";
+import { useUser } from "./store/user";
+import { exceptAxiosError } from "./utils/exceptAxiosError";
+import { authApi } from "./api/authApi";
 
 const MainPage = lazy(() => import("./pages/MainPage"));
 const PostPage = lazy(() => import("./pages/PostPage"));
@@ -37,6 +40,8 @@ const App = () => {
     i18n: { language, changeLanguage },
   } = useTranslation();
   const [menuOpen, setMenuOpen] = useState(false);
+
+  const { setIsLoading, setUser, user } = useUser();
 
   const [searchParams] = useSearchParams();
 
@@ -96,6 +101,26 @@ const App = () => {
     }
   }, [location.pathname, language, navigate]);
 
+  useEffect(() => {
+    const refreshToken = async () => {
+      try {
+        if (!user) {
+          setIsLoading(true);
+        }
+        const userData = await exceptAxiosError(() => authApi.refreshToken());
+        setUser(userData);
+      } catch (e) {
+        console.error(e);
+        setUser(null);
+        navigate("/auth");
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    refreshToken();
+  }, []);
+
   return (
     <div className="App">
       <ToastContainer />
@@ -137,6 +162,8 @@ const App = () => {
                 >
                   {menuOpen ? "✕" : "☰"}
                 </button>
+
+                <ProfileNavigationMenu />
               </div>
 
               {/* Desktop Menu */}
@@ -182,8 +209,7 @@ const App = () => {
                     <option value="en">EN</option>
                   </select>
                 </span>
-
-                <ProfileNavigationMenu/>
+                <ProfileNavigationMenu />
               </nav>
             </div>
 

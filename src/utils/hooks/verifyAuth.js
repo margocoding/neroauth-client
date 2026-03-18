@@ -1,23 +1,12 @@
-import {useEffect} from "react";
-import {useNavigate} from "react-router-dom";
-import {exceptAxiosError} from "../exceptAxiosError";
-import {authApi} from "../../api/authApi";
+import { useNavigate } from "react-router-dom";
+import { useUser } from "../../store/user";
 
 export const useVerifyAuth = () => {
-    const navigate = useNavigate();
+  const { isLoading, user } = useUser();
 
-    useEffect(() => {
-        const refreshToken = async () => {
-            try {
-                await exceptAxiosError(() => authApi.refreshToken())
-            } catch (e) {
-                console.error(e);
-                navigate('/auth');
-            }
-        }
+  const navigate = useNavigate();
 
-        refreshToken();
-    }, []);
+  if (!user && !isLoading) navigate("/auth");
 
-    return null;
-}
+  return null;
+};

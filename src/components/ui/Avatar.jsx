@@ -41,6 +41,7 @@ const Avatar = ({ path, self = false, className }) => {
                 e.target.files.length && setFile(e.target.files[0])
               }
               type="file"
+              accept="image/*"
             />
 
             {avatarPath && (
