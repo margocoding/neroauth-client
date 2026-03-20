@@ -18,7 +18,11 @@ export const projects = [
     title: "magnate.title",
     description: "magnate.desc",
     details: "magnate.details",
-    labelImage: "/magnate/en/splash.png", // надо как-то сделать и ru и en
+    labelImage: {
+      en: "/magnate/en/splash.png",
+      ru: "/magnate/ru/splash.png",
+      default: "/magnate/ru/splash.png"
+    },
     image: "/magnate/icon.png",
     downloadLink: "https://t.me/game_magnate_bot",
     type: "play",

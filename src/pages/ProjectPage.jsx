@@ -45,7 +45,12 @@ const ProjectPage = () => {
             {/* Left: Icon */}
             <div className="w-32 h-32 md:w-40 md:h-40 rounded-2xl overflow-hidden neon-box shrink-0 mx-auto md:mx-0">
               <img
-                src={project.image || project.labelImage}
+                src={
+                  project.image ||
+                  (typeof project.labelImage === "string"
+                    ? project.labelImage
+                    : project.labelImage[language] || project.labelImage.default)
+                }
                 alt={project.title}
                 width={160}
                 height={160}
