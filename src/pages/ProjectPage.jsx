@@ -109,24 +109,28 @@ const ProjectPage = () => {
         )}
 
         {project.logo && (
-          <>
+          <div className="my-6 md:my-8">
             {/* Разделитель */}
-            <div className="flex items-center justify-center my-3">
+            <div className="flex items-center justify-center mb-4 md:mb-6">
               <div className="w-full max-w-md h-px bg-gradient-to-r from-transparent via-orange-500 to-transparent animate-pulse"></div>
             </div>
 
-            {/* Логотип — без отрицательных отступов */}
-            <div className="flex justify-center mt-4">
+            {/* Логотип */}
+            <div className="flex justify-center">
               <img
                 src={project.logo}
                 alt={project.title}
-                className="w-48 sm:w-56 md:w-64 lg:w-72 h-auto object-contain relative z-10"
+                className={`h-auto object-contain relative z-10 ${
+                  project.id === "nero_troops"
+                    ? "w-72 sm:w-80 md:w-96 lg:w-[32rem]"
+                    : "w-48 sm:w-56 md:w-64 lg:w-72"
+                }`}
                 width={250}
                 height={100}
-                priority
+                priority="true"
               />
             </div>
-          </>
+          </div>
         )}
 
         {/* Project Details */}
