@@ -26,19 +26,19 @@ const russiaServices = [
   {
     id: "vk-tanody",
     link: "https://vk.com/app6471849_-207410409",
-    icon: "tanody.jpg",
+    icon: "tanody.webp",
     label: "Таноды (СБП)",
   },
   {
     id: "vk-donate-cake",
     link: "https://vk.com/app6887721_-207410409",
-    icon: "donate-cake.jpg",
+    icon: "donate-cake.webp",
     label: "Keksik (СБП)",
   },
   {
     id: "crypto-bot",
     link: "https://t.me/send?start=IVTmDvcdzJFt",
-    icon: "cryptobot.png",
+    icon: "cryptobot.webp",
     label: "Crypto Bot",
   },
 ];
@@ -59,7 +59,7 @@ const worldServices = [
   {
     id: "crypto-bot",
     link: "https://t.me/send?start=IVTmDvcdzJFt",
-    icon: "cryptobot.png",
+    icon: "cryptobot.webp",
     label: "Crypto Bot",
   },
 ];
