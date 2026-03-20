@@ -228,7 +228,7 @@ const ScreenshotGallery = ({ screenshots }) => {
   return (
     <>
       <div className="w-full max-w-6xl mx-auto">
-        <div className="relative w-full aspect-[16/9] rounded-xl overflow-hidden mb-4 md:md-6 neon-box bg-gray-900">
+        <div className="relative w-full aspect-[16/9] rounded-xl overflow-hidden mb-4 md:md-6 neon-box">
           {!imagesLoaded && (
             <div className="absolute inset-0 bg-gray-900 flex items-center justify-center">
               <div className="text-center">
@@ -265,15 +265,13 @@ const ScreenshotGallery = ({ screenshots }) => {
             </div>
           )}
           {!hasCurrentImageError && (
-            <div className="relative w-full h-full overflow-hidden">
+            <div className="absolute inset-0 overflow-hidden flex items-center justify-center">
               <img
                 src={currentScreenshot.image}
                 alt={currentScreenshot.title || "post"}
-                fill
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
-                className={`object-contain transition-all w-full duration-500 ease-in-out cursor-pointer
+                className={`object-cover w-full h-full absolute inset-0 scale-[1.01] transition-all duration-500 ease-in-out cursor-pointer
                   ${!imagesLoaded ? "opacity-0" : "opacity-100"}`}
-                priority
+                priority="true"
                 onClick={openFullscreen}
                 onLoad={() => setImagesLoaded(true)}
                 onError={() => {
