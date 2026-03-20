@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import AnimatedArrow from "../components/ui/AnimatedArrow";
+import { motion } from "framer-motion";
 
 const russiaServices = [
   {
@@ -90,29 +91,48 @@ const DonatePage = () => {
 
         {/* Region Switcher */}
         <div className="animate-fadeUpSoft delay-100">
-          <div className="inline-flex items-center p-1 rounded-full glass border border-orange-500/40 neon-box backdrop-blur-xl shadow-[0_0_35px_rgba(249,115,22,0.45)]">
+          <div className="inline-flex items-center p-1 rounded-full glass border border-orange-500/40 neon-box backdrop-blur-xl shadow-[0_0_35px_rgba(249,115,22,0.45)] relative">
+            
+            {/* Russia Button */}
             <button
               type="button"
               onClick={() => setRegion("russia")}
-              className={`px-5 sm:px-6 py-2 sm:py-2.5 rounded-full text-sm sm:text-base font-medium transition-all duration-200 ${
+              className={`relative px-5 sm:px-6 py-2 sm:py-2.5 rounded-full text-sm sm:text-base font-medium transition-colors duration-200 z-10 ${
                 region === "russia"
-                  ? "bg-orange-500 text-black shadow-[0_0_18px_rgba(249,115,22,0.9)]"
+                  ? "text-black"
                   : "text-gray-200/80 hover:text-white hover:bg-orange-500/10"
               }`}
             >
+              {region === "russia" && (
+                <motion.div
+                  layoutId="activeRegion"
+                  className="absolute inset-0 bg-orange-500 rounded-full shadow-[0_0_18px_rgba(249,115,22,0.9)] -z-10"
+                  transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                />
+              )}
               {t("donate.regions.russia")}
             </button>
+
+            {/* World Button */}
             <button
               type="button"
               onClick={() => setRegion("world")}
-              className={`px-5 sm:px-6 py-2 sm:py-2.5 rounded-full text-sm sm:text-base font-medium transition-all duration-200 ${
+              className={`relative px-5 sm:px-6 py-2 sm:py-2.5 rounded-full text-sm sm:text-base font-medium transition-colors duration-200 z-10 ${
                 region === "world"
-                  ? "bg-orange-500 text-black shadow-[0_0_18px_rgba(249,115,22,0.9)]"
+                  ? "text-black"
                   : "text-gray-200/80 hover:text-white hover:bg-orange-500/10"
               }`}
             >
+              {region === "world" && (
+                <motion.div
+                  layoutId="activeRegion"
+                  className="absolute inset-0 bg-orange-500 rounded-full shadow-[0_0_18px_rgba(249,115,22,0.9)] -z-10"
+                  transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                />
+              )}
               {t("donate.regions.world")}
             </button>
+            
           </div>
           <p className="mt-3 text-xs sm:text-sm text-gray-300/80 max-w-md mx-auto">
             {region === "russia"

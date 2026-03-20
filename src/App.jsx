@@ -96,6 +96,10 @@ const App = () => {
     }
   }, [location.pathname, language, navigate]);
 
+  useEffect(() => {
+    document.documentElement.lang = language;
+  }, [language]);
+
   return (
     <div className="App">
       <ToastContainer />
