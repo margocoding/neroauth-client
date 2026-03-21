@@ -26,6 +26,7 @@ export const projects = [
     image: "/magnate/icon.webp",
     downloadLink: "https://t.me/game_magnate_bot",
     type: "play",
+    logo: "/magnate/logo.webp",
   },
   {
     id: "nero_troops",
