@@ -41,7 +41,7 @@ const App = () => {
   } = useTranslation();
   const [menuOpen, setMenuOpen] = useState(false);
 
-  const { setIsLoading, setUser } = useUser();
+  const { setIsLoading, setUser, user } = useUser();
 
   const [searchParams] = useSearchParams();
 
@@ -107,16 +107,25 @@ const App = () => {
   
 useEffect(() => {
   const refreshToken = async () => {
+    // Если нет токена — просто завершаем загрузку и не пытаемся рефрешить
+    const storageToken = localStorage.getItem("refreshToken");
+    if (!storageToken) {
+      setIsLoading(false);
+      return;
+    }
+
     try {
-      // Можно убрать проверку if (!user), если логика требует 
-      // всегда проверять токен при монтировании
       setIsLoading(true);
       const userData = await exceptAxiosError(() => authApi.refreshToken());
-      setUser(userData);
+      
+      if (userData && !userData.error) {
+        setUser(userData);
+      } else {
+        setUser(null);
+      }
     } catch (e) {
       console.error(e);
       setUser(null);
-      navigate("/auth");
     } finally {
       setIsLoading(false);
     }
