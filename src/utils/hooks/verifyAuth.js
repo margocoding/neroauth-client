@@ -1,7 +1,8 @@
-import {useEffect} from "react";
-import {useNavigate} from "react-router-dom";
-import {exceptAxiosError} from "../exceptAxiosError";
-import {authApi} from "../../api/authApi";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { exceptAxiosError } from "../exceptAxiosError";
+import { authApi } from "../../api/authApi";
+import i18next from "i18next";
 
 export const useVerifyAuth = () => {
     const navigate = useNavigate();
@@ -12,12 +13,12 @@ export const useVerifyAuth = () => {
                 await exceptAxiosError(() => authApi.refreshToken())
             } catch (e) {
                 console.error(e);
-                navigate('/auth');
+                navigate(`/${i18next.language}/auth`);
             }
         }
 
         refreshToken();
-    }, []);
+    }, [navigate]);
 
     return null;
 }

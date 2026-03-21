@@ -8,35 +8,21 @@ import Input from "../components/ui/Input";
 import Button from "../components/ui/Button";
 import Avatar from "../components/ui/Avatar";
 import AnimatedArrow from "../components/ui/AnimatedArrow";
+import { useOutletContext } from "react-router-dom";
 
 const FriendsPage = () => {
   const { t } = useTranslation();
+  const { user } = useOutletContext();
 
-  const [user, setUser] = useState(null);
   const [friendLoading, setFriendLoading] = useState(false);
-  const [loading, setLoading] = useState(false);
   const [inviteLoading, setInviteLoading] = useState(false);
-  const [code, setCode] = useState(null);
+  const [code, setCode] = useState("");
   const [invitations, setInvitations] = useState([]);
   const [friends, setFriends] = useState([]);
 
   useEffect(() => {
-    const fetchUser = async () => {
-      setLoading(true);
-      const data = await userApi.fetchProfile();
-
-      setUser(data);
-
-      setLoading(false);
-    };
-
-    fetchUser();
-  }, []);
-
-  useEffect(() => {
     const fetchInvitations = async () => {
       const data = await invitationApi.fetchInvitations();
-
       setInvitations(data);
     };
 
@@ -47,7 +33,6 @@ const FriendsPage = () => {
     const fetchFriends = async () => {
       if (!user?._id) return;
       const data = await userApi.fetchFriends(user._id);
-
       setFriends(data);
     };
 
@@ -59,7 +44,6 @@ const FriendsPage = () => {
       setFriendLoading(true);
       try {
         await exceptAxiosError(() => userApi.deleteFriend(id));
-
         toast(t("profile.friend.success_delete"), { type: "success" });
         setFriends((prev) => prev.filter((friend) => friend._id !== id));
       } finally {
@@ -72,34 +56,19 @@ const FriendsPage = () => {
   const inviteFriend = useCallback(async () => {
     if (!code) return;
     await exceptAxiosError(() => invitationApi.createInvite(code));
-
-    toast(t("profile.friend.invite_code.success_invite"), {
-      type: "success",
-    });
-    setCode(null);
+    toast(t("profile.friend.invite_code.success_invite"), { type: "success" });
+    setCode("");
   }, [code, t]);
 
   const applyInvitation = useCallback(
     async (id) => {
       setInviteLoading(true);
       try {
-        const foundInvitation = invitations.find(
-          (invitation) => invitation._id === id,
-        );
-
+        const foundInvitation = invitations.find((inv) => inv._id === id);
         if (!foundInvitation) return;
-
-        await exceptAxiosError(() =>
-          invitationApi.applyInvitation(foundInvitation._id),
-        );
-
-        toast(t("profile.friend.invite_code.success_apply"), {
-          type: "success",
-        });
-
-        setInvitations((prev) =>
-          prev.filter((invitation) => invitation._id !== foundInvitation._id),
-        );
+        await exceptAxiosError(() => invitationApi.applyInvitation(foundInvitation._id));
+        toast(t("profile.friend.invite_code.success_apply"), { type: "success" });
+        setInvitations((prev) => prev.filter((inv) => inv._id !== id));
         setFriends((prev) => [...prev, foundInvitation.from]);
       } finally {
         setInviteLoading(false);
@@ -112,23 +81,12 @@ const FriendsPage = () => {
     async (id) => {
       setInviteLoading(true);
       try {
-        const foundInvitation = invitations.find(
-          (invitation) => invitation._id === id,
-        );
-
+        const foundInvitation = invitations.find((inv) => inv._id === id);
         if (!foundInvitation) return;
-
-        await exceptAxiosError(() =>
-          invitationApi.applyInvitation(foundInvitation._id),
-        );
-
-        toast(t("profile.friend.invite_code.success_decline"), {
-          type: "success",
-        });
-
-        setInvitations((prev) =>
-          prev.filter((invitation) => invitation._id !== foundInvitation._id),
-        );
+        // Using applyInvitation for decline as well if that's the current API usage
+        await exceptAxiosError(() => invitationApi.applyInvitation(foundInvitation._id));
+        toast(t("profile.friend.invite_code.success_decline"), { type: "success" });
+        setInvitations((prev) => prev.filter((inv) => inv._id !== id));
       } finally {
         setInviteLoading(false);
       }
@@ -137,7 +95,7 @@ const FriendsPage = () => {
   );
 
   return (
-    <div className="space-y-5 max-w-[500px] mx-auto">
+    <div className="space-y-5 max-w-[500px] mx-auto text-white">
       <h2 className="font-semibold text-3xl text-center">
         {t("profile.friend.title")}
       </h2>
@@ -152,7 +110,7 @@ const FriendsPage = () => {
             placeholder={t("profile.friend.invite_code.placeholder")}
           />
           <Button className={"w-full"} onClick={inviteFriend} disabled={!code}>
-            {t("profile.friend.add")} <AnimatedArrow condition={code} />{" "}
+            {t("profile.friend.add")} <AnimatedArrow condition={!!code} />{" "}
           </Button>
         </div>
       </div>
@@ -162,25 +120,21 @@ const FriendsPage = () => {
           <h2 className="font-semibold text-3xl text-center">
             {t("profile.friend.list")}
           </h2>
-          <div className="grid grid-cols-3 max-md:grid-cols-2">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {friends.map((friend) => (
-              <div className="space-y-1">
-                <div className={"w-full flex justify-center"}>
-                  <Avatar path={friend.avatar} />
-                </div>
-                <div className="text-center text-xl font-semibold">
+              <div key={friend._id} className="space-y-2 bg-[#222] p-3 rounded-lg flex flex-col items-center text-center">
+                <Avatar path={friend.avatar} className="w-20 h-20" />
+                <div className="text-xl font-semibold truncate w-full px-2">
                   {friend.login}
                 </div>
-                <div>
-                  <Button
-                    className={"w-full"}
-                    onClick={() => deleteFriend(friend._id)}
-                    color="danger"
-                    isLoading={friendLoading}
-                  >
-                    {t("profile.friend.buttons.delete")}
-                  </Button>
-                </div>
+                <Button
+                  className="w-full mt-auto"
+                  onClick={() => deleteFriend(friend._id)}
+                  color="danger"
+                  isLoading={friendLoading}
+                >
+                  {t("profile.friend.buttons.delete")}
+                </Button>
               </div>
             ))}
           </div>
@@ -193,18 +147,16 @@ const FriendsPage = () => {
             {t("profile.friend.invitations.title")}
           </h2>
 
-          <div className="grid grid-cols-3 max-md:grid-cols-2">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {invitations.map((invitation) => (
-              <div className="space-y-3">
-                <div className={"w-full flex justify-center"}>
-                  <Avatar path={invitation.from.avatar} />
-                </div>
-                <div className="text-center text-xl font-semibold">
+              <div key={invitation._id} className="space-y-3 bg-[#222] p-3 rounded-lg flex flex-col items-center">
+                <Avatar path={invitation.from.avatar} className="w-20 h-20" />
+                <div className="text-center text-xl font-semibold truncate w-full px-2">
                   {invitation.from.login}
                 </div>
-                <div className="space-y-1">
+                <div className="space-y-1 w-full mt-auto">
                   <Button
-                    className={"w-full"}
+                    className="w-full"
                     isLoading={inviteLoading}
                     color="success"
                     onClick={() => applyInvitation(invitation._id)}
@@ -212,7 +164,7 @@ const FriendsPage = () => {
                     {t("profile.friend.invitations.buttons.apply")}
                   </Button>
                   <Button
-                    className={"w-full"}
+                    className="w-full"
                     isLoading={inviteLoading}
                     color="danger"
                     onClick={() => declineInvitation(invitation._id)}

@@ -305,7 +305,9 @@
         "description": "To add a friend, you must enter the friend code shown in their profile.",
         "success_invite": "Invitation sent successfully!",
         "success_apply": "Invitation successfully accepted!",
-        "success_decline": "Invitation successfully declined!"
+        "success_decline": "Invitation successfully declined!",
+        "success_copy": "Code copied!",
+        "copy_title": "Copy code"
       },
       "invitations": {
         "title": "Invitations",
@@ -321,7 +323,10 @@
     },
     "buttons": {
       "open": "Open profile",
-      "update": "Update profile"
+      "update": "Update profile",
+      "edit": "Edit",
+      "save": "Save",
+      "cancel": "Cancel"
     },
     "avatar": {
       "buttons": {
@@ -340,7 +345,8 @@
         "cancel": "Cancel"
       }
     },
-    "logout": "Log out"
+    "logout": "Log out",
+    "menu": "Profile menu"
   },
   "errors": {
     "login": {

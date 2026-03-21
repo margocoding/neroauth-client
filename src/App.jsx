@@ -134,6 +134,8 @@ const App = () => {
                   </select>
                 </span>
 
+                {localStorage.getItem("refreshToken") && <ProfileNavigationMenu />}
+
                 <button
                   className="nav-toggle inline-flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 rounded btn-primary text-sm p-0"
                   onClick={() => setMenuOpen((v) => !v)}
@@ -232,13 +234,7 @@ const App = () => {
                       {t("nav.donate")}
                     </Link>
 
-                    {localStorage.getItem("refreshToken") ? (
-                      <Link to={"/profile"} onClick={() => setMenuOpen(false)}>
-                        <Button className={"w-full"}>
-                          {t("profile.title")}
-                        </Button>
-                      </Link>
-                    ) : (
+                    {!localStorage.getItem("refreshToken") && (
                       <Link to={"/auth"} onClick={() => setMenuOpen(false)}>
                         <Button className={"w-full"}>
                           {t("auth.authButton")}
