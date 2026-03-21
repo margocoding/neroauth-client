@@ -1,11 +1,16 @@
 import { useTranslation } from "react-i18next";
-import { useOutletContext } from "react-router-dom";
+import { useUser } from "../store/user";
 import MainInformation from "../components/shared/profile-sections/main-information/MainInformation";
+import LoadingPage from "./LoadingPage";
 
 export default function ProfilePage() {
   const { t } = useTranslation();
-  const { user } = useOutletContext();
+  const { user, isLoading } = useUser();
 
+  // Показываем лоадер во время загрузки
+  if (isLoading) return <LoadingPage />;
+
+  // Если пользователь не загружен — ничего не рендерим (защита от ошибок)
   if (!user) return null;
 
   return (

@@ -1,60 +1,47 @@
-import { useCallback, useEffect, useRef, useState } from "react";
-import Avatar from "../ui/Avatar";
-import { useTranslation } from "react-i18next";
-import { userApi } from "../../api/userApi";
-import Button from "../ui/Button";
-import { Link, useNavigate } from "react-router-dom";
-import { authApi } from "../../api/authApi";
 import { motion, AnimatePresence } from "framer-motion";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { Link, useNavigate } from "react-router-dom";
 import { createPortal } from "react-dom";
 import { FaUser, FaShieldAlt, FaUsers, FaSignOutAlt } from "react-icons/fa";
+
+import { authApi } from "../../api/authApi";
+import { useUser } from "../../store/user";
+import Avatar from "../ui/Avatar";
+import Button from "../ui/Button";
+import Spinner from "../ui/Spinner";
 
 const ProfileNavigationMenu = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const { user, setUser, isLoading } = useUser();
 
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(false);
   const [opened, setOpened] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  const ref = useRef<HTMLDivElement>(null);
 
-  const ref = useRef();
-
+  // Отслеживание размера экрана
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 768);
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  useEffect(() => {
-    const fetchUser = async () => {
-      setLoading(true);
-      try {
-        const data = await userApi.fetchProfile();
-        setUser(data);
-      } catch (error) {
-        console.error("Failed to fetch user profile", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchUser();
-  }, []);
-
+  // Логаут
   const handleLogout = useCallback(async () => {
     await authApi.logout();
     setOpened(false);
     setUser(null);
     navigate("/");
-  }, [navigate]);
+  }, [navigate, setUser]);
 
   const handleClose = useCallback(() => setOpened(false), []);
 
+  // Закрытие по клику вне меню (только десктоп)
   useEffect(() => {
-    function handleClickOutside(event) {
-      if (ref.current && !ref.current.contains(event.target)) {
-        setOpened(false);
+    function handleClickOutside(event: MouseEvent) {
+      if (ref.current && !ref.current.contains(event.target as Node)) {
+        handleClose();
       }
     }
 
@@ -64,9 +51,9 @@ const ProfileNavigationMenu = () => {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [opened, isMobile]);
+  }, [opened, isMobile, handleClose]);
 
-  // Prevent scroll when mobile menu is open
+  // Блокировка скролла при открытом мобильном меню
   useEffect(() => {
     if (opened && isMobile) {
       document.body.style.overflow = "hidden";
@@ -78,17 +65,18 @@ const ProfileNavigationMenu = () => {
     };
   }, [opened, isMobile]);
 
-  if (!user && !loading) {
-    if (isMobile) return null;
+  // Рендер заглушек
+  if (isLoading) return <Spinner />;
+
+  if (!user) {
     return (
-      <Link to={"/auth"}>
-        <Button className="px-6 h-10">{t("auth.authButton")}</Button>
+      <Link to="/auth" className="max-md:hidden">
+        <Button>{t("auth.authButton")}</Button>
       </Link>
     );
   }
 
-  if (!user) return <div className="h-10 w-10 md:h-11 md:w-11 rounded-full bg-gray-800 animate-pulse" />;
-
+  // Элементы меню
   const menuItems = [
     {
       to: "/profile",
@@ -107,11 +95,12 @@ const ProfileNavigationMenu = () => {
     },
   ];
 
+  // Контент меню (вынесен для чистоты)
   const MenuContent = () => (
     <AnimatePresence>
       {opened && (
         <>
-          {/* Mobile/Portal Backdrop */}
+          {/* Бэкдроп для мобильных */}
           {isMobile && (
             <motion.div
               initial={{ opacity: 0 }}
@@ -122,7 +111,7 @@ const ProfileNavigationMenu = () => {
             />
           )}
 
-          {/* Menu Container */}
+          {/* Контейнер меню */}
           <motion.div
             initial={isMobile ? { y: "100%" } : { opacity: 0, scale: 0.95, y: 10 }}
             animate={isMobile ? { y: 0 } : { opacity: 1, scale: 1, y: 0 }}
@@ -137,27 +126,31 @@ const ProfileNavigationMenu = () => {
               }
             }}
             className={`
-                ${isMobile
-                ? "fixed bottom-0 left-0 right-0 rounded-t-3xl z-[1001] pb-10 cursor-grab active:cursor-grabbing"
-                : "absolute right-0 top-14 w-72 rounded-2xl z-50"}
-                bg-[#0d0d0d] border border-white/10 shadow-xl overflow-hidden
-              `}
+              ${
+                isMobile
+                  ? "fixed bottom-0 left-0 right-0 rounded-t-3xl z-[1001] pb-10 cursor-grab active:cursor-grabbing"
+                  : "absolute right-0 top-14 w-72 rounded-2xl z-50"
+              }
+              bg-[#0d0d0d] border border-white/10 shadow-xl overflow-hidden
+            `}
           >
-            {/* Mobile Handle */}
+            {/* Индикатор для драга на мобильных */}
             {isMobile && (
               <div className="w-full flex justify-center py-4 border-b border-white/5">
                 <div className="w-12 h-1.5 bg-white/20 rounded-full" />
               </div>
             )}
 
-            {/* User Profile Header */}
+            {/* Шапка профиля */}
             <div className="p-5 flex flex-col items-center border-b border-white/5">
               <Avatar className="h-20 w-20" path={user.avatar} />
               <h3 className="mt-3 text-xl font-bold text-white">{user.login}</h3>
-              <p className="text-sm text-gray-400 mt-1 line-clamp-1">{user.email || "Nero Team User"}</p>
+              <p className="text-sm text-gray-400 mt-1 line-clamp-1">
+                {user.email || "Nero Team User"}
+              </p>
             </div>
 
-            {/* Navigation Links */}
+            {/* Навигация */}
             <div className="p-2 space-y-1">
               {menuItems.map((item) => (
                 <Link
@@ -176,6 +169,7 @@ const ProfileNavigationMenu = () => {
               ))}
             </div>
 
+            {/* Кнопка выхода */}
             <div className="p-2 border-t border-white/5 mt-1">
               <button
                 onClick={handleLogout}
