@@ -34,37 +34,36 @@ const Avatar = ({ path, self = false, className }) => {
   }, [file, handleChange]);
 
   return (
-    <div className={`relative flex flex-col items-center ${className}`}>
-      <div className="relative w-full h-full">
-        {self && (
-          <>
-            <input
-              className="absolute w-full h-full p-0 m-[-1px] overflow-hidden opacity-0 cursor-pointer border-0 whitespace-nowrap z-20"
-              onChange={(e) => e.target.files?.length && setFile(e.target.files[0])}
-              type="file"
-              accept="image/*"
-            />
+    <div className={`relative ${className}`}>
+      {self && (
+        <>
+          <input
+            className="absolute inset-0 w-full h-full p-0 m-0 opacity-0 cursor-pointer z-20"
+            onChange={(e) => e.target.files?.length && setFile(e.target.files[0])}
+            type="file"
+            accept="image/*"
+          />
 
-            {avatarPath && (
-              <button
-                onClick={handleDelete}
-                className="absolute top-0 right-0 bg-red-400 w-7 h-7 rounded-full flex items-center justify-center z-30 shadow-md"
-                title={t("profile.avatar.buttons.delete")}
-              >
-                <img src="/icons/cross.svg" alt="close" className="w-3 h-3" />
-              </button>
-            )}
-          </>
-        )}
-        <img
-          className="rounded-full w-full h-full aspect-square shadow-inner"
-          src={avatarPath || "/icons/user.svg"}
-          alt="avatar"
-          onError={(e) => {
-            e.currentTarget.src = "/icons/user.svg";
-          }}
-        />
-      </div>
+          {avatarPath && (
+            <button
+              onClick={handleDelete}
+              className="absolute top-0 right-0 bg-red-500 w-7 h-7 rounded-full flex items-center justify-center z-30 shadow-lg text-white border-2 border-zinc-900 hover:bg-red-600 transition-colors"
+              title={t("profile.avatar.buttons.delete")}
+              type="button"
+            >
+              <FaTimes size={12} />
+            </button>
+          )}
+        </>
+      )}
+      <img
+        className={`rounded-full w-full h-full aspect-square shadow-inner ${!avatarPath && "p-4 object-contain opacity-50 bg-[#0a0a0a]"}`}
+        src={avatarPath || "/icons/user.svg"}
+        alt="avatar"
+        onError={(e) => {
+          e.currentTarget.src = "/icons/user.svg";
+        }}
+      />
     </div>
   );
 };

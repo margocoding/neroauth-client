@@ -12,8 +12,6 @@ const ScreenshotGallery = ({ screenshots }) => {
 
   const [touchStartX, setTouchStartX] = useState(0);
   const [touchStartY, setTouchStartY] = useState(0);
-  const [touchEndX, setTouchEndX] = useState(0);
-  const [touchEndY, setTouchEndY] = useState(0);
 
   const nextSlide = useCallback(() => {
     setCurrentIndex((prev) => (prev + 1) % screenshots.length);
@@ -121,9 +119,6 @@ const ScreenshotGallery = ({ screenshots }) => {
       const endX = touch.clientX;
       const endY = touch.clientY;
       
-      setTouchEndX(endX);
-      setTouchEndY(endY);
-
       handleSwipe(endX, endY);
       e.stopPropagation();
     }
