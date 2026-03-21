@@ -71,7 +71,9 @@ const ScreenshotGallery = ({ screenshots }) => {
 
   const handleMouseMove = () => {
     if (isFullscreen && !("ontouchstart" in window)) {
-      showControls();
+      if (!showFullscreenControls) {
+        showControls();
+      }
     }
   };
 
@@ -116,18 +118,21 @@ const ScreenshotGallery = ({ screenshots }) => {
       showControls();
 
       const touch = e.changedTouches[0];
-      setTouchEndX(touch.clientX);
-      setTouchEndY(touch.clientY);
+      const endX = touch.clientX;
+      const endY = touch.clientY;
+      
+      setTouchEndX(endX);
+      setTouchEndY(endY);
 
-      handleSwipe();
+      handleSwipe(endX, endY);
       e.stopPropagation();
     }
   };
 
-  const handleSwipe = () => {
+  const handleSwipe = (endX, endY) => {
     const minSwipeDistance = 50;
-    const deltaX = touchEndX - touchStartX;
-    const deltaY = touchEndY - touchStartY;
+    const deltaX = endX - touchStartX;
+    const deltaY = endY - touchStartY;
 
     if (
       Math.abs(deltaX) > Math.abs(deltaY) &&
@@ -135,10 +140,8 @@ const ScreenshotGallery = ({ screenshots }) => {
     ) {
       if (deltaX > 0) {
         prevSlide();
-        showControls();
       } else {
         nextSlide();
-        showControls();
       }
     }
   };
@@ -225,7 +228,7 @@ const ScreenshotGallery = ({ screenshots }) => {
   return (
     <>
       <div className="w-full max-w-6xl mx-auto">
-        <div className="relative w-full aspect-[16/9] rounded-xl overflow-hidden mb-4 md:md-6 neon-box bg-gray-900">
+        <div className="relative w-full aspect-[16/9] rounded-xl overflow-hidden mb-4 md:md-6 neon-box">
           {!imagesLoaded && (
             <div className="absolute inset-0 bg-gray-900 flex items-center justify-center">
               <div className="text-center">
@@ -262,15 +265,13 @@ const ScreenshotGallery = ({ screenshots }) => {
             </div>
           )}
           {!hasCurrentImageError && (
-            <div className="relative w-full h-full overflow-hidden">
+            <div className="absolute inset-0 overflow-hidden flex items-center justify-center">
               <img
                 src={currentScreenshot.image}
                 alt={currentScreenshot.title || "post"}
-                fill
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
-                className={`object-contain transition-all w-full duration-500 ease-in-out cursor-pointer
+                className={`object-cover w-full h-full absolute inset-0 scale-[1.01] transition-all duration-500 ease-in-out cursor-pointer
                   ${!imagesLoaded ? "opacity-0" : "opacity-100"}`}
-                priority
+                priority="true"
                 onClick={openFullscreen}
                 onLoad={() => setImagesLoaded(true)}
                 onError={() => {
@@ -406,20 +407,23 @@ const ScreenshotGallery = ({ screenshots }) => {
       {/* Fullscreen Modal */}
       {isFullscreen && (
         <div
-          className="fixed inset-0 bg-black/95 z-50 flex items-center justify-center p-2 md:p-4 fullscreen-modal"
+          className="fixed inset-0 bg-black z-50 flex flex-col fullscreen-modal"
           onMouseMove={handleMouseMove}
-          onTouchStart={handleTouchStart}
-          onTouchEnd={handleTouchEnd}
+          onClick={showControls}
+          onTouchStart={() => { if (isFullscreen) showControls(); }}
         >
-          <div className="relative w-full h-full flex items-center justify-center">
+          {/* ── Top Header Bar ── */}
+          <div className={`shrink-0 flex items-center justify-between px-4 py-3 md:px-6 md:py-4 z-30 transition-opacity duration-300 ${showFullscreenControls ? "opacity-100" : "opacity-0 pointer-events-none"}`}>
+            {/* Screenshot counter */}
+            <div className="hidden md:block bg-white/10 text-white px-4 py-1.5 rounded-full text-xs md:text-sm backdrop-blur-sm font-medium">
+              {currentIndex + 1} / {screenshots.length}
+            </div>
+
             {/* Close button */}
             <button
               onClick={closeFullscreen}
               onTouchStart={handleTouchForControls}
-              className={`absolute top-2 md:top-4 right-2 md:right-4 w-10 h-10 md:w-12 md:h-12 bg-black/60 hover:bg-black/80 text-white rounded-full flex items-center justify-center transition-all duration-300 backdrop-blur-sm z-20 gallery-button hover:scale-110 hover:shadow-lg transition-opacity duration-300 ${showFullscreenControls
-                ? "opacity-100"
-                : "opacity-0 pointer-events-none"
-                }`}
+              className="ml-auto w-10 h-10 md:w-11 md:h-11 bg-white/10 hover:bg-white/20 text-white rounded-full flex items-center justify-center transition-all duration-300 backdrop-blur-sm gallery-button hover:scale-110"
               aria-label="Close fullscreen"
             >
               <svg
@@ -436,98 +440,89 @@ const ScreenshotGallery = ({ screenshots }) => {
                 />
               </svg>
             </button>
+          </div>
 
-            {/* Fullscreen image */}
-            <div className="relative w-full h-full flex items-center justify-center">
-              {hasCurrentImageError ? (
-                <div className="text-center">
-                  <div className="w-16 h-16 md:w-24 md:h-24 bg-red-500/20 rounded-full flex items-center justify-center mx-auto mb-4 md:mb-6">
-                    <svg
-                      className="w-8 h-8 md:w-12 md:h-12 text-red-400"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"
-                      />
-                    </svg>
+          {/* ── Middle: Image Area (desktop has side arrows inside this row) ── */}
+          <div className="flex-1 min-h-0 flex items-end md:items-center justify-center px-2 md:px-4 pb-14 md:pb-0">
+            <div className="w-full h-full flex items-center gap-0 md:gap-6">
+              {/* Desktop-only left arrow */}
+              <button
+                onClick={prevSlide}
+                onTouchStart={handleTouchForControls}
+                className={`hidden md:flex shrink-0 w-14 h-14 bg-white/10 hover:bg-white/20 text-white rounded-full items-center justify-center transition-all duration-300 backdrop-blur-sm z-20 gallery-button hover:scale-110 ${showFullscreenControls ? "opacity-100" : "opacity-0 pointer-events-none"}`}
+                aria-label="Previous screenshot"
+              >
+                <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                </svg>
+              </button>
+
+              {/* Image Container — bounded, never overlapped */}
+              <div className="flex-1 min-w-0 h-full flex items-center justify-center overflow-hidden rounded-lg">
+                {hasCurrentImageError ? (
+                  <div className="text-center">
+                    <div className="w-16 h-16 md:w-24 md:h-24 bg-red-500/20 rounded-full flex items-center justify-center mx-auto mb-4 md:mb-6">
+                      <svg className="w-8 h-8 md:w-12 md:h-12 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
+                      </svg>
+                    </div>
+                    <h3 className="text-lg md:text-2xl font-bold text-white mb-2">{t("loading_error")}</h3>
+                    <p className="text-gray-400 text-sm md:text-base">{t("loading.image_error")}</p>
                   </div>
-                  <h3 className="text-lg md:text-2xl font-bold text-white mb-2">
-                    {t("loading_error")}
-                  </h3>
-                  <p className="text-gray-400 text-sm md:text-base">
-                    {t("loading.image_error")}
-                  </p>
-                </div>
-              ) : (
-                <div className="relative w-full h-full overflow-hidden">
+                ) : (
                   <img
                     src={currentScreenshot.image}
                     alt={currentScreenshot.title || "post"}
-                    fill
-                    sizes="100vw"
-                    className="object-contain transition-all duration-500 ease-in-out cursor-pointer"
-                    priority
+                    className="max-w-full max-h-full object-contain cursor-pointer select-none"
+                    draggable="false"
                     onClick={handleImageInteraction}
                     onTouchStart={handleTouchStart}
                     onTouchEnd={handleTouchEnd}
                   />
-                </div>
-              )}
+                )}
+              </div>
 
-              {/* Fullscreen navigation arrows */}
-              <button
-                onClick={prevSlide}
-                onTouchStart={handleTouchForControls}
-                className={`absolute left-2 md:left-4 top-1/2 transform -translate-y-1/2 w-12 h-12 md:w-16 md:h-16 bg-black/60 hover:bg-black/80 text-white rounded-full flex items-center justify-center transition-all duration-300 backdrop-blur-sm z-20 gallery-button hover:scale-110 hover:shadow-lg transition-opacity duration-300 ${showFullscreenControls
-                  ? "opacity-100"
-                  : "opacity-0 pointer-events-none"
-                  }`}
-                aria-label="Previous screenshot"
-              >
-                <svg
-                  className="w-6 h-6 md:w-8 md:h-8"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M15 19l-7-7 7-7"
-                  />
-                </svg>
-              </button>
-
+              {/* Desktop-only right arrow */}
               <button
                 onClick={nextSlide}
                 onTouchStart={handleTouchForControls}
-                className={`absolute right-2 md:right-4 top-1/2 transform -translate-y-1/2 w-12 h-12 md:w-16 md:h-16 bg-black/60 hover:bg-black/80 text-white rounded-full flex items-center justify-center transition-all duration-300 backdrop-blur-sm z-20 gallery-button hover:scale-110 hover:shadow-lg transition-opacity duration-300 ${showFullscreenControls
-                  ? "opacity-100"
-                  : "opacity-0 pointer-events-none"
-                  }`}
+                className={`hidden md:flex shrink-0 w-14 h-14 bg-white/10 hover:bg-white/20 text-white rounded-full items-center justify-center transition-all duration-300 backdrop-blur-sm z-20 gallery-button hover:scale-110 ${showFullscreenControls ? "opacity-100" : "opacity-0 pointer-events-none"}`}
                 aria-label="Next screenshot"
               >
-                <svg
-                  className="w-6 h-6 md:w-8 md:h-8"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M9 5l7 7-7 7"
-                  />
+                <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                 </svg>
               </button>
             </div>
+          </div>
+
+          {/* ── Bottom Navigation Bar (mobile) — fixed at bottom, always visible ── */}
+          <div className="fixed bottom-0 left-0 right-0 flex md:hidden items-center justify-center gap-6 px-4 py-2 z-[60] bg-black/90" style={{ paddingBottom: 'max(0.5rem, env(safe-area-inset-bottom))' }}>
+            <button
+              onClick={prevSlide}
+              onTouchStart={handleTouchForControls}
+              className="w-10 h-10 bg-white/10 text-white rounded-full flex items-center justify-center transition-all duration-200 active:scale-95"
+              aria-label="Previous screenshot"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+
+            <span className="text-white/60 text-xs font-medium">
+              {currentIndex + 1} / {screenshots.length}
+            </span>
+
+            <button
+              onClick={nextSlide}
+              onTouchStart={handleTouchForControls}
+              className="w-10 h-10 bg-white/10 text-white rounded-full flex items-center justify-center transition-all duration-200 active:scale-95"
+              aria-label="Next screenshot"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
           </div>
         </div>
       )}

@@ -102,24 +102,28 @@ const App = () => {
   }, [location.pathname, language, navigate]);
 
   useEffect(() => {
-    const refreshToken = async () => {
-      try {
-        if (!user) {
-          setIsLoading(true);
-        }
-        const userData = await exceptAxiosError(() => authApi.refreshToken());
-        setUser(userData);
-      } catch (e) {
-        console.error(e);
-        setUser(null);
-        navigate("/auth");
-      } finally {
-        setIsLoading(false);
-      }
-    };
+    document.documentElement.lang = language;
+  }, [language]);
+  
+useEffect(() => {
+  const refreshToken = async () => {
+    try {
+      // Можно убрать проверку if (!user), если логика требует 
+      // всегда проверять токен при монтировании
+      setIsLoading(true);
+      const userData = await exceptAxiosError(() => authApi.refreshToken());
+      setUser(userData);
+    } catch (e) {
+      console.error(e);
+      setUser(null);
+      navigate("/auth");
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
-    refreshToken();
-  }, []);
+  refreshToken();
+}, []);
 
   return (
     <div className="App">
@@ -154,6 +158,8 @@ const App = () => {
                     <option value="en">EN</option>
                   </select>
                 </span>
+
+                {localStorage.getItem("refreshToken") && <ProfileNavigationMenu />}
 
                 <button
                   className="nav-toggle inline-flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 rounded btn-primary text-sm p-0"
@@ -254,13 +260,7 @@ const App = () => {
                       {t("nav.donate")}
                     </Link>
 
-                    {localStorage.getItem("refreshToken") ? (
-                      <Link to={"/profile"} onClick={() => setMenuOpen(false)}>
-                        <Button className={"w-full"}>
-                          {t("profile.title")}
-                        </Button>
-                      </Link>
-                    ) : (
+                    {!localStorage.getItem("refreshToken") && (
                       <Link to={"/auth"} onClick={() => setMenuOpen(false)}>
                         <Button className={"w-full"}>
                           {t("auth.authButton")}

@@ -26,9 +26,9 @@ const ProjectCard = ({ project }) => {
         )}
         <img
           src={
-            project.id === "magnate_bot"
-              ? `/magnate/${language || "ru"}/splash.png`
-              : project.labelImage
+            typeof project.labelImage === "string"
+              ? project.labelImage
+              : project.labelImage[language] || project.labelImage.default
           }
           alt={t(project.title)}
           width={1024}
