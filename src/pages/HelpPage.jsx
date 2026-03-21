@@ -145,6 +145,13 @@ const HelpPage = () => {
                     <h2 className="text-2xl sm:text-3xl font-bold mb-3 text-center">
                         {t("help.troubleshooting.title")}
                     </h2>
+                    
+                    <div className="bg-red-500/10 border border-red-500/50 rounded-xl p-4 mb-6 text-center max-w-xl mx-auto">
+                        <p className="text-red-500 font-bold text-sm sm:text-base leading-relaxed uppercase">
+                            {t("help.troubleshooting.warning")}
+                        </p>
+                    </div>
+
                     <p className="text-gray-300 mb-2 text-center max-w-xl mx-auto">
                         {t("help.troubleshooting.subtitle")}
                     </p>

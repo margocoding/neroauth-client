@@ -264,6 +264,7 @@
         "loading": "Loading video...",
         "retry": "Try again"
       },
+      "warning": "ATTENTION! THIS GUIDE WILL NOT WORK IF YOUR PROCESSOR DOES NOT SUPPORT 32-BIT ARCHITECTURES. IN THAT CASE, YOU WILL NOT BE ABLE TO INSTALL THE GAME AT ALL. USE AN EMULATOR OR AN OLD DEVICE.",
       "tools": {
         "title": "Required Tools",
         "description": "You will need these apps for a successful installation:",
