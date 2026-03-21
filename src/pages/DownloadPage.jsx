@@ -26,7 +26,7 @@ const DownloadPage = () => {
   } = useTranslation();
   const [searchParams] = useSearchParams();
 
-  const fileName = useMemo(() => searchParams.get('file'), [searchParams.get('file')]);
+  const fileName = searchParams.get('file');
   const [started, setStarted] = useState(false);
 
   useEffect(() => {

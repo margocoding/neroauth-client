@@ -18,7 +18,7 @@ const ProfileNavigationMenu = () => {
 
   const [opened, setOpened] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
-  const ref = useRef<HTMLDivElement>(null);
+  const ref = useRef(null);
 
   // Отслеживание размера экрана
   useEffect(() => {
@@ -39,8 +39,8 @@ const ProfileNavigationMenu = () => {
 
   // Закрытие по клику вне меню (только десктоп)
   useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (ref.current && !ref.current.contains(event.target as Node)) {
+    function handleClickOutside(event) {
+      if (ref.current && !ref.current.contains(event.target)) {
         handleClose();
       }
     }
@@ -69,6 +69,7 @@ const ProfileNavigationMenu = () => {
   if (isLoading) return <Spinner />;
 
   if (!user) {
+    if (isMobile) return null;
     return (
       <Link to="/auth" className="max-md:hidden">
         <Button>{t("auth.authButton")}</Button>
