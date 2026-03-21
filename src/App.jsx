@@ -168,8 +168,6 @@ useEffect(() => {
                   </select>
                 </span>
 
-                {localStorage.getItem("refreshToken") && <ProfileNavigationMenu />}
-
                 <button
                   className="nav-toggle inline-flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 rounded btn-primary text-sm p-0"
                   onClick={() => setMenuOpen((v) => !v)}

@@ -9,10 +9,13 @@ const Avatar = ({ path, self = false, className }) => {
   const [avatarPath, setAvatarPath] = useState(null);
   const [file, setFile] = useState(null);
 
+  const [hasError, setHasError] = useState(false);
+
   const handleChange = useCallback(async () => {
     if (file) {
       const newPath = await userApi.addAvatar(file);
       setAvatarPath(process.env.REACT_APP_API_URL + "/" + newPath);
+      setHasError(false);
     }
   }, [file]);
 
@@ -20,18 +23,25 @@ const Avatar = ({ path, self = false, className }) => {
     const { success } = await exceptAxiosError(() => userApi.deleteAvatar());
     if (success) {
       setAvatarPath(null);
+      setHasError(false);
     }
   }, []);
 
   useEffect(() => {
     if (path) {
       setAvatarPath(process.env.REACT_APP_API_URL + "/" + path);
+      setHasError(false);
+    } else {
+      setAvatarPath(null);
+      setHasError(false);
     }
   }, [path]);
 
   useEffect(() => {
     handleChange();
   }, [file, handleChange]);
+
+  const isPlaceholder = !avatarPath || hasError;
 
   return (
     <div className={`relative ${className}`}>
@@ -57,12 +67,10 @@ const Avatar = ({ path, self = false, className }) => {
         </>
       )}
       <img
-        className={`rounded-full w-full h-full aspect-square shadow-inner ${!avatarPath && "p-4 object-contain opacity-50 bg-[#0a0a0a]"}`}
-        src={avatarPath || "/icons/user.svg"}
+        className={`rounded-full w-full h-full aspect-square shadow-inner ${isPlaceholder ? "p-4 object-contain opacity-50 bg-[#0a0a0a]" : ""}`}
+        src={isPlaceholder ? "/icons/user.svg" : avatarPath}
         alt="avatar"
-        onError={(e) => {
-          e.currentTarget.src = "/icons/user.svg";
-        }}
+        onError={() => setHasError(true)}
       />
     </div>
   );
