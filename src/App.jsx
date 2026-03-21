@@ -41,7 +41,7 @@ const App = () => {
   } = useTranslation();
   const [menuOpen, setMenuOpen] = useState(false);
 
-  const { setIsLoading, setUser, user } = useUser();
+  const { setIsLoading, setUser } = useUser();
 
   const [searchParams] = useSearchParams();
 
@@ -123,7 +123,7 @@ useEffect(() => {
   };
 
   refreshToken();
-}, []);
+}, [navigate, setIsLoading, setUser]);
 
   return (
     <div className="App">
