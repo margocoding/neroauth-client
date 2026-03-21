@@ -200,7 +200,7 @@ const HelpPage = () => {
                                         className="w-full h-full"
                                         preload="metadata"
                                         playsInline
-                                        poster={`/help/${language}/adb.mp4`}
+                                        poster={`/help/${language}/adb.webp`}
                                         onError={(e) => {
                                             console.error("Video error:", e);
                                             setVideoError(true);

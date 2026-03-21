@@ -126,7 +126,7 @@ const ProjectPage = () => {
                 src={project.logo}
                 alt={project.title}
                 className={`h-auto object-contain relative z-10 ${
-                  project.id === "nero_troops"
+                  project.id === "nero_troops" || project.id === "magnate"
                     ? "w-72 sm:w-80 md:w-96 lg:w-[32rem]"
                     : "w-48 sm:w-56 md:w-64 lg:w-72"
                 }`}

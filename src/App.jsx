@@ -41,7 +41,7 @@ const App = () => {
   } = useTranslation();
   const [menuOpen, setMenuOpen] = useState(false);
 
-  const { setIsLoading, setUser, user } = useUser();
+  const { setIsLoading, setUser } = useUser();
 
   const [searchParams] = useSearchParams();
 
@@ -168,6 +168,8 @@ useEffect(() => {
                   </select>
                 </span>
 
+                <ProfileNavigationMenu />
+
                 <button
                   className="nav-toggle inline-flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 rounded btn-primary text-sm p-0"
                   onClick={() => setMenuOpen((v) => !v)}
@@ -175,8 +177,6 @@ useEffect(() => {
                 >
                   {menuOpen ? "✕" : "☰"}
                 </button>
-
-                <ProfileNavigationMenu />
               </div>
 
               {/* Desktop Menu */}

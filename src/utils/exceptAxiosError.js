@@ -13,6 +13,6 @@ export const exceptAxiosError = async (callback) => {
       toast(i18next.t(e.response.data.message), { type: "error" });
     }
 
-    throw new Error();
+    throw e;
   }
 };
