@@ -99,11 +99,13 @@ const AuthPage = () => {
                         localStorage.removeItem("auth-user-existing");
 
                         const isGame = searchParams.get("isGame");
-                        if (isGame) console.log("exit");
-
-                        navigate(
-                            `/${language}/profile#token=${localStorage.getItem("accessToken")}`,
-                        );
+                        if (isGame) {
+                            console.log("exit");
+                            console.log({
+                                accessToken: JSON.parse(localStorage.getItem('accessToken')),
+                                refreshToken: JSON.parse(localStorage.getItem('refreshToken')),
+                            })
+                        };
 
                         break;
                     default:

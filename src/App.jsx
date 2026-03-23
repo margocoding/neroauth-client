@@ -123,16 +123,14 @@ const App = () => {
         }
         
         setUser(userData);
-      } finally {
-        setIsLoading(false);
-      }
+
     } catch (e) {
       console.error(e);
       setUser(null);
     } finally {
       setIsLoading(false);
     }
-  };
+  }
 
   refreshToken();
 }, [navigate, setIsLoading, setUser]);
