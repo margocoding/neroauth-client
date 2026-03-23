@@ -46,7 +46,7 @@ const Sessions = () => {
     );
     if (success) {
       toast(t("sessions.actions.success_closed_all"), { type: "success" });
-      const currentToken = localStorage.getItem("refreshToken");
+      const currentToken = JSON.parse(localStorage.getItem("refreshToken")).value;
       setSessions((prev) =>
         prev.filter((session) => session.token === currentToken),
       );
@@ -64,7 +64,7 @@ const Sessions = () => {
           <Session
             key={session._id}
             isCurrentSession={
-              session.token === localStorage.getItem("refreshToken")
+              session.token === JSON.parse(localStorage.getItem("refreshToken")).value
             }
             closeSession={() => handleCloseSession(session._id)}
             os={session.device.os}
