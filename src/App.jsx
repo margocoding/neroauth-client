@@ -111,10 +111,6 @@ const App = () => {
         const refreshToken = JSON.parse(refreshTokenString);
 
 
-        if (!user) {
-          setIsLoading(true);
-        }
-
         let userData = null;
         if (new Date(refreshToken.expiresIn).getTime() - Date.now() < 24 * 60 * 60 * 1000) {
           userData = await authApi.refreshToken();
