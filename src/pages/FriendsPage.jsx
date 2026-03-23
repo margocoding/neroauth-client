@@ -1,18 +1,18 @@
+import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { toast } from "react-toastify";
 import { invitationApi } from "../api/invitationApi";
 import { userApi } from "../api/userApi";
-import { useCallback, useEffect, useState } from "react";
-import { exceptAxiosError } from "../utils/exceptAxiosError";
-import { toast } from "react-toastify";
-import Input from "../components/ui/Input";
-import Button from "../components/ui/Button";
-import Avatar from "../components/ui/Avatar";
 import AnimatedArrow from "../components/ui/AnimatedArrow";
-import { useOutletContext } from "react-router-dom";
+import Avatar from "../components/ui/Avatar";
+import Button from "../components/ui/Button";
+import Input from "../components/ui/Input";
+import { useUser } from "../store/user";
+import { exceptAxiosError } from "../utils/exceptAxiosError";
 
 const FriendsPage = () => {
   const { t } = useTranslation();
-  const { user } = useOutletContext();
+  const { user } = useUser();
 
   const [friendLoading, setFriendLoading] = useState(false);
   const [inviteLoading, setInviteLoading] = useState(false);

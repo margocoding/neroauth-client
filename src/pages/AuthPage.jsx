@@ -17,7 +17,7 @@ const AuthPage = () => {
         i18n: {language},
     } = useTranslation();
 
-    const {setUser} = useUser();
+    const {setUser, user} = useUser();
 
     const navigate = useNavigate();
 
@@ -104,7 +104,8 @@ const AuthPage = () => {
                             console.log({
                                 accessToken: JSON.parse(localStorage.getItem('accessToken')),
                                 refreshToken: JSON.parse(localStorage.getItem('refreshToken')),
-                            })
+                            });
+                            return;
                         };
 
                         break;
@@ -196,6 +197,8 @@ const AuthPage = () => {
                 return false;
         }
     }, [email, loading, login, password, code, step, authType, isUserExisting]);
+
+    if(user) navigate('/profile')
 
     return (
         <div className="h-[70vh] max-w-[300px] w-full mx-auto">
