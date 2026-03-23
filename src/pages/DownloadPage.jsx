@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link, useSearchParams } from "react-router-dom";
 
@@ -26,7 +26,7 @@ const DownloadPage = () => {
   } = useTranslation();
   const [searchParams] = useSearchParams();
 
-  const fileName = useMemo(() => searchParams.get('file'), [searchParams.get('file')]);
+  const fileName = searchParams.get('file');
   const [started, setStarted] = useState(false);
 
   useEffect(() => {

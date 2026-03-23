@@ -109,6 +109,8 @@ const AuthPage = () => {
                     default:
                         break;
                 }
+            } catch (e) {
+                console.error(e);
             } finally {
                 setLoading(false);
             }
