@@ -33,7 +33,7 @@ const Sessions = () => {
         authApi.closeSession(id),
       );
       if (success) {
-        clearSessions();
+        clearSessions(id);
         toast(t("sessions.actions.success_closed"), { type: "success" });
       }
     },
