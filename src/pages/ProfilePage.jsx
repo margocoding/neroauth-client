@@ -7,11 +7,7 @@ export default function ProfilePage() {
   const { t } = useTranslation();
   const { user, isLoading } = useUser();
 
-  // Показываем лоадер во время загрузки
-  if (isLoading) return <LoadingPage />;
-
-  // Если пользователь не загружен — ничего не рендерим (защита от ошибок)
-  if (!user) return null;
+  if (isLoading || !user) return <LoadingPage />;
 
   return (
     <div className="flex flex-col justify-center gap-5 max-w-[500px] mx-auto">

@@ -22,6 +22,7 @@ import ProfileWrapper from "./components/shared/ProfileWrapper";
 import { useUser } from "./store/user";
 import { exceptAxiosError } from "./utils/exceptAxiosError";
 import { authApi } from "./api/authApi";
+import { userApi } from "./api/userApi";
 
 const MainPage = lazy(() => import("./pages/MainPage"));
 const PostPage = lazy(() => import("./pages/PostPage"));
@@ -102,26 +103,28 @@ const App = () => {
   }, [location.pathname, language, navigate]);
 
   useEffect(() => {
-    document.documentElement.lang = language;
-  }, [language]);
-  
-useEffect(() => {
-  const refreshToken = async () => {
-    // Если нет токена — просто завершаем загрузку и не пытаемся рефрешить
-    const storageToken = localStorage.getItem("refreshToken");
-    if (!storageToken) {
-      setIsLoading(false);
-      return;
-    }
+    const refreshToken = async () => {
+      try {
+        const refreshTokenString = localStorage.getItem('refreshToken');
+        if (!refreshTokenString) return;
 
-    try {
-      setIsLoading(true);
-      const userData = await exceptAxiosError(() => authApi.refreshToken());
-      
-      if (userData && !userData.error) {
+        const refreshToken = JSON.parse(refreshTokenString);
+
+
+        if (!user) {
+          setIsLoading(true);
+        }
+
+        let userData = null;
+        if (new Date(refreshToken.expiresIn).getTime() - Date.now() < 24 * 60 * 60 * 1000) {
+          userData = await authApi.refreshToken();
+        } else {
+          userData = await userApi.fetchProfile();
+        }
+        
         setUser(userData);
-      } else {
-        setUser(null);
+      } finally {
+        setIsLoading(false);
       }
     } catch (e) {
       console.error(e);

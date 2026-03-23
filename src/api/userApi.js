@@ -7,12 +7,6 @@ export const userApi = {
         return data;
     },
 
-    async addFriend(code) {
-        const {data} = await baseApi.post("/user/");
-
-        return data;
-    },
-
     async changePassword(currentPassword, password) {
         const {data} = await baseApi.put('/user/change-password', {
             currentPassword,
