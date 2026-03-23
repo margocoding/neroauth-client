@@ -42,7 +42,7 @@ const App = () => {
   } = useTranslation();
   const [menuOpen, setMenuOpen] = useState(false);
 
-  const { setIsLoading, setUser, user } = useUser();
+  const { setIsLoading, setUser } = useUser();
 
   const [searchParams] = useSearchParams();
 
@@ -123,16 +123,17 @@ const App = () => {
         }
         
         setUser(userData);
-      } catch (e) {
-        console.error(e);
-        setUser(null);
-      } finally {
-        setIsLoading(false);
-      }
-    };
 
-    refreshToken();
-  }, []);
+    } catch (e) {
+      console.error(e);
+      setUser(null);
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
+  refreshToken();
+}, [navigate, setIsLoading, setUser]);
 
   return (
     <div className="App">
@@ -168,6 +169,8 @@ const App = () => {
                   </select>
                 </span>
 
+                <ProfileNavigationMenu />
+
                 <button
                   className="nav-toggle inline-flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 rounded btn-primary text-sm p-0"
                   onClick={() => setMenuOpen((v) => !v)}
@@ -175,8 +178,6 @@ const App = () => {
                 >
                   {menuOpen ? "✕" : "☰"}
                 </button>
-
-                <ProfileNavigationMenu />
               </div>
 
               {/* Desktop Menu */}
@@ -267,13 +268,7 @@ const App = () => {
                       {t("nav.donate")}
                     </Link>
 
-                    {localStorage.getItem("refreshToken") ? (
-                      <Link to={"/profile"} onClick={() => setMenuOpen(false)}>
-                        <Button className={"w-full"}>
-                          {t("profile.title")}
-                        </Button>
-                      </Link>
-                    ) : (
+                    {!localStorage.getItem("refreshToken") && (
                       <Link to={"/auth"} onClick={() => setMenuOpen(false)}>
                         <Button className={"w-full"}>
                           {t("auth.authButton")}

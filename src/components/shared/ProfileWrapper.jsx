@@ -10,8 +10,8 @@ const ProfileWrapper = () => {
   if(isLoading) return <LoadingPage/>
 
   return (
-    <div className="max-w-[500px] mx-auto">
-      <Outlet />
+    <div className="max-w-[1200px] mx-auto px-4 md:px-6 text-white">
+      <Outlet context={{ user, setUser, fetchUser }} />
     </div>
   );
 };

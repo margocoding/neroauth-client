@@ -48,10 +48,10 @@ const Sessions = () => {
       toast(t("sessions.actions.success_closed_all"), { type: "success" });
       const currentToken = localStorage.getItem("refreshToken");
       setSessions((prev) =>
-        prev.filter((session) => session.token == currentToken),
+        prev.filter((session) => session.token === currentToken),
       );
     }
-  });
+  }, [t]);
 
   return (
     <div className={"space-y-5"}>
