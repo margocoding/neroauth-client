@@ -7,12 +7,12 @@ import { toast } from "react-toastify";
 import { exceptAxiosError } from "../../../../utils/exceptAxiosError";
 import { userApi } from "../../../../api/userApi";
 import { FaCopy, FaCheck, FaEdit, FaTimes } from "react-icons/fa";
-import { useOutletContext } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
+import { useUser } from "../../../../store/user";
 
 const MainInformation = ({ avatar, login, inviteCode }) => {
     const { t } = useTranslation();
-    const { setUser } = useOutletContext();
+    const { setUser } = useUser();
 
     const [isUpdating, setIsUpdating] = useState(false);
     const [currentLogin, setCurrentLogin] = useState(login);
