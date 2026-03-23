@@ -22,6 +22,7 @@ import ProfileWrapper from "./components/shared/ProfileWrapper";
 import { useUser } from "./store/user";
 import { exceptAxiosError } from "./utils/exceptAxiosError";
 import { authApi } from "./api/authApi";
+import { userApi } from "./api/userApi";
 
 const MainPage = lazy(() => import("./pages/MainPage"));
 const PostPage = lazy(() => import("./pages/PostPage"));
@@ -104,15 +105,27 @@ const App = () => {
   useEffect(() => {
     const refreshToken = async () => {
       try {
+        const refreshTokenString = localStorage.getItem('refreshToken');
+        if (!refreshTokenString) return;
+
+        const refreshToken = JSON.parse(refreshTokenString);
+
+
         if (!user) {
           setIsLoading(true);
         }
-        const userData = await exceptAxiosError(() => authApi.refreshToken());
+
+        let userData = null;
+        if (new Date(refreshToken.expiresIn).getTime() - Date.now() < 24 * 60 * 60 * 1000) {
+          userData = await authApi.refreshToken();
+        } else {
+          userData = await userApi.fetchProfile();
+        }
+        
         setUser(userData);
       } catch (e) {
         console.error(e);
         setUser(null);
-        navigate("/auth");
       } finally {
         setIsLoading(false);
       }

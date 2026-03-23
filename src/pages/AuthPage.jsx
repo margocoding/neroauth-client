@@ -1,20 +1,23 @@
-import {AnimatePresence, motion} from "framer-motion";
-import {useCallback, useMemo, useState} from "react";
-import {useForm} from "react-hook-form";
-import {useTranslation} from "react-i18next";
-import {useNavigate, useSearchParams} from "react-router-dom";
-import {authApi} from "../api/authApi";
+import { AnimatePresence, motion } from "framer-motion";
+import { useCallback, useMemo, useState } from "react";
+import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { authApi } from "../api/authApi";
 import AnimatedArrow from "../components/ui/AnimatedArrow";
 import Button from "../components/ui/Button";
 import Input from "../components/ui/Input";
 import Spinner from "../components/ui/Spinner";
-import {exceptAxiosError} from "../utils/exceptAxiosError";
+import { useUser } from "../store/user";
+import { exceptAxiosError } from "../utils/exceptAxiosError";
 
 const AuthPage = () => {
     const {
         t,
         i18n: {language},
     } = useTranslation();
+
+    const {setUser} = useUser();
 
     const navigate = useNavigate();
 
@@ -75,19 +78,20 @@ const AuthPage = () => {
                         setStep((step) => step + 1);
                         break;
                     case 2:
-                        await exceptAxiosError(async () => {
+                        const user = await exceptAxiosError(async () => {
                             if (authType === "initial") {
                                 if (!isUserExisting) {
-                                    await authApi.register(email, login, password, +code);
+                                    return await authApi.register(email, login, password, +code);
                                 } else {
-                                    await authApi.login(email, password);
+                                    return await authApi.login(email, password);
                                 }
                             } else if (authType === "reset-password") {
-                                await authApi.resetPassword(email, code, password);
-                                setAuthType("initial");
-                                setIsUserExisting(true);
+                                return await authApi.resetPassword(email, code, password);
                             }
                         });
+
+                        
+                        setUser(user);
 
                         localStorage.removeItem("auth-email");
                         localStorage.removeItem("auth-code");

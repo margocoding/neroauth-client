@@ -8,7 +8,7 @@ export default function ProfilePage() {
 
   const { t } = useTranslation();
 
-  if (isLoading) return <LoadingPage />;
+  if (isLoading || !user) return <LoadingPage />;
 
   return (
     <div className="flex flex-col justify-center gap-5">

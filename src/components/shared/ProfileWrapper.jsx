@@ -1,15 +1,13 @@
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import { useVerifyAuth } from "../../utils/hooks/verifyAuth";
 import { useUser } from "../../store/user";
+import LoadingPage from "../../pages/LoadingPage";
 
 const ProfileWrapper = () => {
-  const { isLoading, user } = useUser();
-
-  const navigate = useNavigate();
-
+  const {isLoading} = useUser();
   useVerifyAuth();
 
-  if (!isLoading && !user) return navigate("/auth");
+  if(isLoading) return <LoadingPage/>
 
   return (
     <div className="max-w-[500px] mx-auto">
