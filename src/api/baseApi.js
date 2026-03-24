@@ -1,4 +1,6 @@
 import axios from "axios";
+import i18n from 'i18next';
+import { languages } from "../i18n/i18n";
 import { authApi } from "./authApi";
 
 export const baseApi = axios.create({
@@ -13,16 +15,15 @@ baseApi.interceptors.request.use((request) => {
         request.headers.Authorization = "Bearer " + formattedToken.value;
     } 
 
+    request.params = {...request.params, locale: languages.includes(i18n.language) ? i18n.language : 'en'};
 
     return request;
 });
 
 baseApi.interceptors.response.use(async (response) => response, async (error) => {
-    const accessToken = localStorage.getItem('accessToken');
     const refreshToken = localStorage.getItem('refreshToken');
 
-
-    if (error.response.status === 401 && !error.response._tried && refreshToken) {
+    if (error.response?.status === 401 && !error.response._tried && refreshToken) {
         error.response._tried = true;
         const data = await authApi.refreshToken();
         
