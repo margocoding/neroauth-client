@@ -14,16 +14,16 @@ import { exceptAxiosError } from "../utils/exceptAxiosError";
 const AuthPage = () => {
     const {
         t,
-        i18n: {language},
+        i18n: { language },
     } = useTranslation();
 
-    const {setUser, user} = useUser();
+    const { setUser, user } = useUser();
 
     const navigate = useNavigate();
 
     const [searchParams] = useSearchParams();
 
-    const {register, watch, handleSubmit} = useForm({
+    const { register, watch, handleSubmit } = useForm({
         defaultValues: {
             email: localStorage.getItem("auth-email"),
             login: "",
@@ -32,7 +32,7 @@ const AuthPage = () => {
         },
     });
 
-    const {email, login, password, code} = watch();
+    const { email, login, password, code } = watch();
 
     const [isUserExisting, setIsUserExisting] = useState(
         localStorage.getItem("auth-user-existing") === "true",
@@ -59,7 +59,7 @@ const AuthPage = () => {
     }, [email]);
 
     const onSubmit = useCallback(
-        async ({email, login, password, code}) => {
+        async ({ email, login, password, code }) => {
             setLoading(true);
 
             try {
@@ -90,7 +90,7 @@ const AuthPage = () => {
                             }
                         });
 
-                        
+
                         setUser(user);
 
                         localStorage.removeItem("auth-email");
@@ -123,7 +123,7 @@ const AuthPage = () => {
                                 <Input
                                     autoFocus
                                     placeholder={t("auth.password")}
-                                    {...register("password", {required: true})}
+                                    {...register("password", { required: true })}
                                     type="password"
                                 />
                             </div>
@@ -133,16 +133,16 @@ const AuthPage = () => {
                                     placeholder={t("auth.login")}
                                     maxLength={'15'}
                                     autoFocus
-                                    {...register("login", {required: true})}
+                                    {...register("login", { required: true })}
                                 />
                                 <Input
                                     placeholder={t("auth.password")}
-                                    {...register("password", {required: true})}
+                                    {...register("password", { required: true })}
                                     type="password"
                                 />
                                 <Input
                                     placeholder={t("auth.code")}
-                                    {...register("code", {required: true})}
+                                    {...register("code", { required: true })}
                                 />
                             </>
                         );
@@ -151,12 +151,12 @@ const AuthPage = () => {
                             <>
                                 <Input
                                     placeholder={t("auth.password")}
-                                    {...register("password", {required: true})}
+                                    {...register("password", { required: true })}
                                     type="password"
                                 />
                                 <Input
                                     placeholder={t("auth.code")}
-                                    {...register("code", {required: true})}
+                                    {...register("code", { required: true })}
                                 />
                             </>
                         );
@@ -193,7 +193,6 @@ const AuthPage = () => {
     useEffect(() => {
         if (user) {
             if (searchParams.get("isGame")) {
-                console.log("exit");
                 if (localStorage.getItem('accessToken') && localStorage.getItem('refreshToken')) {
                     console.log({
                         accessToken: JSON.parse(localStorage.getItem('accessToken')),
@@ -214,7 +213,7 @@ const AuthPage = () => {
         );
     }
 
-    if(user && !searchParams.get("isGame")) return null;
+    if (user && !searchParams.get("isGame")) return null;
     return (
         <div className="h-[70vh] max-w-[300px] w-full mx-auto">
             <form
@@ -228,7 +227,7 @@ const AuthPage = () => {
 
                 <Input
                     disabled={step > 1}
-                    {...register("email", {required: true})}
+                    {...register("email", { required: true })}
                     placeholder={t("auth.emailInput")}
                     type="email"
                 />
@@ -238,14 +237,14 @@ const AuthPage = () => {
                         <motion.div
                             key={isUserExisting ? "login" : "register"}
                             variants={{
-                                hidden: {opacity: 0, y: 20},
-                                visible: {opacity: 1, y: 0},
-                                exit: {opacity: 0, y: -20},
+                                hidden: { opacity: 0, y: 20 },
+                                visible: { opacity: 1, y: 0 },
+                                exit: { opacity: 0, y: -20 },
                             }}
                             initial="hidden"
                             animate="visible"
                             exit="exit"
-                            transition={{duration: 0.35, ease: "easeOut"}}
+                            transition={{ duration: 0.35, ease: "easeOut" }}
                             className="flex flex-col gap-3 w-full"
                         >
                             {getFormByStep(step)}
@@ -269,11 +268,11 @@ const AuthPage = () => {
                         disabled={!isNextButtonEnabled}
                     >
                         {loading ? (
-                            <Spinner/>
+                            <Spinner />
                         ) : (
                             <>
                                 {t("auth.next")}{" "}
-                                <AnimatedArrow condition={isNextButtonEnabled}/>
+                                <AnimatedArrow condition={isNextButtonEnabled} />
                             </>
                         )}
                     </Button>
