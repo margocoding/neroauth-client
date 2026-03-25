@@ -20,21 +20,68 @@ baseApi.interceptors.request.use((request) => {
     return request;
 });
 
-baseApi.interceptors.response.use(async (response) => response, async (error) => {
-    const refreshToken = localStorage.getItem('refreshToken');
+let isRefreshing = false;
+let failedQueue = [];
 
-    if (error.response?.status === 401 && !error.response._tried && refreshToken) {
-        error.response._tried = true;
-        const data = await authApi.refreshToken();
-        
-
-        if(!data) {
-            localStorage.removeItem("accessToken");
-            localStorage.removeItem("refreshToken");
+const processQueue = (error) => {
+    failedQueue.forEach(prom => {
+        if (error) {
+            prom.reject(error);
         } else {
-            return await baseApi(error.config);
+            prom.resolve();
         }
-    }
+    });
+    failedQueue = [];
+};
+
+baseApi.interceptors.response.use(
+    (response) => response, 
+    async (error) => {
+        const originalRequest = error.config;
+        const refreshToken = localStorage.getItem('refreshToken');
+
+        if (
+            error.response?.status === 401 && 
+            !originalRequest._retry && 
+            refreshToken &&
+            !originalRequest.url.includes('/auth/refresh')
+        ) {
+            if (isRefreshing) {
+                return new Promise((resolve, reject) => {
+                    failedQueue.push({ resolve, reject });
+                })
+                    .then(() => {
+                        return baseApi(originalRequest);
+                    })
+                    .catch(err => {
+                        return Promise.reject(err);
+                    });
+            }
+
+            originalRequest._retry = true;
+            isRefreshing = true;
+
+            try {
+                const data = await authApi.refreshToken();
+
+                if (!data) {
+                    localStorage.removeItem("accessToken");
+                    localStorage.removeItem("refreshToken");
+                    processQueue(new Error('Refresh token error'));
+                    return Promise.reject(error);
+                }
+
+                processQueue(null);
+                return baseApi(originalRequest);
+            } catch (e) {
+                localStorage.removeItem("accessToken");
+                localStorage.removeItem("refreshToken");
+                processQueue(e);
+                return Promise.reject(error);
+            } finally {
+                isRefreshing = false;
+            }
+        }
 
         return Promise.reject(error);
 });

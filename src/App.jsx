@@ -20,7 +20,7 @@ import FriendsPage from "./pages/FriendsPage";
 import ProfileNavigationMenu from "./components/shared/ProfileNavigationMenu";
 import ProfileWrapper from "./components/shared/ProfileWrapper";
 import { useUser } from "./store/user";
-import { exceptAxiosError } from "./utils/exceptAxiosError";
+
 import { authApi } from "./api/authApi";
 import { userApi } from "./api/userApi";
 
