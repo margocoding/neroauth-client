@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from "framer-motion";
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useNavigate, useSearchParams } from "react-router-dom";
@@ -98,15 +98,7 @@ const AuthPage = () => {
                         localStorage.removeItem("auth-step");
                         localStorage.removeItem("auth-user-existing");
 
-                        const isGame = searchParams.get("isGame");
-                        if (isGame) {
-                            console.log("exit");
-                            console.log({
-                                accessToken: JSON.parse(localStorage.getItem('accessToken')),
-                                refreshToken: JSON.parse(localStorage.getItem('refreshToken')),
-                            });
-                            return;
-                        };
+
 
                         break;
                     default:
@@ -118,7 +110,7 @@ const AuthPage = () => {
                 setLoading(false);
             }
         },
-        [step, navigate, language, authType, isUserExisting, searchParams],
+        [step, navigate, language, authType, isUserExisting, searchParams, setUser],
     );
 
     const getFormByStep = useCallback(
@@ -198,8 +190,31 @@ const AuthPage = () => {
         }
     }, [email, loading, login, password, code, step, authType, isUserExisting]);
 
-    if(user) navigate('/profile')
+    useEffect(() => {
+        if (user) {
+            if (searchParams.get("isGame")) {
+                console.log("exit");
+                if (localStorage.getItem('accessToken') && localStorage.getItem('refreshToken')) {
+                    console.log({
+                        accessToken: JSON.parse(localStorage.getItem('accessToken')),
+                        refreshToken: JSON.parse(localStorage.getItem('refreshToken')),
+                    });
+                }
+            } else {
+                navigate('/profile');
+            }
+        }
+    }, [user, searchParams, navigate]);
 
+    if (user && searchParams.get("isGame")) {
+        return (
+            <div className="flex h-[70vh] w-full items-center justify-center">
+                <Spinner />
+            </div>
+        );
+    }
+
+    if(user && !searchParams.get("isGame")) return null;
     return (
         <div className="h-[70vh] max-w-[300px] w-full mx-auto">
             <form

@@ -1,6 +1,8 @@
 import { AxiosError } from "axios";
 import { baseApi } from "./baseApi";
 
+let refreshPromise = null;
+
 export const authApi = {
   async checkUserByEmail(email) {
     try {
@@ -84,22 +86,34 @@ export const authApi = {
   },
 
   async refreshToken() {
-    try {
-      const refreshToken = localStorage.getItem("refreshToken");
-      if (!refreshToken) return Error("Token not found");
-      const { value } = JSON.parse(refreshToken);
-
-      const { data } = await baseApi.post("/auth/refresh", {
-        refreshToken: value,
-      });
-      localStorage.setItem("accessToken", JSON.stringify(data.accessToken));
-      localStorage.setItem("refreshToken", JSON.stringify(data.refreshToken));
-
-      return data.user;
-    } catch (e) {
-      console.error(e);
-      throw new AxiosError("Unauthorized", 401);
+    if (refreshPromise) {
+      return refreshPromise;
     }
+
+    refreshPromise = (async () => {
+      try {
+        const refreshToken = localStorage.getItem("refreshToken");
+        if (!refreshToken) throw new Error("Token not found");
+        const { value } = JSON.parse(refreshToken);
+
+        const { data } = await baseApi.post("/auth/refresh", {
+          refreshToken: value,
+        });
+        localStorage.setItem("accessToken", JSON.stringify(data.accessToken));
+        localStorage.setItem("refreshToken", JSON.stringify(data.refreshToken));
+
+        return data.user;
+      } catch (e) {
+        console.error(e);
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("refreshToken");
+        throw new AxiosError("Unauthorized", 401, e.config, e.request, e.response);
+      } finally {
+        refreshPromise = null;
+      }
+    })();
+
+    return refreshPromise;
   },
 
   async createCode(email) {
