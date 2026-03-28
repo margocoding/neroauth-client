@@ -84,16 +84,14 @@ const DonatePage = () => {
   return (
     <div className="space-y-5 sm:space-y-7 py-8 sm:py-12 md:py-16">
       <header className="text-center w-full px-4">
-        <div className="animate-fadeUpPlain">
-          <h1 className="text-5xl font-bold neon-text">{t("donate.title")}</h1>
-          <div className="divider mx-auto w-32 h-1 rounded-full mt-4" />
-        </div>
-        <p className="text-gray-300 mt-3 max-w-2xl mx-auto text-lg leading-relaxed animate-fadeUpPlain">
+        <h1 className="text-5xl font-bold neon-text">{t("donate.title")}</h1>
+        <div className="divider mx-auto w-32 h-1 rounded-full mt-4" />
+        <p className="text-gray-300 mt-3 max-w-2xl mx-auto text-lg leading-relaxed">
           {t("donate.description")}
         </p>
 
-        <div className="animate-fadeUpPlain flex flex-col items-center gap-2 sm:gap-3 mt-4 sm:mt-5">
-          <p className="text-xl sm:text-2xl font-semibold text-gray-300 tracking-wide">
+        <div className="flex flex-col items-center gap-2 sm:gap-3 mt-4 sm:mt-5">
+          <p className="text-xl sm:text-2xl font-semibold neon-text tracking-wide">
             {t("donate.service_title")}
           </p>
           <div className="rotate-90">
@@ -106,7 +104,7 @@ const DonatePage = () => {
       </header>
 
       <main className="flex flex-col items-center px-4">
-        <div className="animate-fadeUpPlain-delay flex flex-col items-center w-full max-w-lg mx-auto text-center">
+        <div className="flex flex-col items-center w-full max-w-lg mx-auto text-center">
           <div className="inline-flex items-center p-1 rounded-full glass border border-orange-500/40 neon-box backdrop-blur-xl shadow-[0_0_35px_rgba(249,115,22,0.45)] relative">
             <button
               type="button"

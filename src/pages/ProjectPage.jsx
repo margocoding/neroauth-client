@@ -182,14 +182,15 @@ const ProjectPage = () => {
           </div>
         </section>
 
-        {/* Disclaimer */}
-        <section className="mb-8">
-          <div className="bg-red-500/10 border border-red-500/50 rounded-xl p-4 max-w-3xl mx-auto text-center">
-            <p className="text-red-500 font-bold text-sm sm:text-base leading-relaxed">
-              {t("project.disclaimer")}
-            </p>
-          </div>
-        </section>
+        {project.id === "nero_troops" && (
+          <section className="mb-8">
+            <div className="bg-red-500/10 border border-red-500/50 rounded-xl p-4 max-w-3xl mx-auto text-center">
+              <p className="text-red-500 font-bold text-sm sm:text-base leading-relaxed">
+                {t("project.disclaimer")}
+              </p>
+            </div>
+          </section>
+        )}
       </div>
     </>
   );
