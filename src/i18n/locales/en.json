@@ -60,6 +60,7 @@
     "details": "Description",
     "comingSoon": "Coming Soon",
     "comingSoonButton": "In Development",
+    "download_disabled_hint": "Download will be available on {{date}}",
     "disclaimer": "This project is in no way affiliated with Heyworks or any other companies. It is a completely independent project created entirely by the Nero Team."
   },
   "card": {
@@ -413,6 +414,7 @@
       "world": "International support methods available from most countries worldwide."
     },
     "services_labels": {
+      "sberbank": "Sberbank",
       "tanody": "Tanody (SBP)",
       "keksik": "Keksik (SBP)"
     },

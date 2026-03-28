@@ -37,13 +37,11 @@ export const projects = [
     details: "nero_troops.details",
     labelImage: "/nero_troops/splash.webp",
     image: "/nero_troops/icon.webp",
-    files: [
-      { name: " ", platform: "android" },
-      { name: " ", platform: "ios", unstable: true },
-    ],
-    type: 'download',
+    type: "download",
     logo: "/nero_troops/logo.webp",
     comingSoon: true,
+    downloadDisabled: true,
+    downloadAvailableFrom: "2026-03-30",
   },
 ];
 
