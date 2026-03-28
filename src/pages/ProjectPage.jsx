@@ -111,6 +111,7 @@ const ProjectPage = () => {
                     <p className="text-center md:text-left text-sm text-gray-400 max-w-xs">
                       {t("project.download_disabled_hint", {
                         date: downloadAvailableDateLabel,
+                        interpolation: { escapeValue: false },
                       })}
                     </p>
                   )}
