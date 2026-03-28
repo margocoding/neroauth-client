@@ -39,7 +39,6 @@ export const projects = [
     image: "/nero_troops/icon.webp",
     type: "download",
     logo: "/nero_troops/logo.webp",
-    comingSoon: true,
     downloadDisabled: true,
     downloadAvailableFrom: "2026-03-30",
   },
