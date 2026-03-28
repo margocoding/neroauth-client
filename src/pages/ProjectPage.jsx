@@ -28,6 +28,13 @@ const ProjectPage = () => {
 
   const screenshots = t(`${id}.screenshots`, { returnObjects: true }) || [];
 
+  const downloadAvailableDateLabel =
+    project.downloadAvailableFrom &&
+    new Date(`${project.downloadAvailableFrom}T12:00:00`).toLocaleDateString(
+      language === "ru" ? "ru-RU" : "en-GB",
+      { day: "2-digit", month: "2-digit", year: "numeric" },
+    );
+
   return (
     <>
       <header>
@@ -79,7 +86,7 @@ const ProjectPage = () => {
             </div>
 
             {/* Primary Action Button - download or play - positioned at bottom of icon */}
-            <div className="flex justify-center md:justify-start md:absolute md:bottom-0 md:left-40 md:ml-6 -mt-4 md:mt-0">
+            <div className="flex flex-col items-center md:items-start gap-2 justify-center md:justify-start md:absolute md:bottom-0 md:left-40 md:ml-6 -mt-4 md:mt-0">
               {project.type === "play" ? (
                 <a
                   href={project.downloadLink}
@@ -91,6 +98,23 @@ const ProjectPage = () => {
                     {t(`project.${project.type}`)}
                   </span>
                 </a>
+              ) : project.downloadDisabled ? (
+                <>
+                  <button
+                    type="button"
+                    disabled
+                    className="btn-disabled px-8 py-4 md:px-12 md:py-3 rounded-lg text-lg md:text-lg font-bold cursor-not-allowed opacity-70"
+                  >
+                    <span className="text-center">{t("project.download")}</span>
+                  </button>
+                  {downloadAvailableDateLabel && (
+                    <p className="text-center md:text-left text-sm text-gray-400 max-w-xs">
+                      {t("project.download_disabled_hint", {
+                        date: downloadAvailableDateLabel,
+                      })}
+                    </p>
+                  )}
+                </>
               ) : project.files ? (
                 <a
                   href={`/${language || "ru"}/download?${
