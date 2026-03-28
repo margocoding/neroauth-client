@@ -1,4 +1,4 @@
-import { lazy, useEffect, useState } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
   Link,
@@ -74,6 +74,7 @@ const App = () => {
     ? pathLocale
     : language || "en";
   const [urlLocale, setUrlLocale] = useState(initialLocale);
+  const isHomePage = normalizePath(location.pathname) === "/";
 
   const handleLocaleSwitch = async (newLocale) => {
     if (newLocale === urlLocale) return;
@@ -138,7 +139,7 @@ const App = () => {
         <MobileOptimizer />
 
         {!isGame && (
-          <header className="site-header z-10 glass backdrop-blur-md py-3 px-4 md:px-6 neon-box">
+          <header className="site-header z-10 glass py-3 px-4 md:px-6 neon-box">
             <div className="container mx-auto max-w-6xl flex items-center justify-between gap-4">
               <Link to={"/"} className="inline-flex items-center">
                 <img
@@ -180,31 +181,31 @@ const App = () => {
               <nav className="hidden md:flex items-center z-10 gap-4 text-base">
                 <Link
                   to={"/"}
-                  className="link-underline hover-text-accent transition"
+                  className="link-underline hover-text-accent transition-colors"
                 >
                   {t("nav.home")}
                 </Link>
                 <Link
                   to={"/projects"}
-                  className="link-underline hover-text-accent transition"
+                  className="link-underline hover-text-accent transition-colors"
                 >
                   {t("nav.projects")}
                 </Link>
                 <Link
                   to={"/help"}
-                  className="link-underline hover-text-accent transition"
+                  className="link-underline hover-text-accent transition-colors"
                 >
                   {t("nav.help")}
                 </Link>
                 <Link
                   to={"/news"}
-                  className="link-underline hover-text-accent transition"
+                  className="link-underline hover-text-accent transition-colors"
                 >
                   {t("nav.news")}
                 </Link>
                 <Link
                   to={"/donate"}
-                  className="link-underline hover-text-accent transition"
+                  className="link-underline hover-text-accent transition-colors"
                 >
                   {t("nav.donate")}
                 </Link>
@@ -280,28 +281,43 @@ const App = () => {
 
         {isGame && <GameCross />}
 
-        <main className="grow container mx-auto max-w-6xl px-4 md:px-6 py-6 section">
-          <Routes>
-            <Route path="/:locale/*" element={<LanguageWrapper />}>
-              <Route index element={<MainPage />} />
-              <Route path="profile/*" element={<ProfileWrapper />}>
-                <Route index element={<ProfilePage />} />
-                <Route path="security" element={<SecurityPage />} />
-                <Route path="friends" element={<FriendsPage />} />
-              </Route>
+        <div className={`grow relative ${isHomePage ? "home-phoenix-wrapper" : ""}`}>
+          {isHomePage && (
+            <div className="home-phoenix-bg-layer" aria-hidden="true">
+              <img
+                src="/PhoenixBlur.webp"
+                alt=""
+                className="home-phoenix-bg-image"
+                loading="eager"
+                decoding="async"
+              />
+            </div>
+          )}
+          <main className="relative z-[1] container mx-auto max-w-6xl px-4 md:px-6 py-6 section">
+            <Suspense fallback={null}>
+            <Routes>
+              <Route path="/:locale/*" element={<LanguageWrapper />}>
+                <Route index element={<MainPage />} />
+                <Route path="profile/*" element={<ProfileWrapper />}>
+                  <Route index element={<ProfilePage />} />
+                  <Route path="security" element={<SecurityPage />} />
+                  <Route path="friends" element={<FriendsPage />} />
+                </Route>
 
-              <Route path="news" element={<PostsPage />} />
-              <Route path="news/:id" element={<PostPage />} />
-              <Route path="projects" element={<ProjectsPage />} />
-              <Route path="projects/:id" element={<ProjectPage />} />
-              <Route path="help" element={<HelpPage />} />
-              <Route path="auth" element={<AuthPage />} />
-              <Route path="download" element={<DownloadPage />} />
-              <Route path="donate" element={<DonatePage />} />
-              <Route path="*" element={<Navigate to="/" />} />
-            </Route>
-          </Routes>
-        </main>
+                <Route path="news" element={<PostsPage />} />
+                <Route path="news/:id" element={<PostPage />} />
+                <Route path="projects" element={<ProjectsPage />} />
+                <Route path="projects/:id" element={<ProjectPage />} />
+                <Route path="help" element={<HelpPage />} />
+                <Route path="auth" element={<AuthPage />} />
+                <Route path="download" element={<DownloadPage />} />
+                <Route path="donate" element={<DonatePage />} />
+                <Route path="*" element={<Navigate to="/" />} />
+              </Route>
+            </Routes>
+            </Suspense>
+          </main>
+        </div>
 
         {!isGame && (
           <footer className="site-footer glass backdrop-blur-md text-center py-4 mt-8 neon-box">

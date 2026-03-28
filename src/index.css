@@ -53,26 +53,41 @@ html {
 }
 
 body {
-  background-color: transparent;
+  background: var(--bg-gradient);
+  background-color: var(--bg-0);
   color: var(--fg-0);
   min-height: 100vh;
-}
-
-/* Fixed background layer: prevents GPU repaint artifacts (black squares) during mobile zoom */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  background: var(--bg-gradient);
-  pointer-events: none;
-  transform: translateZ(0);
-  -webkit-transform: translateZ(0);
 }
 
 .site-header,
 .site-footer {
   color: var(--fg-0);
+}
+
+.home-phoenix-wrapper {
+  min-height: 0;
+}
+
+.home-phoenix-bg-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.home-phoenix-bg-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center center;
+  opacity: 0.6;
+  filter: saturate(1.2);
+  mix-blend-mode: screen;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 .site-header {
@@ -394,6 +409,15 @@ body::before {
 @media (hover: hover) {
   .link-underline:hover::after {
     width: 100%;
+  }
+}
+
+/* Desktop header: disable bottom stripe/flicker effects */
+@media (min-width: 768px) {
+  .site-header {
+    border-bottom-color: transparent !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
   }
 }
 
