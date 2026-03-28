@@ -103,41 +103,50 @@ const HelpPage = () => {
             </div>
 
             <p className="text-gray-400 mt-4 text-center">
-                {t("help.more")
-                    .split("Telegram")
-                    .map((part, index, array) => {
-                        if (index === array.length - 1) {
-                            return part
-                                .split("support@neroteam.org")
-                                .map((emailPart, emailIndex, emailArray) => {
-                                    if (emailIndex === emailArray.length - 1) {
-                                        return emailPart;
-                                    }
-                                    return (<span key={`email-${emailIndex}`}>
-                                        {emailPart}
-                                        <a
-                                            href="mailto:support@neroteam.org"
-                                            className="text-orange-400 hover:text-orange-300 underline transition-colors"
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                        >
-                                            support@neroteam.org
-                                        </a>
-                                    </span>);
-                                });
+                {(() => {
+                    const text = t("help.more");
+                    const links = [
+                        { key: "Telegram", href: "https://t.me/neroteam_ru" },
+                        { key: "VKontakte", href: "https://vk.com/neroteam_ru" },
+                        { key: "support@neroteam.org", href: "mailto:support@neroteam.org" },
+                    ];
+                    const parts = [];
+                    let remaining = text;
+                    let idx = 0;
+                    while (remaining.length > 0) {
+                        let earliest = null;
+                        let earliestPos = remaining.length;
+                        for (const link of links) {
+                            const pos = remaining.indexOf(link.key);
+                            if (pos !== -1 && pos < earliestPos) {
+                                earliest = link;
+                                earliestPos = pos;
+                            }
                         }
-                        return (<span key={index}>
-                            {part}
+                        if (!earliest) {
+                            parts.push(<span key={idx}>{remaining}</span>);
+                            break;
+                        }
+                        if (earliestPos > 0) {
+                            parts.push(<span key={idx}>{remaining.slice(0, earliestPos)}</span>);
+                            idx++;
+                        }
+                        parts.push(
                             <a
-                                href={`https://t.me/neroteam_ru`}
+                                key={idx}
+                                href={earliest.href}
                                 className="text-orange-400 hover:text-orange-300 underline transition-colors"
                                 target="_blank"
                                 rel="noopener noreferrer"
                             >
-                                Telegram
+                                {earliest.key}
                             </a>
-                        </span>);
-                    })}
+                        );
+                        idx++;
+                        remaining = remaining.slice(earliestPos + earliest.key.length);
+                    }
+                    return parts;
+                })()}
             </p>
 
             {/* Troubleshooting Section */}

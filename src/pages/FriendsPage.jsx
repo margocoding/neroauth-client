@@ -95,29 +95,29 @@ const FriendsPage = () => {
   );
 
   return (
-    <div className="space-y-5 max-w-[500px] mx-auto text-white">
-      <h2 className="font-semibold text-3xl text-center">
-        {t("profile.friend.title")}
-      </h2>
-      <div className="space-y-5">
+    <div className="space-y-4 max-w-[500px] mx-auto text-white">
+      <div className="space-y-3">
         <h2 className="text-3xl font-semibold text-center">
           {t("profile.friend.invite_code.title")}
         </h2>
-        <div className="space-y-3">
+        <div className="space-y-2">
           <Input
             value={code}
             onChange={(e) => setCode(e.target.value)}
             placeholder={t("profile.friend.invite_code.placeholder")}
           />
           <Button className={"w-full"} onClick={inviteFriend} disabled={!code}>
-            {t("profile.friend.add")} <AnimatedArrow condition={!!code} />{" "}
+            {t("profile.friend.send_request")} <AnimatedArrow condition={!!code} />{" "}
           </Button>
         </div>
       </div>
 
       {friends.length > 0 && (
-        <div className="space-y-3">
-          <h2 className="font-semibold text-3xl text-center">
+        <div className="space-y-2">
+          <div className="flex items-center justify-center my-2">
+            <div className="divider w-full h-px rounded-full"></div>
+          </div>
+          <h2 className="font-semibold text-2xl text-center">
             {t("profile.friend.list")}
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -142,8 +142,11 @@ const FriendsPage = () => {
       )}
 
       {invitations.length > 0 && (
-        <div className="space-y-3">
-          <h2 className="text-3xl font-semibold text-center">
+        <div className="space-y-2">
+          <div className="flex items-center justify-center my-2">
+            <div className="divider w-full h-px rounded-full"></div>
+          </div>
+          <h2 className="text-2xl font-semibold text-center">
             {t("profile.friend.invitations.title")}
           </h2>
 

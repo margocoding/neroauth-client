@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { useTranslation } from "react-i18next";
 
 const ScreenshotGallery = ({ screenshots }) => {
@@ -367,12 +368,12 @@ const ScreenshotGallery = ({ screenshots }) => {
         
 
         {/* Thumbnail Navigation - ОДНА РАМКА */}
-        <div className="mobile-thumbnail flex justify-center gap-1 md:gap-2 mt-8 md:mt-2 px-2 md:px-4">
+        <div className="mobile-thumbnail flex flex-wrap lg:flex-nowrap justify-center gap-1.5 md:gap-2 mt-8 md:mt-2 px-2 md:px-4">
           {screenshots.map((screenshot, index) => (
             <button
               key={index}
               onClick={() => goToSlide(index)}
-              className={`relative aspect-video rounded transition-all w-[100px] duration-300 ${index === currentIndex
+              className={`relative aspect-video rounded transition-all w-[72px] sm:w-[80px] lg:flex-1 lg:max-w-[110px] lg:min-w-0 lg:w-auto min-w-[56px] duration-300 ${index === currentIndex
                   ? "ring-2 ring-orange-500 ring-offset-2 ring-offset-gray-900 shadow-lg shadow-orange-500/25 opacity-100"
                   : "opacity-70 hover:opacity-100"
                 }`}
@@ -400,9 +401,9 @@ const ScreenshotGallery = ({ screenshots }) => {
       </div>
 
       {/* Fullscreen Modal */}
-      {isFullscreen && (
+      {isFullscreen && createPortal(
         <div
-          className="fixed inset-0 bg-black z-50 flex flex-col fullscreen-modal"
+          className="fixed inset-0 bg-black z-[9999] flex flex-col fullscreen-modal"
           onMouseMove={handleMouseMove}
           onClick={showControls}
           onTouchStart={() => { if (isFullscreen) showControls(); }}
@@ -519,7 +520,8 @@ const ScreenshotGallery = ({ screenshots }) => {
               </svg>
             </button>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </>
   );

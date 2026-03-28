@@ -59,7 +59,8 @@
     "download": "Download",
     "details": "Description",
     "comingSoon": "Coming Soon",
-    "comingSoonButton": "In Development"
+    "comingSoonButton": "In Development",
+    "disclaimer": "This project is in no way affiliated with Heyworks or any other companies. It is a completely independent project created entirely by the Nero Team."
   },
   "card": {
     "more": "Learn More"
@@ -102,7 +103,7 @@
       "open": "Open Post"
     }
   },
-  "magnate": {
+  "magnate_bot": {
     "title": "Magnate Bot",
     "desc": "Game bot in the\neconomic strategy genre.",
     "details": "Welcome to Magnate Bot — the ultimate economic game bot!\n• Build an empire: start with a small business and turn it into a huge company, earning millions!\n• Play games: roulette, crash, dream, dice, and more directly in the chat!\n• Develop a mining farm: mine cryptocurrency and upgrade equipment for steady income.\n• Complete tasks: daily missions, Magnate Pass, and company contracts with generous rewards.\n• Interact with players: trade, compete, and form alliances in a friendly community.\n• Become a legend: break records, lead leaderboards, and gain recognition as the top player!\n• Use promo code MAGNATE for a starter bonus and start your path to success!",
@@ -230,7 +231,7 @@
   "help": {
     "title": "Installation Guide",
     "intro": "Follow the instructions below to install.",
-    "more": "If you encounter problems, please contact our support team. You can do this via Telegram or email support@neroteam.org.",
+    "more": "If you encounter problems, please contact our support team. You can do this via Telegram and VKontakte or email support@neroteam.org.",
     "cards": {
       "1": {
         "image": "/help/en/step1.webp",
@@ -300,8 +301,9 @@
       "list": "Friends list",
       "delete": "Delete",
       "add": "Add",
+      "send_request": "Add",
       "invite_code": {
-        "title": "Add a friend",
+        "title": "Send a friend request",
         "placeholder": "Friend code",
         "description": "To add a friend, you must enter the friend code shown in their profile.",
         "success_invite": "Invitation sent successfully!",
@@ -323,7 +325,7 @@
       "success_delete": "Friend was successfully removed"
     },
     "buttons": {
-      "open": "Open profile",
+      "open": "Profile",
       "update": "Update profile",
       "edit": "Edit",
       "save": "Save",
@@ -385,6 +387,15 @@
       "user_not_found": "Code not found",
       "already_friend": "You are already friends",
       "already_invited": "You have already sent an invitation to this user"
+    },
+    "avatar": {
+      "too_large": "File size is too large. Maximum size is 5 MB.",
+      "invalid_format": "Unsupported image format. Use JPG, PNG, or WebP."
+    },
+    "general": {
+      "server_error": "A server error occurred. Please try again later.",
+      "network_error": "Network error. Please check your internet connection.",
+      "unauthorized": "Session expired. Please log in again."
     }
   },
   "donate": {
@@ -406,7 +417,7 @@
     "services": [
       {
         "id": 1,
-        "link": "https: //t.me/send?start=IVTmDvcdzJFt",
+        "link": "https://t.me/send?start=IVTmDvcdzJFt",
         "icon": "cryptobot.webp"
       }
     ]

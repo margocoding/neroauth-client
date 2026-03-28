@@ -95,22 +95,26 @@ const MainInformation = ({ avatar, login, inviteCode }) => {
                         />
                     </div>
                     
-                    <div className="relative">
-                        <Input
-                            label={t("profile.friend.invite_code.placeholder")}
-                            value={inviteCode}
-                            disabled
-                        />
-                        <button
-                            onClick={handleCopyCode}
-                            className={`absolute right-2 bottom-1.5 p-2 rounded-md transition-all border shadow-sm z-[30] 
-                              ${copied 
-                                ? "bg-green-500/20 border-green-500/40 text-green-500" 
-                                : "bg-zinc-800 hover:bg-zinc-700 border-zinc-700 text-orange-500"}`}
-                            title={t("profile.friend.invite_code.copy_title") || "Copy code"}
-                        >
-                            {copied ? <FaCheck size={16} /> : <FaCopy size={16} />}
-                        </button>
+                    <div>
+                        {<div className="text-gray-400">{t("profile.friend.invite_code.placeholder")}</div>}
+                        <div className="relative">
+                            <input
+                                className="inline-block w-full bg-zinc-900 border border-zinc-700 text-white disabled:opacity-70 font-medium py-2 px-4 pr-11 rounded-lg transition-colors outline-none"
+                                value={inviteCode}
+                                disabled
+                                readOnly
+                            />
+                            <button
+                                onClick={handleCopyCode}
+                                className={`absolute right-2 top-1/2 -translate-y-1/2 p-2 rounded-md transition-all border shadow-sm z-[30] 
+                                  ${copied 
+                                    ? "bg-green-500/20 border-green-500/40 text-green-500" 
+                                    : "bg-zinc-800 hover:bg-zinc-700 border-zinc-700 text-orange-500"}`}
+                                title={t("profile.friend.invite_code.copy_title") || "Copy code"}
+                            >
+                                {copied ? <FaCheck size={16} /> : <FaCopy size={16} />}
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>

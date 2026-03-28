@@ -14,10 +14,10 @@ export const projects = [
     file: "NeroRaiders130.apk",
   },
   {
-    id: "magnate",
-    title: "magnate.title",
-    description: "magnate.desc",
-    details: "magnate.details",
+    id: "magnate_bot",
+    title: "magnate_bot.title",
+    description: "magnate_bot.desc",
+    details: "magnate_bot.details",
     labelImage: {
       en: "/magnate/en/splash.webp",
       ru: "/magnate/ru/splash.webp",
