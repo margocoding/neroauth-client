@@ -65,8 +65,6 @@ baseApi.interceptors.response.use(
                 const data = await authApi.refreshToken();
 
                 if (!data) {
-                    localStorage.removeItem("accessToken");
-                    localStorage.removeItem("refreshToken");
                     processQueue(new Error('Refresh token error'));
                     return Promise.reject(error);
                 }
@@ -74,9 +72,11 @@ baseApi.interceptors.response.use(
                 processQueue(null);
                 return baseApi(originalRequest);
             } catch (e) {
-                localStorage.removeItem("accessToken");
-                localStorage.removeItem("refreshToken");
+                const refreshStatus = e.response?.status;
                 processQueue(e);
+                if (refreshStatus && refreshStatus >= 500) {
+                    return Promise.reject(e);
+                }
                 return Promise.reject(error);
             } finally {
                 isRefreshing = false;

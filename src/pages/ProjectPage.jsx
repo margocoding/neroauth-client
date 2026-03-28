@@ -91,14 +91,17 @@ const ProjectPage = () => {
                     {t(`project.${project.type}`)}
                   </span>
                 </a>
-              ) : project.file ? (
+              ) : project.files ? (
                 <a
-                  href={`/${language || "ru"
-                    }/download?file=${encodeURIComponent(project.file)}`}
+                  href={`/${language || "ru"}/download?${
+                    project.files.length === 1
+                      ? `file=${encodeURIComponent(project.files[0].name)}`
+                      : `project=${project.id}`
+                  }`}
                   className="btn-primary px-8 py-4 md:px-12 md:py-3 rounded-lg text-lg md:text-lg font-bold transition-all duration-300 neon-box flex items-center justify-center group"
                 >
                   <span className="text-center">
-                    {t(`project.${project.type}`)}
+                    {t("project.download")}
                   </span>
                 </a>
               ) : null}

@@ -49,6 +49,7 @@ const worldServices = [
     link: "https://t.me/send?start=IVTmDvcdzJFt",
     icon: "KoFi.svg",
     label: "Ko-fi",
+    wip: true,
   },
   {
     id: "patreon",
@@ -153,27 +154,51 @@ const DonatePage = () => {
             className="donate-services-grid p-3 sm:p-4 md:p-5 rounded-3xl glass border border-orange-500/30 neon-box bg-gradient-to-br from-orange-500/5 via-black/60 to-orange-600/10 shadow-[0_0_45px_rgba(249,115,22,0.35)]"
             style={{ gridTemplateColumns: `repeat(${services.length > 4 ? 3 : 2}, auto)` }}
           >
-            {services.map((service) => (
-              <Link
-                key={service.id}
-                to={service.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="relative group p-3 sm:p-4 rounded-2xl transition-all duration-200 hover:bg-orange-500/10 active:bg-orange-500/20 flex flex-col items-center justify-start text-center w-20 sm:w-24"
-              >
-                <div className="relative">
-                  <div className="absolute inset-0 rounded-xl bg-orange-500/40 blur-lg opacity-0 group-hover:opacity-70 transition-opacity duration-200" />
-                  <img
-                    className="relative h-10 w-10 sm:h-12 sm:w-12 md:h-14 md:w-14 object-contain transition-transform duration-200 group-hover:scale-110 group-active:scale-95 drop-shadow-[0_0_18px_rgba(0,0,0,0.6)] rounded-xl"
-                    src={`/icons/donate/${service.icon}`}
-                    alt={serviceLabel(service)}
-                  />
-                </div>
-                <span className="mt-2 text-[0.7rem] sm:text-xs md:text-sm text-gray-200/90 font-medium tracking-wide leading-snug text-center">
-                  {serviceLabel(service)}
-                </span>
-              </Link>
-            ))}
+            {services.map((service) => {
+              const Wrapper = service.wip ? "div" : Link;
+              const wrapperProps = service.wip
+                ? {}
+                : { to: service.link, target: "_blank", rel: "noopener noreferrer" };
+
+              return (
+                <Wrapper
+                  key={service.id}
+                  {...wrapperProps}
+                  className={`relative group p-3 sm:p-4 rounded-2xl transition-all duration-200 flex flex-col items-center justify-start text-center w-20 sm:w-24 ${
+                    service.wip
+                      ? "cursor-not-allowed"
+                      : "hover:bg-orange-500/10 active:bg-orange-500/20"
+                  }`}
+                >
+                  {service.wip && (
+                    <div className="absolute inset-0 rounded-2xl pointer-events-none z-10 overflow-hidden">
+                      <div className="absolute inset-0 bg-black/40" />
+                      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[60%] w-[160%] rotate-[-40deg] border-y border-orange-300/40 bg-gradient-to-r from-orange-600 via-orange-500 to-orange-600 text-[0.4rem] sm:text-[0.45rem] font-bold text-black text-center py-[2.5px] tracking-[0.15em] uppercase shadow-[0_2px_8px_rgba(249,115,22,0.5)]">
+                        W.I.P.
+                      </div>
+                      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[40%] w-[160%] rotate-[40deg] border-y border-orange-300/40 bg-gradient-to-r from-orange-600 via-orange-500 to-orange-600 text-[0.4rem] sm:text-[0.45rem] font-bold text-black text-center py-[2.5px] tracking-[0.15em] uppercase shadow-[0_2px_8px_rgba(249,115,22,0.5)]">
+                        W.I.P.
+                      </div>
+                    </div>
+                  )}
+                  <div className="relative">
+                    <div className={`absolute inset-0 rounded-xl bg-orange-500/40 blur-lg transition-opacity duration-200 ${service.wip ? "opacity-0" : "opacity-0 group-hover:opacity-70"}`} />
+                    <img
+                      className={`relative h-10 w-10 sm:h-12 sm:w-12 md:h-14 md:w-14 object-contain drop-shadow-[0_0_18px_rgba(0,0,0,0.6)] rounded-xl ${
+                        service.wip
+                          ? ""
+                          : "transition-transform duration-200 group-hover:scale-110 group-active:scale-95"
+                      }`}
+                      src={`/icons/donate/${service.icon}`}
+                      alt={serviceLabel(service)}
+                    />
+                  </div>
+                  <span className="mt-2 text-[0.7rem] sm:text-xs md:text-sm text-gray-200/90 font-medium tracking-wide leading-snug text-center">
+                    {serviceLabel(service)}
+                  </span>
+                </Wrapper>
+              );
+            })}
           </div>
         </div>
       </main>

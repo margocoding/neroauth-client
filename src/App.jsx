@@ -84,7 +84,7 @@ const App = () => {
     const basePath = normalizePath(location.pathname);
     const target =
       basePath === "/" ? `/${newLocale}` : `/${newLocale}${basePath}`;
-    navigate(target, { replace: true });
+    navigate(target + location.search, { replace: true });
   };
 
   // useEffect(() => {
@@ -123,7 +123,10 @@ const App = () => {
 
     } catch (e) {
       console.error(e);
-      setUser(null);
+      const status = e.response?.status;
+      if (status === 401 || status === 403) {
+        setUser(null);
+      }
     } finally {
       setIsLoading(false);
     }

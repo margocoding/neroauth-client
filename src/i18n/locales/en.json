@@ -218,9 +218,11 @@
     "starting": "Preparing download...",
     "autoHint": "If the download does not start within a few seconds, use the «Retry» button",
     "chooseFile": "Choose a file to download",
+    "choosePlatform": "Choose a platform to download",
     "availableFiles": "Available files",
     "download": "Download",
     "restart": "Retry",
+    "platform": "Platform",
     "help_short": "Problems during installation?",
     "info": "If the download did not start automatically, click the button below.",
     "button": "Download",
@@ -424,6 +426,7 @@
   },
   "sessions": {
     "title": "Connected devices",
+    "current": "Current session",
     "actions": {
       "title": "Available actions",
       "success_closed": "Session is successfully closed",
