@@ -351,23 +351,25 @@
   },
   "errors": {
     "login": {
-      "required": "Please enter your username",
-      "string": "Username must be text",
-      "length": "Login should not be longer than 15 symbols"
+      "required": "Please enter your login",
+      "string": "Login must be a text string",
+      "length": "Login must not be longer than 15 characters",
+      "already_changed": "You can change your login only once every 24 hours.",
+      "already_exists": "A user with this login already exists. Please try another one."
     },
     "email": {
-      "required": "Please provide your email",
+      "required": "Please specify an email",
       "invalid": "Please enter a valid email address"
     },
     "password": {
-      "required": "Please enter your password",
-      "string": "Password must be text",
-      "weak": "Password is too weak. Use at least 8 characters, including numbers, uppercase letters, and special symbols",
-      "same": "Old password matched new password. Please, enter new password"
+      "required": "Please enter a new password",
+      "string": "Password must be a text string",
+      "weak": "Password is too simple. Use at least 8 characters, including numbers, uppercase letters, and special characters",
+      "same": "The new password matches the old one. Please enter a different password"
     },
     "token": {
       "required": "Token is required",
-      "invalid": "Token format is invalid"
+      "invalid": "Token has an invalid format"
     },
     "code": {
       "required": "Please enter the code",
@@ -376,26 +378,30 @@
       "expired": "The code has expired. Please request a new one"
     },
     "auth": {
-      "invalid": "Incorrect username or password"
+      "invalid": "Invalid login or password"
     },
     "invitation": {
-      "self": "You can't send an invitation to yourself",
+      "self": "You cannot send an invitation to yourself.",
       "user_not_found": "Code not found",
-      "already_friend": "You're already friends",
-      "already_invited": "You've already sent an invitation to this user"
+      "already_friend": "You are already friends",
+      "already_invited": "You have already sent an invitation to this user"
     }
   },
   "donate": {
     "title": "Donations",
-    "description": "By supporting us in any amount, you accelerate development and improve the quality of the product being delivered. Help us to be better.",
+    "description": "Every bit of your support — even the smallest amount — speeds up development and takes our product’s quality to a whole new level. Join and help us become even better!",
     "service_title": "Available ways to help us:",
     "regions": {
       "russia": "Russia",
       "world": "Worldwide"
     },
     "region_hint": {
-      "russia": "Bank and local services convenient for users from Russia.",
+      "russia": "Banking and local services — a convenient and fast support for Russian users",
       "world": "International support methods available from most countries worldwide."
+    },
+    "services_labels": {
+      "tanody": "Tanody (SBP)",
+      "keksik": "Keksik (SBP)"
     },
     "services": [
       {
