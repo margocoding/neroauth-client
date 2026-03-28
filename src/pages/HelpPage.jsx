@@ -90,6 +90,7 @@ const HelpPage = () => {
             <p className="text-gray-300 mb-4 text-center max-w-xl mx-auto">
                 {t("help.intro")}
             </p>
+            <div className="divider mx-auto w-32 h-1 rounded-full mt-4 mb-6" />
 
             <div className="flex flex-col items-center">
                 {cards.map((card, index) => (<StepCard
@@ -103,62 +104,71 @@ const HelpPage = () => {
             </div>
 
             <p className="text-gray-400 mt-4 text-center">
-                {t("help.more")
-                    .split("Telegram")
-                    .map((part, index, array) => {
-                        if (index === array.length - 1) {
-                            return part
-                                .split("support@neroteam.org")
-                                .map((emailPart, emailIndex, emailArray) => {
-                                    if (emailIndex === emailArray.length - 1) {
-                                        return emailPart;
-                                    }
-                                    return (<span key={`email-${emailIndex}`}>
-                                        {emailPart}
-                                        <a
-                                            href="mailto:support@neroteam.org"
-                                            className="text-orange-400 hover:text-orange-300 underline transition-colors"
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                        >
-                                            support@neroteam.org
-                                        </a>
-                                    </span>);
-                                });
+                {(() => {
+                    const text = t("help.more");
+                    const links = [
+                        { key: "Telegram", href: "https://t.me/neroteam_links" },
+                        { key: "VKontakte", href: "https://vk.com/neroteam_ru" },
+                        { key: "support@neroteam.org", href: "mailto:support@neroteam.org" },
+                    ];
+                    const parts = [];
+                    let remaining = text;
+                    let idx = 0;
+                    while (remaining.length > 0) {
+                        let earliest = null;
+                        let earliestPos = remaining.length;
+                        for (const link of links) {
+                            const pos = remaining.indexOf(link.key);
+                            if (pos !== -1 && pos < earliestPos) {
+                                earliest = link;
+                                earliestPos = pos;
+                            }
                         }
-                        return (<span key={index}>
-                            {part}
+                        if (!earliest) {
+                            parts.push(<span key={idx}>{remaining}</span>);
+                            break;
+                        }
+                        if (earliestPos > 0) {
+                            parts.push(<span key={idx}>{remaining.slice(0, earliestPos)}</span>);
+                            idx++;
+                        }
+                        parts.push(
                             <a
-                                href={`https://t.me/neroteam_ru`}
+                                key={idx}
+                                href={earliest.href}
                                 className="text-orange-400 hover:text-orange-300 underline transition-colors"
                                 target="_blank"
                                 rel="noopener noreferrer"
                             >
-                                Telegram
+                                {earliest.key}
                             </a>
-                        </span>);
-                    })}
+                        );
+                        idx++;
+                        remaining = remaining.slice(earliestPos + earliest.key.length);
+                    }
+                    return parts;
+                })()}
             </p>
 
             {/* Troubleshooting Section */}
-            <div className="mt-12 pt-8 border-t border-white/10">
-                <h2 className="text-2xl sm:text-3xl font-bold mb-3 text-center">
+            <div className="mt-8 pt-6 border-t border-white/10">
+                <h2 className="text-2xl sm:text-3xl font-bold mb-2 text-center">
                     {t("help.troubleshooting.title")}
                 </h2>
 
-                <div className="bg-red-500/10 border border-red-500/50 rounded-xl p-4 mb-6 text-center max-w-xl mx-auto">
+                <div className="bg-red-500/10 border border-red-500/50 rounded-xl p-4 mb-3 text-center max-w-xl mx-auto">
                     <p className="text-red-500 font-bold text-sm sm:text-base leading-relaxed uppercase">
                         {t("help.troubleshooting.warning")}
                     </p>
                 </div>
 
-                <p className="text-gray-300 mb-2 text-center max-w-xl mx-auto">
+                <p className="text-gray-300 mb-1 text-center max-w-xl mx-auto">
                     {t("help.troubleshooting.subtitle")}
                 </p>
 
                 {/* Video Section */}
-                <div className="mb-6">
-                    <h3 className="text-xl font-semibold mb-6 text-center">
+                <div className="mb-4">
+                    <h3 className="text-xl font-semibold mb-3 text-center">
                         {t("help.troubleshooting.video.title")}
                     </h3>
                     <div className="rounded-2xl overflow-hidden neon-box glass border border-white/10">
@@ -223,11 +233,11 @@ const HelpPage = () => {
                 </div>
 
                 {/* Tools Section */}
-                <div className="mb-6">
+                <div className="mb-4">
                     <h3 className="text-xl font-semibold mb-2 text-center">
                         {t("help.troubleshooting.tools.title")}
                     </h3>
-                    <p className="text-gray-300 mb-6 text-center max-w-xl mx-auto">
+                    <p className="text-gray-300 mb-4 text-center max-w-xl mx-auto">
                         {t("help.troubleshooting.tools.description")}
                     </p>
 

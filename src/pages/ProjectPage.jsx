@@ -40,7 +40,7 @@ const ProjectPage = () => {
       </header>
       <div className="max-w-4xl mx-auto px-4 md:px-6">
         {/* Hero Section */}
-        <div className="mb-8 -mt-4 md:mt-0">
+        <div className="mb-4 -mt-4 md:mt-0">
           <div className="flex flex-col md:flex-row gap-4 md:gap-6 relative">
             {/* Left: Icon */}
             <div className="w-32 h-32 md:w-40 md:h-40 rounded-2xl overflow-hidden neon-box shrink-0 mx-auto md:mx-0">
@@ -70,7 +70,7 @@ const ProjectPage = () => {
                 {/* Description */}
                 <div className="w-full flex md:justify-start">
                   <p
-                    className="text-gray-300 mb-3 md:mb-4 leading-tight -mt-2 md:-mt-1 text-sm sm:text-base md:text-lg overflow-hidden whitespace-pre-wrap"
+                    className="text-gray-300 mb-1 md:mb-2 leading-tight -mt-2 md:-mt-1 text-sm sm:text-base md:text-lg overflow-hidden whitespace-pre-wrap"
                   >
                     {t(project.description)}
                   </p>
@@ -91,14 +91,17 @@ const ProjectPage = () => {
                     {t(`project.${project.type}`)}
                   </span>
                 </a>
-              ) : project.file ? (
+              ) : project.files ? (
                 <a
-                  href={`/${language || "ru"
-                    }/download?file=${encodeURIComponent(project.file)}`}
+                  href={`/${language || "ru"}/download?${
+                    project.files.length === 1
+                      ? `file=${encodeURIComponent(project.files[0].name)}`
+                      : `project=${project.id}`
+                  }`}
                   className="btn-primary px-8 py-4 md:px-12 md:py-3 rounded-lg text-lg md:text-lg font-bold transition-all duration-300 neon-box flex items-center justify-center group"
                 >
                   <span className="text-center">
-                    {t(`project.${project.type}`)}
+                    {t("project.download")}
                   </span>
                 </a>
               ) : null}
@@ -108,13 +111,13 @@ const ProjectPage = () => {
 
         {/* Screenshots Gallery */}
         {screenshots.length > 0 && (
-          <section className="mb-0 -mt-4 md:mt-0">
+          <section className="mb-0 -mt-2 md:mt-0">
             <ScreenshotGallery screenshots={screenshots} />
           </section>
         )}
 
         {project.logo && (
-          <div className="my-6 md:my-8">
+          <div className="mt-6 mb-2 md:mt-8 md:mb-3">
             {/* Разделитель */}
             <div className="flex items-center justify-center mb-4 md:mb-6">
               <div className="w-full max-w-md h-px bg-gradient-to-r from-transparent via-orange-500 to-transparent animate-pulse"></div>
@@ -126,7 +129,7 @@ const ProjectPage = () => {
                 src={project.logo}
                 alt={project.title}
                 className={`h-auto object-contain relative z-10 ${
-                  project.id === "nero_troops" || project.id === "magnate"
+                  project.id === "nero_troops" || project.id === "magnate_bot"
                     ? "w-72 sm:w-80 md:w-96 lg:w-[32rem]"
                     : "w-48 sm:w-56 md:w-64 lg:w-72"
                 }`}
@@ -139,8 +142,8 @@ const ProjectPage = () => {
         )}
 
         {/* Project Details */}
-        <section className="mb-12">
-          <div className="text-center mb-6">
+        <section className="mb-8">
+          <div className="text-center mb-4">
             <h2 className="text-2xl md:text-3xl font-bold mb-2 p-1 neon-text">
               {t("project.details")}
             </h2>
@@ -152,6 +155,15 @@ const ProjectPage = () => {
                 {t(project.details)}
               </div>
             </div>
+          </div>
+        </section>
+
+        {/* Disclaimer */}
+        <section className="mb-8">
+          <div className="bg-red-500/10 border border-red-500/50 rounded-xl p-4 max-w-3xl mx-auto text-center">
+            <p className="text-red-500 font-bold text-sm sm:text-base leading-relaxed">
+              {t("project.disclaimer")}
+            </p>
           </div>
         </section>
       </div>

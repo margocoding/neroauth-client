@@ -4,33 +4,26 @@ import { Link } from "react-router-dom";
 const socials = [
   {
     id: 1,
-    href: "https://t.me/neroteam_ru",
+    href: "https://t.me/neroteam_links",
     icon: "telegram.svg",
-    language: "RU",
   },
   {
     id: 2,
-    href: "https://t.me/neroteam_en",
-    icon: "telegram.svg",
-    language: "EN",
-  },
-  {
-    id: 3,
     href: "https://youtube.com/@nero_team_official",
     icon: "youtube.svg",
   },
   {
-    id: 4,
+    id: 3,
     href: "https://vk.ru/neroteam_ru",
     icon: "vkontakte.svg",
   },
   {
-    id: 5,
+    id: 4,
     href: "https://www.patreon.com/c/NeroTeam",
     icon: "patreon.svg",
   },
   {
-    id: 6,
+    id: 5,
     href: "https://boosty.to/neroteam",
     icon: "boosty.svg",
   },
@@ -80,26 +73,23 @@ const MainPage = () => {
 
           {/* Socials Group — исправлены отступы на мобильных */}
           <div className="mt-10 flex justify-center">
-            <div className="socials-grid inline-flex flex-wrap items-center justify-center gap-1.5 sm:gap-2 px-1.5 sm:px-2 py-2 sm:py-2.5 rounded-2xl glass border border-orange-500/20 neon-box max-w-full">
+            <div className="socials-grid inline-flex items-center justify-center gap-1 sm:gap-2 px-1.5 sm:px-2 py-2 sm:py-2.5 rounded-2xl glass border border-orange-500/20 neon-box">
               {socials.map((social) => (
                 <Link
                   key={social.id}
                   to={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="relative group p-1.5 sm:p-2 rounded-xl transition-all duration-200 hover:bg-orange-500/10 active:bg-orange-500/20 min-w-[2.75rem] min-h-[2.75rem] sm:min-w-[3rem] sm:min-h-[3rem] flex items-center justify-center"
+                  className="relative group p-1 sm:p-2 rounded-xl transition-all duration-200 hover:bg-orange-500/10 active:bg-orange-500/20 flex items-center justify-center"
                 >
-                  {/* Language Badge */}
                   {social.language && (
                     <span className="absolute -top-1 -right-1 bg-orange-500 text-black text-[9px] sm:text-[10px] font-bold px-1 py-0.5 rounded-full border border-black/20 shadow-sm z-10 leading-tight">
                       {social.language}
                     </span>
                   )}
-                  
-                  {/* Icon */}
                   <img
                     src={"/icons/social/" + social.icon}
-                    className="h-10 w-10 sm:h-11 sm:w-11 md:h-12 md:w-12 object-contain transition-transform duration-200 hover:scale-105 active:scale-95"
+                    className="h-9 w-9 sm:h-11 sm:w-11 md:h-12 md:w-12 object-contain transition-transform duration-200 hover:scale-105 active:scale-95"
                     alt={social.icon.replace(".svg", "")}
                   />
                 </Link>

@@ -5,7 +5,7 @@ const Session = ({ deviceType, deviceName, os, browser, isCurrentSession, lastJo
     const { t, i18n } = useTranslation();
 
     return (
-        <div className="relative w-full space-y-3 bg-[#222] rounded-lg p-3 text-white">
+        <div className={`relative w-full space-y-3 rounded-lg p-3 text-white ${isCurrentSession ? 'bg-[#222] border-l-2 border-orange-500' : 'bg-[#222]'}`}>
             <div className="flex gap-3 items-center">
                 <div className="p-3 rounded-full bg-[#333]">
                     <img 
@@ -26,6 +26,11 @@ const Session = ({ deviceType, deviceName, os, browser, isCurrentSession, lastJo
                             minute: '2-digit',
                         })}
                     </div>
+                    {isCurrentSession && (
+                        <div className="text-xs text-orange-400 font-medium mt-1">
+                            {t('sessions.current')}
+                        </div>
+                    )}
                 </div>
             </div>
             {!isCurrentSession && (

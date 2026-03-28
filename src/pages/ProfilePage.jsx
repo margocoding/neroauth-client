@@ -11,9 +11,12 @@ export default function ProfilePage() {
 
   return (
     <div className="flex flex-col justify-center gap-5 max-w-[500px] mx-auto">
-      <h2 className="font-semibold text-3xl text-center">
-        {t("profile.title")}
-      </h2>
+      <div className="text-center mb-0">
+        <h2 className="font-semibold text-3xl">
+          {t("profile.title")}
+        </h2>
+        <div className="divider mx-auto w-32 h-1 rounded-full mt-4"></div>
+      </div>
       <MainInformation 
         avatar={user.avatar} 
         login={user.login} 

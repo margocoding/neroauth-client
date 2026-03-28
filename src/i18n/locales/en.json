@@ -59,7 +59,8 @@
     "download": "Download",
     "details": "Description",
     "comingSoon": "Coming Soon",
-    "comingSoonButton": "In Development"
+    "comingSoonButton": "In Development",
+    "disclaimer": "This project is in no way affiliated with Heyworks or any other companies. It is a completely independent project created entirely by the Nero Team."
   },
   "card": {
     "more": "Learn More"
@@ -102,7 +103,7 @@
       "open": "Open Post"
     }
   },
-  "magnate": {
+  "magnate_bot": {
     "title": "Magnate Bot",
     "desc": "Game bot in the\neconomic strategy genre.",
     "details": "Welcome to Magnate Bot — the ultimate economic game bot!\n• Build an empire: start with a small business and turn it into a huge company, earning millions!\n• Play games: roulette, crash, dream, dice, and more directly in the chat!\n• Develop a mining farm: mine cryptocurrency and upgrade equipment for steady income.\n• Complete tasks: daily missions, Magnate Pass, and company contracts with generous rewards.\n• Interact with players: trade, compete, and form alliances in a friendly community.\n• Become a legend: break records, lead leaderboards, and gain recognition as the top player!\n• Use promo code MAGNATE for a starter bonus and start your path to success!",
@@ -217,9 +218,11 @@
     "starting": "Preparing download...",
     "autoHint": "If the download does not start within a few seconds, use the «Retry» button",
     "chooseFile": "Choose a file to download",
+    "choosePlatform": "Choose a platform to download",
     "availableFiles": "Available files",
     "download": "Download",
     "restart": "Retry",
+    "platform": "Platform",
     "help_short": "Problems during installation?",
     "info": "If the download did not start automatically, click the button below.",
     "button": "Download",
@@ -230,7 +233,7 @@
   "help": {
     "title": "Installation Guide",
     "intro": "Follow the instructions below to install.",
-    "more": "If you encounter problems, please contact our support team. You can do this via Telegram or email support@neroteam.org.",
+    "more": "If you encounter problems, please contact our support team. You can do this via Telegram and VKontakte or email support@neroteam.org.",
     "cards": {
       "1": {
         "image": "/help/en/step1.webp",
@@ -300,8 +303,9 @@
       "list": "Friends list",
       "delete": "Delete",
       "add": "Add",
+      "send_request": "Add",
       "invite_code": {
-        "title": "Add a friend",
+        "title": "Send a friend request",
         "placeholder": "Friend code",
         "description": "To add a friend, you must enter the friend code shown in their profile.",
         "success_invite": "Invitation sent successfully!",
@@ -323,7 +327,7 @@
       "success_delete": "Friend was successfully removed"
     },
     "buttons": {
-      "open": "Open profile",
+      "open": "Profile",
       "update": "Update profile",
       "edit": "Edit",
       "save": "Save",
@@ -351,23 +355,25 @@
   },
   "errors": {
     "login": {
-      "required": "Please enter your username",
-      "string": "Username must be text",
-      "length": "Login should not be longer than 15 symbols"
+      "required": "Please enter your login",
+      "string": "Login must be a text string",
+      "length": "Login must not be longer than 15 characters",
+      "already_changed": "You can change your login only once every 24 hours.",
+      "already_exists": "A user with this login already exists. Please try another one."
     },
     "email": {
-      "required": "Please provide your email",
+      "required": "Please specify an email",
       "invalid": "Please enter a valid email address"
     },
     "password": {
-      "required": "Please enter your password",
-      "string": "Password must be text",
-      "weak": "Password is too weak. Use at least 8 characters, including numbers, uppercase letters, and special symbols",
-      "same": "Old password matched new password. Please, enter new password"
+      "required": "Please enter a new password",
+      "string": "Password must be a text string",
+      "weak": "Password is too simple. Use at least 8 characters, including numbers, uppercase letters, and special characters",
+      "same": "The new password matches the old one. Please enter a different password"
     },
     "token": {
       "required": "Token is required",
-      "invalid": "Token format is invalid"
+      "invalid": "Token has an invalid format"
     },
     "code": {
       "required": "Please enter the code",
@@ -376,37 +382,51 @@
       "expired": "The code has expired. Please request a new one"
     },
     "auth": {
-      "invalid": "Incorrect username or password"
+      "invalid": "Invalid login or password"
     },
     "invitation": {
-      "self": "You can't send an invitation to yourself",
+      "self": "You cannot send an invitation to yourself.",
       "user_not_found": "Code not found",
-      "already_friend": "You're already friends",
-      "already_invited": "You've already sent an invitation to this user"
+      "already_friend": "You are already friends",
+      "already_invited": "You have already sent an invitation to this user"
+    },
+    "avatar": {
+      "too_large": "File size is too large. Maximum size is 5 MB.",
+      "invalid_format": "Unsupported image format. Use JPG, PNG, or WebP."
+    },
+    "general": {
+      "server_error": "A server error occurred. Please try again later.",
+      "network_error": "Network error. Please check your internet connection.",
+      "unauthorized": "Session expired. Please log in again."
     }
   },
   "donate": {
     "title": "Donations",
-    "description": "By supporting us in any amount, you accelerate development and improve the quality of the product being delivered. Help us to be better.",
+    "description": "Every bit of your support — even the smallest amount — speeds up development and takes our product’s quality to a whole new level. Join and help us become even better!",
     "service_title": "Available ways to help us:",
     "regions": {
       "russia": "Russia",
       "world": "Worldwide"
     },
     "region_hint": {
-      "russia": "Bank and local services convenient for users from Russia.",
+      "russia": "Banking and local services — a convenient and fast support for Russian users",
       "world": "International support methods available from most countries worldwide."
+    },
+    "services_labels": {
+      "tanody": "Tanody (SBP)",
+      "keksik": "Keksik (SBP)"
     },
     "services": [
       {
         "id": 1,
-        "link": "https: //t.me/send?start=IVTmDvcdzJFt",
+        "link": "https://t.me/send?start=IVTmDvcdzJFt",
         "icon": "cryptobot.webp"
       }
     ]
   },
   "sessions": {
     "title": "Connected devices",
+    "current": "Current session",
     "actions": {
       "title": "Available actions",
       "success_closed": "Session is successfully closed",

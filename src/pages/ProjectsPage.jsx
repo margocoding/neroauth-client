@@ -11,13 +11,15 @@ export const projects = [
     image: "/nero_raiders/icon.webp",
     type: "download",
     logo: "/nero_raiders/logo.webp",
-    file: "NeroRaiders130.apk",
+    files: [
+      { name: "NeroRaiders130.apk", platform: "android" }
+    ],
   },
   {
-    id: "magnate",
-    title: "magnate.title",
-    description: "magnate.desc",
-    details: "magnate.details",
+    id: "magnate_bot",
+    title: "magnate_bot.title",
+    description: "magnate_bot.desc",
+    details: "magnate_bot.details",
     labelImage: {
       en: "/magnate/en/splash.webp",
       ru: "/magnate/ru/splash.webp",
@@ -35,7 +37,10 @@ export const projects = [
     details: "nero_troops.details",
     labelImage: "/nero_troops/splash.webp",
     image: "/nero_troops/icon.webp",
-    file: ' ',
+    files: [
+      { name: " ", platform: "android" },
+      { name: " ", platform: "ios", unstable: true },
+    ],
     type: 'download',
     logo: "/nero_troops/logo.webp",
     comingSoon: true,

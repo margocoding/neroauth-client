@@ -105,9 +105,12 @@ export const authApi = {
         return data.user;
       } catch (e) {
         console.error(e);
-        localStorage.removeItem("accessToken");
-        localStorage.removeItem("refreshToken");
-        throw new AxiosError("Unauthorized", 401, e.config, e.request, e.response);
+        const status = e.response?.status;
+        if (status === 401 || status === 403) {
+          localStorage.removeItem("accessToken");
+          localStorage.removeItem("refreshToken");
+        }
+        throw e;
       } finally {
         refreshPromise = null;
       }

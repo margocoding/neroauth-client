@@ -67,7 +67,7 @@ const Avatar = ({ path, self = false, className }) => {
         </>
       )}
       <img
-        className={`rounded-full w-full h-full aspect-square shadow-inner ${isPlaceholder ? "p-4 object-contain opacity-50 bg-[#0a0a0a]" : ""}`}
+        className="rounded-full w-full h-full aspect-square object-cover"
         src={isPlaceholder ? "/icons/user.svg" : avatarPath}
         alt="avatar"
         onError={() => setHasError(true)}

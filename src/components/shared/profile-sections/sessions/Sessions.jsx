@@ -53,6 +53,20 @@ const Sessions = () => {
     }
   }, [t]);
 
+  const currentToken = (() => {
+    try {
+      return JSON.parse(localStorage.getItem("refreshToken")).value;
+    } catch {
+      return null;
+    }
+  })();
+
+  const sortedSessions = [...sessions].sort((a, b) => {
+    const aIsCurrent = a.token === currentToken ? -1 : 0;
+    const bIsCurrent = b.token === currentToken ? -1 : 0;
+    return aIsCurrent - bIsCurrent;
+  });
+
   return (
     <div className={"space-y-5"}>
       <Password clearSessions={clearSessions} />
@@ -60,32 +74,43 @@ const Sessions = () => {
         {t("sessions.title")}
       </h2>
       <div className={"space-y-3"}>
-        {sessions.map((session) => (
-          <Session
-            key={session._id}
-            isCurrentSession={
-              session.token === JSON.parse(localStorage.getItem("refreshToken")).value
-            }
-            closeSession={() => handleCloseSession(session._id)}
-            os={session.device.os}
-            deviceName={session.device.name}
-            deviceType={session.device.deviceType}
-            lastJoin={session.lastJoin}
-            country={session.location.country}
-            city={session.location.city}
-            browser={session.device.browser}
-          />
-        ))}
+        {sortedSessions.map((session, index) => {
+          const isCurrent = session.token === currentToken;
+          return (
+            <div key={session._id}>
+              <Session
+                isCurrentSession={isCurrent}
+                closeSession={() => handleCloseSession(session._id)}
+                os={session.device.os}
+                deviceName={session.device.name}
+                deviceType={session.device.deviceType}
+                lastJoin={session.lastJoin}
+                country={session.location.country}
+                city={session.location.city}
+                browser={session.device.browser}
+              />
+              {isCurrent && sortedSessions.length > 1 && (
+                <div className="flex items-center justify-center my-3">
+                  <div className="divider w-full h-px rounded-full"></div>
+                </div>
+              )}
+            </div>
+          );
+        })}
       </div>
 
       {sessions.length > 1 && (
-        <Button
-          color={"danger"}
-          onClick={handleCloseAllSessions}
-          className={"w-full"}
-        >
-          {t("sessions.actions.buttons.close_all")}
-        </Button>
+        <>
+          <div className="flex items-center justify-center">
+            <div className="divider w-full h-px rounded-full"></div>
+          </div>
+          <Button
+            onClick={handleCloseAllSessions}
+            className={"w-full font-bold bg-red-600 hover:bg-red-700 border-red-600 text-white"}
+          >
+            {t("sessions.actions.buttons.close_all")}
+          </Button>
+        </>
       )}
     </div>
   );

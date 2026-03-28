@@ -53,26 +53,41 @@ html {
 }
 
 body {
-  background-color: transparent;
+  background: var(--bg-gradient);
+  background-color: var(--bg-0);
   color: var(--fg-0);
   min-height: 100vh;
-}
-
-/* Fixed background layer: prevents GPU repaint artifacts (black squares) during mobile zoom */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  background: var(--bg-gradient);
-  pointer-events: none;
-  transform: translateZ(0);
-  -webkit-transform: translateZ(0);
 }
 
 .site-header,
 .site-footer {
   color: var(--fg-0);
+}
+
+.home-phoenix-wrapper {
+  min-height: 0;
+}
+
+.home-phoenix-bg-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.home-phoenix-bg-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center center;
+  opacity: 0.6;
+  filter: saturate(1.2);
+  mix-blend-mode: screen;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 .site-header {
@@ -394,6 +409,15 @@ body::before {
 @media (hover: hover) {
   .link-underline:hover::after {
     width: 100%;
+  }
+}
+
+/* Desktop header: disable bottom stripe/flicker effects */
+@media (min-width: 768px) {
+  .site-header {
+    border-bottom-color: transparent !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
   }
 }
 
@@ -2031,24 +2055,22 @@ html {
 
 @media (max-width: 640px) {
   .socials-grid {
-    display: grid !important;
-    grid-template-columns: repeat(3, 1fr) !important;
-    gap: 0.5rem !important;
-    padding: 0.75rem !important;
+    display: flex !important;
+    gap: 0.25rem !important;
+    padding: 0.5rem !important;
     width: fit-content !important;
     margin: 0 auto !important;
   }
   
   .socials-grid a {
-    padding: 0.75rem !important;
+    padding: 0.375rem !important;
     min-width: 0 !important;
     min-height: 0 !important;
-    justify-self: center !important;
   }
   
   .socials-grid img {
-    height: 2.5rem !important;
-    width: 2.5rem !important;
+    height: 2.75rem !important;
+    width: 2.75rem !important;
   }
 }
 
@@ -2097,6 +2119,19 @@ html {
     height: 3.5rem !important;  
     width: 3.5rem !important;
     border-radius: 0.5rem !important;
+  }
+}
+
+.donate-services-grid {
+  display: grid;
+  justify-content: center;
+  justify-items: center;
+  gap: 0.5rem 1rem;
+}
+
+@media (min-width: 640px) {
+  .donate-services-grid {
+    gap: 0.75rem 1.5rem;
   }
 }
 
