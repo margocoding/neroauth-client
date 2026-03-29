@@ -41,8 +41,12 @@ export const projects = [
     image: "/nero_troops/icon.webp",
     type: "download",
     logo: "/nero_troops/logo.webp",
-    downloadDisabled: true,
+    downloadDisabled: false,
     downloadAvailableFrom: "2026-03-30",
+    files: [
+      { name: "NeroTroops100.apk", platform: "android" },
+      { name: "NeroTroops100.ipa", platform: "ios" }
+    ],
     badges: ["reverse_engineering"],
   },
 ];
