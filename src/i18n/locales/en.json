@@ -437,6 +437,22 @@
   "sessions": {
     "title": "Connected devices",
     "current": "Current session",
+    "delete_account": {
+      "button": "Delete account",
+      "modal": {
+        "title": "Delete account",
+        "subtitle": "Warning! This action is irreversible",
+        "description": "All your data will be permanently deleted from our servers. This action cannot be undone.",
+        "confirm": "Delete account",
+        "warning": "This action cannot be undone",
+        "input": {
+          "confirm_words": "I confirm account deletion",
+          "confirm": "Type 'confirm_words' to confirm",
+          "placeholder": "Enter the phrase...",
+          "label": "Confirmation"
+        }
+      }
+    },
     "actions": {
       "title": "Available actions",
       "success_closed": "Session is successfully closed",
