@@ -1,4 +1,4 @@
-const Input = ({ label, ...props }) => {
+const Input = ({ label, className, ...props }) => {
   return (
     <div className="w-full">
       {label && <div className="text-gray-400">{label}</div>}
@@ -8,7 +8,7 @@ const Input = ({ label, ...props }) => {
     focus:border-orange-500 
     font-medium py-2 px-4 rounded-lg 
     transition-colors outline-none 
-    ${props.className}`}
+    ${className}`}
         {...props}
       />
     </div>
