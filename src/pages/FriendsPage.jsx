@@ -15,7 +15,9 @@ const FriendsPage = () => {
   const { user } = useUser();
 
   const [friendLoading, setFriendLoading] = useState(false);
-  const [inviteLoading, setInviteLoading] = useState(false);
+  /** Какое приглашение сейчас обрабатывается и какая кнопка (чтобы не крутить обе). */
+  const [invitePending, setInvitePending] = useState(null);
+  const [sendInviteLoading, setSendInviteLoading] = useState(false);
   const [code, setCode] = useState("");
   const [invitations, setInvitations] = useState([]);
   const [friends, setFriends] = useState([]);
@@ -55,14 +57,19 @@ const FriendsPage = () => {
 
   const inviteFriend = useCallback(async () => {
     if (!code) return;
-    await exceptAxiosError(() => invitationApi.createInvite(code));
-    toast(t("profile.friend.invite_code.success_invite"), { type: "success" });
-    setCode("");
+    setSendInviteLoading(true);
+    try {
+      await exceptAxiosError(() => invitationApi.createInvite(code));
+      toast(t("profile.friend.invite_code.success_invite"), { type: "success" });
+      setCode("");
+    } finally {
+      setSendInviteLoading(false);
+    }
   }, [code, t]);
 
   const applyInvitation = useCallback(
     async (id) => {
-      setInviteLoading(true);
+      setInvitePending({ id, action: "apply" });
       try {
         const foundInvitation = invitations.find((inv) => inv._id === id);
         if (!foundInvitation) return;
@@ -71,7 +78,7 @@ const FriendsPage = () => {
         setInvitations((prev) => prev.filter((inv) => inv._id !== id));
         setFriends((prev) => [...prev, foundInvitation.from]);
       } finally {
-        setInviteLoading(false);
+        setInvitePending(null);
       }
     },
     [invitations, t],
@@ -79,16 +86,16 @@ const FriendsPage = () => {
 
   const declineInvitation = useCallback(
     async (id) => {
-      setInviteLoading(true);
+      setInvitePending({ id, action: "decline" });
       try {
         const foundInvitation = invitations.find((inv) => inv._id === id);
         if (!foundInvitation) return;
-        // Using applyInvitation for decline as well if that's the current API usage
-        await exceptAxiosError(() => invitationApi.applyInvitation(foundInvitation._id));
+
+        await exceptAxiosError(() => invitationApi.dismissInvitation(foundInvitation._id));
         toast(t("profile.friend.invite_code.success_decline"), { type: "success" });
         setInvitations((prev) => prev.filter((inv) => inv._id !== id));
       } finally {
-        setInviteLoading(false);
+        setInvitePending(null);
       }
     },
     [invitations, t],
@@ -106,7 +113,12 @@ const FriendsPage = () => {
             onChange={(e) => setCode(e.target.value)}
             placeholder={t("profile.friend.invite_code.placeholder")}
           />
-          <Button className={"w-full"} onClick={inviteFriend} disabled={!code}>
+          <Button
+            className={"w-full"}
+            onClick={inviteFriend}
+            disabled={!code}
+            isLoading={sendInviteLoading}
+          >
             {t("profile.friend.send_request")} <AnimatedArrow condition={!!code} />{" "}
           </Button>
         </div>
@@ -160,7 +172,14 @@ const FriendsPage = () => {
                 <div className="space-y-1 w-full mt-auto">
                   <Button
                     className="w-full"
-                    isLoading={inviteLoading}
+                    isLoading={
+                      invitePending?.id === invitation._id &&
+                      invitePending?.action === "apply"
+                    }
+                    disabled={
+                      invitePending !== null &&
+                      invitePending.id !== invitation._id
+                    }
                     color="success"
                     onClick={() => applyInvitation(invitation._id)}
                   >
@@ -168,7 +187,14 @@ const FriendsPage = () => {
                   </Button>
                   <Button
                     className="w-full"
-                    isLoading={inviteLoading}
+                    isLoading={
+                      invitePending?.id === invitation._id &&
+                      invitePending?.action === "decline"
+                    }
+                    disabled={
+                      invitePending !== null &&
+                      invitePending.id !== invitation._id
+                    }
                     color="danger"
                     onClick={() => declineInvitation(invitation._id)}
                   >

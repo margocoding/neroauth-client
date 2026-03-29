@@ -37,8 +37,7 @@ const MainInformation = ({ avatar, login, inviteCode }) => {
             const { success } = await exceptAxiosError(() => userApi.updateUser({ login: newLogin }));
             if (success) {
                 toast(t('profile.succeed_update'), { type: 'success' });
-                // Update global user context immediately
-                setUser(prev => ({ ...prev, login: newLogin }));
+                setUser((prev) => (prev ? { ...prev, login: newLogin } : prev));
                 setIsUpdating(false);
             }
         } finally {

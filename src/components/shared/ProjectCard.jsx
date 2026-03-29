@@ -1,5 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
+import ProjectBadges from "./ProjectBadges";
 
 const ProjectCard = ({ project }) => {
   const {
@@ -42,9 +43,13 @@ const ProjectCard = ({ project }) => {
       </div>
       <div className="p-4 sm:p-5 md:p-6 relative flex flex-col flex-1">
         <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-orange-500 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-        <h2 className="text-xl sm:text-2xl font-bold mb-4 neon-text text-center -mt-1 sm:-mt-4">
+        <h2 className="text-xl sm:text-2xl font-bold mb-2 neon-text text-center -mt-1 sm:-mt-4">
           {t(project.title)}
         </h2>
+        <ProjectBadges
+          badges={project.badges}
+          className="justify-center mb-4 w-full"
+        />
         {isComingSoon ? (
           <button
             type="button"

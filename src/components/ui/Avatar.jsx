@@ -3,6 +3,7 @@ import { userApi } from "../../api/userApi";
 import { exceptAxiosError } from "../../utils/exceptAxiosError";
 import { FaTimes } from "react-icons/fa";
 import { useTranslation } from "react-i18next";
+import { toast } from "react-toastify";
 
 const Avatar = ({ path, self = false, className }) => {
   const { t } = useTranslation();
@@ -12,12 +13,23 @@ const Avatar = ({ path, self = false, className }) => {
   const [hasError, setHasError] = useState(false);
 
   const handleChange = useCallback(async () => {
-    if (file) {
-      const newPath = await userApi.addAvatar(file);
+    if (!file) return;
+    try {
+      const newPath = await exceptAxiosError(() => userApi.addAvatar(file));
       setAvatarPath(process.env.REACT_APP_API_URL + "/" + newPath);
       setHasError(false);
+    } catch (e) {
+      const status = e?.response?.status;
+      const data = e?.response?.data;
+      const serverHandled =
+        (Array.isArray(data?.errors) && data.errors.length > 0) || data?.message;
+      if (status === 413 && !serverHandled) {
+        toast(t("profile.avatar.errors.file_too_large"), { type: "error" });
+      }
+    } finally {
+      setFile(null);
     }
-  }, [file]);
+  }, [file, t]);
 
   const handleDelete = useCallback(async () => {
     const { success } = await exceptAxiosError(() => userApi.deleteAvatar());

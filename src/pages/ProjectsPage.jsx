@@ -14,6 +14,7 @@ export const projects = [
     files: [
       { name: "NeroRaiders130.apk", platform: "android" }
     ],
+    badges: ["author"],
   },
   {
     id: "magnate_bot",
@@ -29,6 +30,7 @@ export const projects = [
     downloadLink: "https://t.me/game_magnate_bot",
     type: "play",
     logo: "/magnate/logo.webp",
+    badges: ["author"],
   },
   {
     id: "nero_troops",
@@ -41,6 +43,7 @@ export const projects = [
     logo: "/nero_troops/logo.webp",
     downloadDisabled: true,
     downloadAvailableFrom: "2026-03-30",
+    badges: ["reverse_engineering"],
   },
 ];
 
