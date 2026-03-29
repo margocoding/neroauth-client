@@ -13,6 +13,12 @@ export const invitationApi = {
     return data;
   },
 
+  async dismissInvitation(id) {
+    const { data } = await baseApi.post(`/invitation/dismiss/${id}`);
+
+    return data;
+  },
+
   async fetchInvitations() {
     const { data } = await baseApi.get("/invitation");
 

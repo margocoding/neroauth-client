@@ -52,7 +52,12 @@
   },
   "projects": {
     "title": "Our Projects",
-    "subtitle": "Discover our latest projects and innovations"
+    "subtitle": "Discover our latest projects and innovations",
+    "badges_label": "Project type",
+    "badges": {
+      "author": "Original",
+      "reverse_engineering": "Reverse engineered"
+    }
   },
   "project": {
     "play": "Play",
@@ -339,6 +344,9 @@
         "change": "Change",
         "delete": "Remove",
         "add": "Add"
+      },
+      "errors": {
+        "file_too_large": "The file is too large. Please choose a smaller image."
       }
     },
     "password": {
