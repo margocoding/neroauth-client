@@ -82,16 +82,18 @@ const DonatePage = () => {
     service.labelKey ? t(service.labelKey) : service.label;
 
   return (
-    <div className="space-y-5 sm:space-y-7 py-8 sm:py-12 md:py-16">
-      <header className="text-center w-full px-4">
-        <h1 className="text-5xl font-bold neon-text">{t("donate.title")}</h1>
-        <div className="divider mx-auto w-32 h-1 rounded-full mt-4" />
-        <p className="text-gray-300 mt-3 max-w-2xl mx-auto text-lg leading-relaxed">
+    <div className="space-y-5 sm:space-y-7 py-8 sm:py-12 md:py-16 overflow-x-hidden">
+      <header className="text-center w-full max-w-full min-w-0 px-3 sm:px-4">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold neon-text max-w-full mx-auto leading-tight break-words">
+          {t("donate.title")}
+        </h1>
+        <div className="divider mx-auto w-32 h-1 rounded-full mt-3 sm:mt-4 max-w-[min(100%,8rem)]" />
+        <p className="text-gray-300 mt-3 max-w-2xl mx-auto text-base sm:text-lg leading-relaxed px-0.5">
           {t("donate.description")}
         </p>
 
-        <div className="flex flex-col items-center gap-2 sm:gap-3 mt-4 sm:mt-5">
-          <p className="text-xl sm:text-2xl font-semibold neon-text tracking-wide">
+        <div className="flex flex-col items-center gap-2 sm:gap-3 mt-4 sm:mt-5 min-w-0 w-full">
+          <p className="text-lg sm:text-xl md:text-2xl font-semibold neon-text tracking-wide max-w-full px-1 break-words leading-snug">
             {t("donate.service_title")}
           </p>
           <div className="rotate-90">
