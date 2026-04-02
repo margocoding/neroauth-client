@@ -7,6 +7,7 @@ import AnimatedArrow from "../components/ui/AnimatedArrow";
 import Avatar from "../components/ui/Avatar";
 import Button from "../components/ui/Button";
 import Input from "../components/ui/Input";
+import Pagination from "../components/ui/Pagination";
 import { useUser } from "../store/user";
 import { exceptAxiosError } from "../utils/exceptAxiosError";
 
@@ -15,31 +16,44 @@ const FriendsPage = () => {
   const { user } = useUser();
 
   const [friendLoading, setFriendLoading] = useState(false);
-  /** Какое приглашение сейчас обрабатывается и какая кнопка (чтобы не крутить обе). */
   const [invitePending, setInvitePending] = useState(null);
   const [sendInviteLoading, setSendInviteLoading] = useState(false);
   const [code, setCode] = useState("");
   const [invitations, setInvitations] = useState([]);
+  const [invitationsPage, setInvitationsPage] = useState(1);
+  const [invitationsTotal, setInvitationsTotal] = useState(0);
   const [friends, setFriends] = useState([]);
+  const [friendsPage, setFriendsPage] = useState(1);
+  const [friendsTotal, setfriendsTotal] = useState(0);
+
+  const pageSize = 14;
 
   useEffect(() => {
     const fetchInvitations = async () => {
-      const data = await invitationApi.fetchInvitations();
-      setInvitations(data);
+      const data = await invitationApi.fetchInvitations({
+        page: invitationsPage,
+        pageSize: pageSize,
+      });
+      setInvitations(data.items);
+      setInvitationsTotal(data.total);
     };
 
     fetchInvitations();
-  }, []);
+  }, [invitationsPage]);
 
   useEffect(() => {
     const fetchFriends = async () => {
       if (!user?._id) return;
-      const data = await userApi.fetchFriends(user._id);
-      setFriends(data);
+      const data = await userApi.fetchFriends(user._id, {
+        page: friendsPage,
+        pageSize: pageSize,
+      });
+      setFriends(data.items);
+      setfriendsTotal(data.total);
     };
 
     fetchFriends();
-  }, [user?._id]);
+  }, [user?._id, friendsPage]);
 
   const deleteFriend = useCallback(
     async (id) => {
@@ -60,7 +74,9 @@ const FriendsPage = () => {
     setSendInviteLoading(true);
     try {
       await exceptAxiosError(() => invitationApi.createInvite(code));
-      toast(t("profile.friend.invite_code.success_invite"), { type: "success" });
+      toast(t("profile.friend.invite_code.success_invite"), {
+        type: "success",
+      });
       setCode("");
     } finally {
       setSendInviteLoading(false);
@@ -73,8 +89,12 @@ const FriendsPage = () => {
       try {
         const foundInvitation = invitations.find((inv) => inv._id === id);
         if (!foundInvitation) return;
-        await exceptAxiosError(() => invitationApi.applyInvitation(foundInvitation._id));
-        toast(t("profile.friend.invite_code.success_apply"), { type: "success" });
+        await exceptAxiosError(() =>
+          invitationApi.applyInvitation(foundInvitation._id),
+        );
+        toast(t("profile.friend.invite_code.success_apply"), {
+          type: "success",
+        });
         setInvitations((prev) => prev.filter((inv) => inv._id !== id));
         setFriends((prev) => [...prev, foundInvitation.from]);
       } finally {
@@ -91,8 +111,12 @@ const FriendsPage = () => {
         const foundInvitation = invitations.find((inv) => inv._id === id);
         if (!foundInvitation) return;
 
-        await exceptAxiosError(() => invitationApi.dismissInvitation(foundInvitation._id));
-        toast(t("profile.friend.invite_code.success_decline"), { type: "success" });
+        await exceptAxiosError(() =>
+          invitationApi.dismissInvitation(foundInvitation._id),
+        );
+        toast(t("profile.friend.invite_code.success_decline"), {
+          type: "success",
+        });
         setInvitations((prev) => prev.filter((inv) => inv._id !== id));
       } finally {
         setInvitePending(null);
@@ -119,7 +143,8 @@ const FriendsPage = () => {
             disabled={!code}
             isLoading={sendInviteLoading}
           >
-            {t("profile.friend.send_request")} <AnimatedArrow condition={!!code} />{" "}
+            {t("profile.friend.send_request")}{" "}
+            <AnimatedArrow condition={!!code} />{" "}
           </Button>
         </div>
       </div>
@@ -134,7 +159,10 @@ const FriendsPage = () => {
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {friends.map((friend) => (
-              <div key={friend._id} className="space-y-2 bg-[#222] p-3 rounded-lg flex flex-col items-center text-center">
+              <div
+                key={friend._id}
+                className="space-y-2 bg-[#222] p-3 rounded-lg flex flex-col items-center text-center"
+              >
                 <Avatar path={friend.avatar} className="w-20 h-20" />
                 <div className="text-xl font-semibold truncate w-full px-2">
                   {friend.login}
@@ -150,6 +178,15 @@ const FriendsPage = () => {
               </div>
             ))}
           </div>
+
+          {friendsTotal > pageSize && (
+            <Pagination
+              page={friendsPage}
+              pageSize={pageSize}
+              setPage={setFriendsPage}
+              total={friendsTotal}
+            />
+          )}
         </div>
       )}
 
@@ -164,7 +201,10 @@ const FriendsPage = () => {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {invitations.map((invitation) => (
-              <div key={invitation._id} className="space-y-3 bg-[#222] p-3 rounded-lg flex flex-col items-center">
+              <div
+                key={invitation._id}
+                className="space-y-3 bg-[#222] p-3 rounded-lg flex flex-col items-center"
+              >
                 <Avatar path={invitation.from.avatar} className="w-20 h-20" />
                 <div className="text-center text-xl font-semibold truncate w-full px-2">
                   {invitation.from.login}
@@ -204,6 +244,15 @@ const FriendsPage = () => {
               </div>
             ))}
           </div>
+
+          {invitationsTotal > pageSize && (
+            <Pagination
+              page={invitationsPage}
+              pageSize={pageSize}
+              setPage={setInvitationsPage}
+              total={invitationsTotal}
+            />
+          )}
         </div>
       )}
     </div>

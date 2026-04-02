@@ -19,9 +19,11 @@ export const invitationApi = {
     return data;
   },
 
-  async fetchInvitations() {
-    const { data } = await baseApi.get("/invitation");
+  async fetchInvitations({ page, pageSize }) {
+    const { data } = await baseApi.get("/invitation", {
+      params: { page, pageSize },
+    });
 
     return data;
   },
-}; 
+};

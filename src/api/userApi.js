@@ -23,8 +23,10 @@ export const userApi = {
     return data;
   },
 
-  async fetchFriends(id) {
-    const { data } = await baseApi.get(`/user/${id}/friends`);
+  async fetchFriends(id, { page, pageSize }) {
+    const { data } = await baseApi.get(`/user/${id}/friends`, {
+      params: { page, pageSize },
+    });
 
     return data;
   },
