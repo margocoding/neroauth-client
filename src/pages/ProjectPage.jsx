@@ -1,11 +1,12 @@
 import { useTranslation } from "react-i18next";
-import { useNavigate, useParams } from "react-router-dom";
-import { projects } from "./ProjectsPage";
+import { Navigate, useLocation, useNavigate, useParams } from "react-router-dom";
+import { projects, projectIdAliases } from "./ProjectsPage";
 import { useMemo } from "react";
 import ScreenshotGallery from "../components/shared/ScreenshotGallery";
 
 const ProjectPage = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const params = useParams();
   const {
     t,
@@ -13,6 +14,9 @@ const ProjectPage = () => {
   } = useTranslation();
 
   const id = params.id;
+  const locale = params.locale || language || "ru";
+
+  const canonicalId = id ? projectIdAliases[id] : undefined;
 
   const project = useMemo(
     () => projects.find((project) => project.id === id),
@@ -20,6 +24,15 @@ const ProjectPage = () => {
   );
 
   if (!id) return null;
+
+  if (canonicalId) {
+    return (
+      <Navigate
+        to={`/${locale}/projects/${canonicalId}${location.search}`}
+        replace
+      />
+    );
+  }
 
   if (!project) {
     navigate("/404"); // navigate к 404

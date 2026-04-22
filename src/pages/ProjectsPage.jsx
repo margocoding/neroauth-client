@@ -1,6 +1,12 @@
 import { useTranslation } from "react-i18next";
 import ProjectCard from "../components/shared/ProjectCard";
 
+/** Старые URL без подчёркиваний → актуальный `id` из `projects` */
+export const projectIdAliases = {
+  neroraiders: "nero_raiders",
+  nerotroops: "nero_troops",
+};
+
 export const projects = [
   {
     id: "nero_raiders",
@@ -44,8 +50,9 @@ export const projects = [
     downloadDisabled: false,
     downloadAvailableFrom: "2026-03-30",
     files: [
-      { name: "NeroTroops100.apk", platform: "android" },
-      { name: "NeroTroops100.ipa", platform: "ios" }
+      { name: "NeroTroops101_32.apk", platform: "android_32" },
+      { name: "NeroTroops101_64.apk", platform: "android_64" },
+      { name: "NeroTroopsLite101.ipa", platform: "ios" }
     ],
     badges: ["reverse_engineering"],
   },

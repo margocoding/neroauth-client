@@ -3,6 +3,25 @@ import { useTranslation } from "react-i18next";
 import { Link, useSearchParams } from "react-router-dom";
 import { projects } from "./ProjectsPage";
 
+const platforms = {
+  android_64: {
+    platform: 'Android',
+    desc: '64 bit'
+  },
+  android_32: {
+    platform: 'Android',
+    desc: '32 bit'
+  },
+  android: {
+    platform: 'Android',
+    desc: '.apk'
+  },
+  ios: {
+    platform: 'iOS',
+    desc: '.ipa'
+  },
+};
+
 function AnimatedDots() {
   const [dots, setDots] = useState("");
 
@@ -59,7 +78,7 @@ const DownloadPage = () => {
       link.click();
       document.body.removeChild(link);
       setStarted(true);
-    } catch {}
+    } catch { }
   }, []);
 
   useEffect(() => {
@@ -113,16 +132,16 @@ const DownloadPage = () => {
                             unstable
                           </span>
                         )}
-                        {file.platform === "android" ? (
+                        {platforms[file.platform].platform == "Android" ? (
                           <AndroidIcon className="w-12 h-12 sm:w-14 sm:h-14 text-[#3DDC84] group-hover:scale-110 transition-transform duration-200" />
                         ) : (
                           <AppleIcon className="w-12 h-12 sm:w-14 sm:h-14 text-white group-hover:scale-110 transition-transform duration-200" />
                         )}
                         <span className="text-sm sm:text-base font-semibold text-gray-200">
-                          {file.platform === "android" ? "Android" : "iOS"}
+                          {platforms[file.platform].platform}
                         </span>
                         <span className="text-[0.65rem] sm:text-xs text-gray-500 uppercase tracking-wider">
-                          {file.platform === "android" ? ".APK" : ".IPA"}
+                          {platforms[file.platform].desc}
                         </span>
                       </button>
                     ))}
