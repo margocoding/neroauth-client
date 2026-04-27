@@ -8,10 +8,16 @@ export const userApi = {
   },
 
   async changePassword(currentPassword, password) {
+    const refreshToken = localStorage.getItem("refreshToken");
+
+    if(!refreshToken) return;
+
+    const parsedRefreshToken = JSON.parse(refreshToken);
+
     const { data } = await baseApi.put("/user/change-password", {
       currentPassword,
       password,
-      refreshToken: localStorage.getItem("refreshToken"),
+      refreshToken: parsedRefreshToken.value,
     });
 
     return data;
