@@ -368,7 +368,8 @@
       "string": "Login must be a text string",
       "length": "Login must not be longer than 15 characters",
       "already_changed": "You can change your login only once every 24 hours.",
-      "already_exists": "A user with this login already exists. Please try another one."
+      "already_exists": "A user with this login already exists. Please try another one.",
+      "match": "Login should include only Latin and Russian letters" 
     },
     "email": {
       "required": "Please specify an email",
